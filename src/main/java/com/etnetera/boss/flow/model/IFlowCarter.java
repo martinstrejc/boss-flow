@@ -134,7 +134,7 @@ public interface IFlowCarter<T extends Serializable> extends Serializable {
 	/**
 	 * Set {@code true} to mark the flow as being processed
 	 * 
-	 * @param flow is being processed
+	 * @param flowProcessed {@code true} to mark the flow as being processed
 	 */
 	public void setFlowProcessed(boolean flowProcessed);
 

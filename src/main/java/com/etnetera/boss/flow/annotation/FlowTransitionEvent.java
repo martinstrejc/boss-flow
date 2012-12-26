@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  * 
  * In the following example the listener method is called to notify state change.
  * 
- *	@FlowTransitionEvent(transitionNameRegex="nextStep.*", event=TransitionEvent.onTransitionStart)
+ *	&#64;FlowTransitionEvent(transitionNameRegex="nextStep.*", event=TransitionEvent.onTransitionStart)
  *	public void onStepEntry(IFlowCarter&lt;?&gt;> flowCarter) {
  *		... do something ...
  *	}
