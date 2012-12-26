@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.etnetera.com/boss/flow/xmlModel" elementFormDefault="qualified" xmlns:flow="http://www.etnetera.com/boss/flow/xmlModel">
+
+    <complexType name="StateType">
+    	<sequence>
+    		<element name="transition"
+    			type="flow:TransitionIdentifierType" maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="finalState" type="boolean" default="false"></attribute>
+    	<attribute name="startState" type="boolean" default="false"></attribute>
+    	<attribute name="requireStateData" type="boolean"
+    		default="false">
+    	</attribute>
+    	<attribute name="stateValidatable" type="boolean"
+    		default="false">
+    	</attribute>
+    	<attribute name="persistableState" type="boolean"
+    		default="false">
+    	</attribute>
+        <attributeGroup ref="flow:IdentifierAttributeGroup"></attributeGroup>
+    </complexType>
+
+    <complexType name="RealStateType">
+    	<complexContent>
+    		<extension base="flow:StateType"></extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="VirtualStateType">
+    	<complexContent>
+    		<extension base="flow:StateType"></extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="ViewStateType">
+    	<complexContent>
+    		<extension base="flow:RealStateType">
+    			<sequence minOccurs="0" maxOccurs="1">
+    				<element name="viewName" type="string"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="JoinStateType">
+    	<complexContent>
+    		<extension base="flow:VirtualStateType">
+    			<sequence>
+    				<element name="nextTransition" type="flow:TransitionIdentifierType"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="SwitchStateType">
+    	<complexContent>
+    		<extension base="flow:VirtualStateType">
+    			<sequence>
+    				<element name="switchExpression" type="string" maxOccurs="1" minOccurs="1"></element>
+    				<element name="defaultTransition"
+    					type="flow:TransitionIdentifierType" maxOccurs="1" minOccurs="1">
+    				</element>
+    				<element name="switchCase" type="flow:SwitchCaseType" maxOccurs="unbounded" minOccurs="0"></element>
+    			</sequence>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="ConditionStateType">
+    	<complexContent>
+    		<extension base="flow:VirtualStateType">
+    			<sequence>
+    				<element name="conditionExpression" type="string" maxOccurs="1" minOccurs="1"></element>
+    				<element name="thenTransition"
+    					type="flow:TransitionIdentifierType" maxOccurs="1" minOccurs="1">
+    				</element>
+    				<element name="elseTransition" type="flow:TransitionIdentifierType" maxOccurs="1" minOccurs="1"></element>
+    			</sequence>
+
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+
+    <complexType name="TransitionType">
+    	<attribute name="hitCountable" type="boolean" default="true"></attribute>
+        <attributeGroup ref="flow:IdentifierAttributeGroup"></attributeGroup>
+        <attributeGroup ref="flow:TargetRefIdentifierAttributeGroup"></attributeGroup>
+    </complexType>
+
+    <element name="flowDescriptor" type="flow:FlowDescriptorType"></element>
+
+    <complexType name="FlowDescriptorType">
+    	<sequence>
+    		<element name="flowId" type="int" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="flowName" type="string" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    		<element name="flowDescription" type="string" minOccurs="0"
+    			maxOccurs="1">
+    		</element>
+    		<choice maxOccurs="unbounded">
+	    		<element name="state" type="flow:StateType"
+	    			maxOccurs="unbounded" minOccurs="0">
+	    		</element>
+	    		<element name="realState" type="flow:RealStateType"
+	    			maxOccurs="unbounded" minOccurs="0">
+	    		</element>
+	    		<element name="viewState" type="flow:ViewStateType"
+	    			maxOccurs="unbounded" minOccurs="0">
+	    		</element>
+	    		<element name="virtualState" type="flow:VirtualStateType"
+	    			maxOccurs="unbounded" minOccurs="0">
+	    		</element>
+	    		<element name="joinState" type="flow:JoinStateType"
+	    			maxOccurs="unbounded" minOccurs="0">
+	    		</element>
+	    		<element name="conditionState"
+	    			type="flow:ConditionStateType" maxOccurs="unbounded"
+	    			minOccurs="0">
+	    		</element>
+	    		<element name="switchState" type="flow:SwitchStateType"
+	    			maxOccurs="unbounded" minOccurs="0">
+	    		</element>
+	    		<element name="transition" type="flow:TransitionType" maxOccurs="unbounded" minOccurs="0"></element>
+    		</choice>
+    	</sequence>
+    </complexType>
+
+    <complexType name="TransitionIdentifierType">
+        <attributeGroup ref="flow:RefIdentifierAttributeGroup"></attributeGroup>
+    </complexType>
+
+    <complexType name="StateIdentifierType">
+        <attributeGroup ref="flow:RefIdentifierAttributeGroup"></attributeGroup>
+    </complexType>
+
+    <complexType name="SwitchCaseType">
+    	<sequence>
+    		<element name="transition"
+    			type="flow:TransitionIdentifierType" maxOccurs="1" minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="caseValue" type="string" use="required"></attribute>
+    </complexType>
+
+    <attributeGroup name="IdentifierAttributeGroup">
+    	<attribute name="name" type="string"></attribute>
+    	<attribute name="id" type="int"></attribute>
+    </attributeGroup>
+
+    <attributeGroup name="RefIdentifierAttributeGroup">
+    	<attribute name="refName" type="string" use="required"></attribute>
+    </attributeGroup>
+
+    <attributeGroup name="TargetRefIdentifierAttributeGroup">
+    	<attribute name="targetStateName" type="string" use="required"></attribute>
+    </attributeGroup>
+    
+
+</schema>
