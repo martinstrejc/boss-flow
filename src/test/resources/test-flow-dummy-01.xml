@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<flowDescriptor xmlns="http://www.etnetera.com/boss/flow/xmlModel"
+<flowDescriptor xmlns="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<flowId>0</flowId>
 	<flowName>Dummy Test Flow 01</flowName>
