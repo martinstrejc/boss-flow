@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.etnetera.boss</groupId>
+	<groupId>cz.wicketstuff.boss</groupId>
 	<artifactId>boss-flow</artifactId>
-	<version>0.1</version>
+	<version>0.2</version>
 	<name>BOSS Flow Framework</name>
 	<description>Workflow control and configuration java framework</description>
 
@@ -180,8 +180,8 @@
 	<inceptionYear>2012</inceptionYear>
 
 	<organization>
-		<name>Et netera a.s.</name>
-		<url>http://www.etnetera.cz</url>
+		<name>BOSS Team @ Et netera, a.s.</name>
+		<url>http://boss.wicketstuff.cz</url>
 	</organization>
 
 	<licenses>
