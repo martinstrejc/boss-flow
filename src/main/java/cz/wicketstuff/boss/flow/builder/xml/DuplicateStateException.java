@@ -1,0 +1,54 @@
+/*
+ * Et netera, http://boss.etnetera.cz - Copyright (C) 2012 
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License (version 2.1) as published by the Free Software
+ * Foundation.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU Lesser General Public License for more details:
+ * http://www.gnu.org/licenses/lgpl-3.0.txt
+ * 
+ */
+package cz.wicketstuff.boss.flow.builder.xml;
+
+import cz.wicketstuff.boss.flow.FlowException;
+
+/**
+ * Exception is thrown when a state has been found more than once
+ * in the configuration XML of the flow.
+ * 
+ * This exception means that the name or the id of state is duplicated.
+ * 
+ * @author Martin Strejc
+ *
+ */
+public class DuplicateStateException extends FlowException {
+
+	private static final long serialVersionUID = 1L;
+
+	public DuplicateStateException() {
+	}
+
+	public DuplicateStateException(String message, Throwable cause,
+			boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+	public DuplicateStateException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public DuplicateStateException(String message) {
+		super(message);
+	}
+
+	public DuplicateStateException(Throwable cause) {
+		super(cause);
+	}
+
+}
