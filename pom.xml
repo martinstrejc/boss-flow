@@ -206,7 +206,7 @@
 
 	<scm>
 		<connection>scm:hg:ssh://hg.code.sf.net/p/boss-flow/source</connection>
-		<developerConnection>scm:hg:ssh://hg.code.sf.net/p/boss-flow/source</developerConnection>
+		<developerConnection>scm:hg:ssh://martinstrejc@hg.code.sf.net/p/boss-flow/source</developerConnection>
 		<url>https://hg.code.sf.net/p/boss-flow/source</url>
 	</scm>
 
@@ -231,7 +231,5 @@
 			</roles>
 		</developer>
 	</developers>
-
-	<!-- mvn site:site ssh -t user,boss-flow@shell.sf.net mvn site:deploy -->
 
 </project>
