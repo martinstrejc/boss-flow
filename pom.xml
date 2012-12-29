@@ -13,12 +13,6 @@
 		<slf4j.version>1.7.2</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.9.5</mockito.version>
-		<!-- <servlet-api.version>2.5</servlet-api.version> -->
-		<!-- <jetty.version>7.4.2.v20110526</jetty.version> -->
-		<!-- <spring.version>3.1.2.RELEASE</spring.version> -->
-		<!-- <wicket.version>6.2.0</wicket.version> -->
-		<!-- <cxf.version>2.7.0</cxf.version> -->
-		<!-- <aspectj.version>1.7.0</aspectj.version> -->
 		<!-- <maven.javadoc.version>2.9</maven.javadoc.version> -->
 		<maven.surefire.version>2.11</maven.surefire.version>
 		<maven.failsafe.version>2.12</maven.failsafe.version>
@@ -43,15 +37,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- since we want the jcl over slf4j, we need to bump up the version of 
-			slf4j-api that wicket brings in -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- JUnit -->
@@ -160,7 +146,7 @@
 					<artifactId>maven-site-plugin</artifactId>
 					<version>3.2</version>
 					<dependencies>
-						<dependency><!-- add support for ssh/scp -->
+						<dependency>
 							<groupId>org.apache.maven.wagon</groupId>
 							<artifactId>wagon-ssh</artifactId>
 							<version>1.0</version>
