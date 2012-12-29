@@ -46,7 +46,7 @@ public interface IFlowState extends Serializable {
 	 * 
 	 * @return {@code true} if this is an initial state
 	 */
-	public boolean isStartState();
+	public boolean isInitialState();
 
 	/**
 	 * Return {@code true} if this is an final state.

@@ -32,7 +32,7 @@ public class FlowState implements IFlowState {
 	private String stateName;
 	private Map<String, IFlowTransition> transitionsMap;
 	private boolean finalState = false;
-	private boolean startState = false;
+	private boolean initialState = false;
 	private boolean requireStateData;
 	private boolean stateValidatable;
 	private boolean persistableState;
@@ -71,8 +71,8 @@ public class FlowState implements IFlowState {
 	}
 
 	@Override
-	public boolean isStartState() {
-		return startState;
+	public boolean isInitialState() {
+		return initialState;
 	}
 
 	public void setStateName(String stateName) {
@@ -83,8 +83,8 @@ public class FlowState implements IFlowState {
 		this.finalState = finalState;
 	}
 
-	public void setStartState(boolean startState) {
-		this.startState = startState;
+	public void setInitialState(boolean startState) {
+		this.initialState = startState;
 	}
 
 	@Override
