@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cz.wicketstuff.boss</groupId>
 	<artifactId>boss-flow</artifactId>
@@ -18,7 +19,7 @@
 		<!-- <wicket.version>6.2.0</wicket.version> -->
 		<!-- <cxf.version>2.7.0</cxf.version> -->
 		<!-- <aspectj.version>1.7.0</aspectj.version> -->
-		<maven.javadoc.version>2.9</maven.javadoc.version>
+<!-- 		<maven.javadoc.version>2.9</maven.javadoc.version> -->
 		<maven.surefire.version>2.11</maven.surefire.version>
 		<maven.failsafe.version>2.12</maven.failsafe.version>
 		<maven.surefire.junit47.version>2.12</maven.surefire.junit47.version>
@@ -128,10 +129,22 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven.javadoc.version}</version>
+<!-- 				<version>${maven.javadoc.version}</version> -->
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
 						<goals>
 							<goal>jar</goal>
 						</goals>
