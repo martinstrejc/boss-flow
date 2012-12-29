@@ -19,7 +19,7 @@
 		<!-- <wicket.version>6.2.0</wicket.version> -->
 		<!-- <cxf.version>2.7.0</cxf.version> -->
 		<!-- <aspectj.version>1.7.0</aspectj.version> -->
-<!-- 		<maven.javadoc.version>2.9</maven.javadoc.version> -->
+		<!-- <maven.javadoc.version>2.9</maven.javadoc.version> -->
 		<maven.surefire.version>2.11</maven.surefire.version>
 		<maven.failsafe.version>2.12</maven.failsafe.version>
 		<maven.surefire.junit47.version>2.12</maven.surefire.junit47.version>
@@ -129,7 +129,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-<!-- 				<version>${maven.javadoc.version}</version> -->
+				<!-- <version>${maven.javadoc.version}</version> -->
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -221,7 +221,7 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-  
+
 	<issueManagement>
 		<system>sf-tickets</system>
 		<url>https://sourceforge.net/p/boss-flow/tickets/</url>
@@ -254,5 +254,35 @@
 			</roles>
 		</developer>
 	</developers>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
