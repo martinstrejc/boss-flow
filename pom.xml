@@ -13,7 +13,8 @@
 		<slf4j.version>1.7.2</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.9.5</mockito.version>
-		<!-- <maven.javadoc.version>2.9</maven.javadoc.version> -->
+		<maven.javadoc.version>2.9</maven.javadoc.version>
+		<maven.source.version>2.2.1</maven.source.version>
 		<maven.surefire.version>2.11</maven.surefire.version>
 		<maven.failsafe.version>2.12</maven.failsafe.version>
 		<maven.surefire.junit47.version>2.12</maven.surefire.junit47.version>
@@ -115,7 +116,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<!-- <version>${maven.javadoc.version}</version> -->
+				<version>${maven.javadoc.version}</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -128,6 +129,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.source.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
