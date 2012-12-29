@@ -210,8 +210,18 @@
 			<id>boss-community.sf.net</id>
 			<url>scp://martinstrejc,boss-flow@shell.sourceforge.net/home/project-web/boss-flow/htdocs</url>
 		</site>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Sonatype Nexus Staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshost</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
-
+  
 	<issueManagement>
 		<system>sf-tickets</system>
 		<url>https://sourceforge.net/p/boss-flow/tickets/</url>
