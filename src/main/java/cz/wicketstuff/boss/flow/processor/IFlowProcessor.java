@@ -50,9 +50,9 @@ public interface IFlowProcessor<T extends Serializable> extends
 	
 	IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException;
 
-	IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState startState) throws FlowException;
+	IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException;
 
-	IFlowState getDefaultStartState();
+	IFlowState getDefaultInitialState();
 		
 	boolean runTransition(IFlowCarter<T> flow, IFlowTransition transition) throws FlowException;
 	

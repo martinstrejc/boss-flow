@@ -46,7 +46,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	
 	private Integer flowId;
 	private String flowName;
-	private IFlowState defaultStartState;
+	private IFlowState defaultInitialState;
 	
 	private IFlowCarterFactory<T> carterFactory;
 	private IFlowStateDataFactory stateDataFactory;
@@ -68,8 +68,8 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public IFlowCarter<T> startFlow(Long flowProcessId, T payload, String startStateName) throws FlowException {
-		return initFlow(flowProcessId, payload, getStateResolver().resolveState(startStateName));
+	public IFlowCarter<T> startFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException {
+		return initFlow(flowProcessId, payload, getStateResolver().resolveState(initialStateName));
 	}
 	
 	@Override
@@ -98,17 +98,17 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public IFlowState getDefaultStartState() {
-		return defaultStartState;
+	public IFlowState getDefaultInitialState() {
+		return defaultInitialState;
 	}
 	
-	public void setDefaultStartState(IFlowState defaultStartState) {
-		this.defaultStartState = defaultStartState;
+	public void setDefaultInitialState(IFlowState defaultInitialState) {
+		this.defaultInitialState = defaultInitialState;
 	}
 
 	@Override
-	public IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState startState) throws FlowException {
-		return getCarterFactory().createFlowCarter(flowProcessId, startState);
+	public IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState initialState) throws FlowException {
+		return getCarterFactory().createFlowCarter(flowProcessId, initialState);
 	}
 
 	@Override
@@ -252,17 +252,17 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		this.transitionResolver = transitionResolver;
 	}
 	
-	public String getDefaultStartStateName() {
-		return getDefaultStartState().getStateName();
+	public String getDefaultInitialStateName() {
+		return getDefaultInitialState().getStateName();
 	}
 
-	public void setDefaultStartStateName(String defaultStartStateName) throws NoSuchStateException {
-		setDefaultStartState(getStateResolver().resolveState(defaultStartStateName));
+	public void setDefaultInitialStateName(String defaultInitialStateName) throws NoSuchStateException {
+		setDefaultInitialState(getStateResolver().resolveState(defaultInitialStateName));
 	}
 	@Override
 	protected void finalize() throws Throwable {
 		carterFactory = null;
-		defaultStartState = null;
+		defaultInitialState = null;
 		stateChangeListener = null;
 		stateDataFactory = null;
 		stateProcessor = null;

@@ -53,7 +53,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		setStateResolver(defaultFlowStateResolver(flowTree));
 		setTransitionResolver(defaultFlowTransitionResolver(flowTree));
 		scanAnnotedBeans();
-		setDefaultStartState(defaultStartState());
+		setDefaultInitialState(defaultInitialState());
 		onAfterInitializeFlow();
 	}
 
@@ -66,8 +66,8 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	}
 
 	public IFlowCarter<T> defaultFlowCarter(Long flowProcessId,
-			IFlowState startState) {
-		return new FlowCarter<T>(flowProcessId, startState);
+			IFlowState initialState) {
+		return new FlowCarter<T>(flowProcessId, initialState);
 	}
 
 	public IFlowCarterFactory<T> defaultCarterFactory() {
@@ -75,8 +75,8 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 
 			@Override
 			public IFlowCarter<T> createFlowCarter(Long flowProcessId,
-					IFlowState startState) throws FlowException {
-				return defaultFlowCarter(flowProcessId, startState);
+					IFlowState initialState) throws FlowException {
+				return defaultFlowCarter(flowProcessId, initialState);
 			}
 		};
 	}
@@ -156,7 +156,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		return new AnnotationFlowFactory<T>();
 	}
 
-	public IFlowState defaultStartState() throws NoSuchStateException {
+	public IFlowState defaultInitialState() throws NoSuchStateException {
 		return getStateResolver().resolveState(getDefaultInitialStateName());
 	}
 

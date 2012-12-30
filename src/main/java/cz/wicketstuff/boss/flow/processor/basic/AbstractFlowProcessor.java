@@ -46,19 +46,19 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 
 	@Override
 	public IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException {
-		return initFlow(flowProcessId, payload, getDefaultStartState());
+		return initFlow(flowProcessId, payload, getDefaultInitialState());
 	}
 
 	@Override
-	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState startState) throws FlowException {
-		if(!startState.isInitialState()) {
-			throw new FlowInitializationException("Cannot initialize flow, '" + startState.getStateName() + "' is not a start state of flow '" + getFlowName() + "'.");
+	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException {
+		if(!initialState.isInitialState()) {
+			throw new FlowInitializationException("Cannot initialize flow, '" + initialState.getStateName() + "' is not a start state of flow '" + getFlowName() + "'.");
 		}
-		IFlowCarter<T> flow = createFlowCarter(flowProcessId, startState);
+		IFlowCarter<T> flow = createFlowCarter(flowProcessId, initialState);
 		flow.setPayload(payload);
 		onFlowInitialized(flow);
-		if(startState.isRequireStateData()) {
-			flow.setStateData(createStateData(startState));			
+		if(initialState.isRequireStateData()) {
+			flow.setStateData(createStateData(initialState));			
 		}
 		onStateEntry(flow);
 		processState(flow);

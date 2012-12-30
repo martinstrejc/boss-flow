@@ -24,6 +24,6 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
 
 public interface IFlowCarterFactory<T extends Serializable> {
 
-	IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState startState) throws FlowException;
+	IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState initialState) throws FlowException;
 
 }

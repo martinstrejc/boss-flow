@@ -26,8 +26,8 @@ import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 
 public class DefaultFlowCarterFactory<T extends Serializable> implements IFlowCarterFactory<T> {
 
-	public IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState startState) throws FlowException {
-		return new FlowCarter<T>(flowProcessId, startState);
+	public IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState initialState) throws FlowException {
+		return new FlowCarter<T>(flowProcessId, initialState);
 	}
 
 }

@@ -23,7 +23,7 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 
 public interface INamedFlowProcessor<T extends Serializable> extends IFlowProcessor<T> {
 
-	public IFlowCarter<T> startFlow(Long flowProcessId, T payload, String startStateName) throws FlowException;
+	public IFlowCarter<T> startFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException;
 	
 	public boolean invokeTransition(IFlowCarter<T> flow, String transitionName) throws FlowException;
 

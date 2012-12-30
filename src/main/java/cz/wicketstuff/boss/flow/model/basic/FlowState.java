@@ -83,8 +83,8 @@ public class FlowState implements IFlowState {
 		this.finalState = finalState;
 	}
 
-	public void setInitialState(boolean startState) {
-		this.initialState = startState;
+	public void setInitialState(boolean initialState) {
+		this.initialState = initialState;
 	}
 
 	@Override
