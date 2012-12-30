@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.builder.IFlowBuilder;
 import cz.wicketstuff.boss.flow.builder.xml.JaxbFlowBuilder;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
@@ -34,7 +35,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 
 	private IFlowTree flowTree;
 	
-	private InputStream flowXmlStream;
+	private InputStream flowInputStream;
 
 	/**
 	 * Default constructor
@@ -45,9 +46,9 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 
 	public void initializeFlow() throws FlowException {
 		onInitializeFlow();
-		JaxbFlowBuilder flowBuilder = defaultFlowBuilder();
+		IFlowBuilder flowBuilder = defaultFlowBuilder();
 		IFlowTree flowTree = flowBuilder.buildFlowTree(
-				getFlowXmlStream(), getFlowId(), getFlowName());
+				getFlowInputStream(), getFlowId(), getFlowName());
 		setCarterFactory(defaultCarterFactory());
 		setStateProcessor(defaultFlowStateProcessor(flowTree));
 		setStateResolver(defaultFlowStateResolver(flowTree));
@@ -134,7 +135,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 				"An instance of SimpleFlowStateProcessor<T> is required. Do not use annotation factory that need this class or check your class hierarchy.");
 	}
 
-	public JaxbFlowBuilder defaultFlowBuilder() {
+	public IFlowBuilder defaultFlowBuilder() {
 		return JaxbFlowBuilder.newInstance();
 	}
 
@@ -176,12 +177,12 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		this.flowTree = flowTree;
 	}
 
-	public InputStream getFlowXmlStream() {
-		return flowXmlStream;
+	public InputStream getFlowInputStream() {
+		return flowInputStream;
 	}
 
-	public void setFlowXmlStream(InputStream flowXmlStream) {
-		this.flowXmlStream = flowXmlStream;
+	public void setFlowInputStream(InputStream flowInputStream) {
+		this.flowInputStream = flowInputStream;
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		super.finalize();
 		defaultInitialStateName = null;
 		flowTree = null;
-		flowXmlStream = null;
+		flowInputStream = null;
 	}
 	
 	

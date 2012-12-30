@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.builder.IFlowBuilder;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.FlowDescriptorType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.StateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.TransitionType;
@@ -48,7 +49,7 @@ import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
  * @author Martin Strejc
  *
  */
-public class JaxbFlowBuilder {
+public class JaxbFlowBuilder implements IFlowBuilder {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JaxbFlowBuilder.class);
 	
@@ -233,6 +234,7 @@ public class JaxbFlowBuilder {
 		return tree;
 	} 
 
+	@Override
 	public IFlowTree buildFlowTree(InputStream inputStream, Integer flowId, String flowName) throws FlowException {
 		return buildFlowTree(buildFlow(inputStream), flowId, flowName);
 	}
