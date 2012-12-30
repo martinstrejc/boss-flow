@@ -22,7 +22,8 @@ import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowTransitionResolver;
 
 /**
  * @author Martin Strejc
- * 
+ *
+ * @param <T>
  */
 public class DefaultFlowProcessor<T extends Serializable> extends
 		SimpleFlowProcessor<T> {
@@ -181,6 +182,14 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 
 	public void setFlowXmlStream(InputStream flowXmlStream) {
 		this.flowXmlStream = flowXmlStream;
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		defaultInitialStateName = null;
+		flowTree = null;
+		flowXmlStream = null;
 	}
 	
 	
