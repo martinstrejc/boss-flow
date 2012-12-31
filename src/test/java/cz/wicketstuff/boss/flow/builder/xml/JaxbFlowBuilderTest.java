@@ -59,6 +59,7 @@ public class JaxbFlowBuilderTest {
 	@After
 	public void tearDown() throws Exception {
 		builder = null;
+		resourceHelper = null;
 	}
 
 }
