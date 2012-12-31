@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flowDescriptor xmlns="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-		http://www.wicketstuff.cz/p/boss-flow/flowXmlModel http://www.wicketstuff.cz/p/boss-flow/boss-flow-0.4.xsd"
 	>
+<!-- configure workspace schema rather than URL -->
+<!-- 	xsi:schemaLocation=" -->
+<!-- 		http://www.wicketstuff.cz/p/boss-flow/flowXmlModel http://www.wicketstuff.cz/p/boss-flow/boss-flow-0.4.xsd" -->
 
 	<flowId>0</flowId>
 	<flowName>test-flow-complete</flowName>
