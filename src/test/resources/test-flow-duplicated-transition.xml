@@ -6,18 +6,23 @@
 <!-- 	xsi:schemaLocation=" -->
 <!-- 		http://www.wicketstuff.cz/p/boss-flow/flowXmlModel http://www.wicketstuff.cz/p/boss-flow/boss-flow-0.4.xsd" -->
 
-	<flowId>2</flowId>
-	<flowName>test-flow-missing-transition</flowName>
-	<flowDescription>Flow configuration test with a missing transition</flowDescription>
+	<flowId>4</flowId>
+	<flowName>test-flow-duplicated-transition</flowName>
+	<flowDescription>Flow configuration test with a duplicated transition.</flowDescription>
 
 	<joinState initialState="true" name="S0initialState">
 		<nextTransition refName="t01" />
 	</joinState>
 		
+	<viewState name="S1viewState">
+		<transition refName="t12" />
+	</viewState>
+
 	<viewState name="S2finalState" finalState="true">
 	</viewState>
 	
+	<transition name="t01" targetStateName="S1viewState" />
+	<transition name="t01" targetStateName="S2finalState" />
 	<transition name="t12" targetStateName="S2finalState" />
-
 
 </flowDescriptor>

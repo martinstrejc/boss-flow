@@ -34,11 +34,6 @@ public class JaxbFlowBuilderTest {
 	}
 
 	@Test
-	public void testBuildFlowFlowDescriptorType() {
-		// fail("Not yet implemented");
-	}
-
-	@Test
 	public void testBuildFlowInputStream() {
 		try {
 			builder.buildFlow(resourceHelper.getCompleteFlowFileStream());
@@ -62,14 +57,18 @@ public class JaxbFlowBuilderTest {
 		fail("Parsing '" + resourceHelper.getFlowMissingTransitionFileName() + "' failed, a missing transition must be detected!");
 	}
 
-	@Test
-	public void testBuildFlowTreeFlowBuilderCarterIntegerString() {
-		//fail("Not yet implemented");
+	@Test(expected=DuplicateStateException.class)
+	public void testBuildFlowInputStreamDuplicatedState() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowDuplicatedStateFileStream());
+		log.error("Parsing failed, a duplicated state must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowDuplicatedStateFileName() + "' failed, a duplicated state must be detected!");
 	}
-
-	@Test
-	public void testBuildFlowTreeInputStreamIntegerString() {
-		//fail("Not yet implemented");
+	
+	@Test(expected=DuplicateTransitionException.class)
+	public void testBuildFlowInputStreamDuplicatedTransition() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowDuplicatedTransitionFileStream());
+		log.error("Parsing failed, a duplicated transition must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowDuplicatedTransitionFileName() + "' failed, a duplicated transition must be detected!");
 	}
 
 	@After
