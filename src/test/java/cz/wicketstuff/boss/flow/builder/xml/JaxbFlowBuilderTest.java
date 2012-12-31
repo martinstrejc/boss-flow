@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
+import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
 import cz.wicketstuff.boss.flow.test.FlowFileResource;
 
 public class JaxbFlowBuilderTest {
@@ -50,8 +51,15 @@ public class JaxbFlowBuilderTest {
 	@Test(expected=NoSuchStateException.class)
 	public void testBuildFlowInputStreamMissingState() throws FlowException {
 		builder.buildFlow(resourceHelper.getFlowMissingStateFileStream());
-		log.error("Parsing failed, missing state must be detected!");
-		fail("Parsing '" + resourceHelper.getFlowMissingStateFileName() + "' failed, missing state must be detected!");
+		log.error("Parsing failed, a missing state must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowMissingStateFileName() + "' failed, a missing state must be detected!");
+	}
+	
+	@Test(expected=NoSuchTransitionException.class)
+	public void testBuildFlowInputStreamMissingTransition() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowMissingTransitionFileStream());
+		log.error("Parsing failed, a missing transition must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowMissingTransitionFileName() + "' failed, a missing transition must be detected!");
 	}
 
 	@Test

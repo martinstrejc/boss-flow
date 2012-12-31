@@ -13,6 +13,7 @@ public class FlowFileResource {
 
 	public static final String COMPLETE_FLOW_FILE = "test-flow-complete.xml";
 	public static final String FLOW_FILE_MISSING_STATE = "test-flow-missing-state.xml";
+	public static final String FLOW_FILE_MISSING_TRANSITION = "test-flow-missing-transition.xml";
 	
 	public FlowFileResource() {
 	}
@@ -42,6 +43,14 @@ public class FlowFileResource {
 	
 	public InputStream getFlowMissingStateFileStream() {
 		return getResourceAsStream(getFlowMissingStateFileName());
+	}
+
+	public String getFlowMissingTransitionFileName() {
+		return FLOW_FILE_MISSING_TRANSITION;
+	}
+	
+	public InputStream getFlowMissingTransitionFileStream() {
+		return getResourceAsStream(getFlowMissingTransitionFileName());
 	}
 
 }

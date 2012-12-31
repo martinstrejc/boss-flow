@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowDescriptor xmlns="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	>
+<!-- configure workspace schema rather than URL -->
+<!-- 	xsi:schemaLocation=" -->
+<!-- 		http://www.wicketstuff.cz/p/boss-flow/flowXmlModel http://www.wicketstuff.cz/p/boss-flow/boss-flow-0.4.xsd" -->
+
+	<flowId>1</flowId>
+	<flowName>test-flow-missing-transition</flowName>
+	<flowDescription>Flow configuration test with a missing transition</flowDescription>
+
+	<joinState initialState="true" name="S0initialState">
+		<nextTransition refName="t01" />
+	</joinState>
+		
+	<viewState name="S2finalState" finalState="true">
+	</viewState>
+	
+	<transition name="t12" targetStateName="S2finalState" />
+
+
+</flowDescriptor>
