@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.test.FlowFileResource;
 
 public class JaxbFlowBuilderTest {
@@ -44,6 +45,13 @@ public class JaxbFlowBuilderTest {
 			log.error("Parsing failed", e);
 			fail("Parsing '" + resourceHelper.getCompleteFlowFileName() + "' failed: " + e.getMessage());
 		}
+	}
+
+	@Test(expected=NoSuchStateException.class)
+	public void testBuildFlowInputStreamMissingState() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowMissingStateFileStream());
+		log.error("Parsing failed, missing state must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowMissingStateFileName() + "' failed, missing state must be detected!");
 	}
 
 	@Test

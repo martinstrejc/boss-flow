@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 public class FlowFileResource {
 
 	public static final String COMPLETE_FLOW_FILE = "test-flow-complete.xml";
+	public static final String FLOW_FILE_MISSING_STATE = "test-flow-missing-state.xml";
 	
 	public FlowFileResource() {
 	}
@@ -33,6 +34,14 @@ public class FlowFileResource {
 	
 	public InputStream getCompleteFlowFileStream() {
 		return getResourceAsStream(getCompleteFlowFileName());
+	}
+
+	public String getFlowMissingStateFileName() {
+		return FLOW_FILE_MISSING_STATE;
+	}
+	
+	public InputStream getFlowMissingStateFileStream() {
+		return getResourceAsStream(getFlowMissingStateFileName());
 	}
 
 }
