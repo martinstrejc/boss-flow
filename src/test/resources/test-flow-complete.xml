@@ -40,7 +40,7 @@
 		<switchCase caseValue="toFinal"><transition refName="t58"/></switchCase>
 	</switchState>
 	
-	<viewState name="S6viewState" initialState="true">
+	<viewState name="S6viewStateInitial" initialState="true">
 		<transition refName="t68" />
 	</viewState>
 	
@@ -49,7 +49,7 @@
 	</joinState>
 	
 	<realState name="S9finalState" finalState="true">
-		<transition refName="S96"/>
+		<transition refName="t96"/>
 	</realState>
 	
 	<transition name="t01" targetStateName="S1realState" />
@@ -65,7 +65,7 @@
 	<transition name="t68" targetStateName="S8joinState" />
 	<transition name="t78" targetStateName="S8joinState" />
 	<transition name="t89" targetStateName="S9finalState" />
-	<transition name="t96" targetStateName="S6viewState" />
+	<transition name="t96" targetStateName="S6viewStateInitial" />
 
 
 </flowDescriptor>

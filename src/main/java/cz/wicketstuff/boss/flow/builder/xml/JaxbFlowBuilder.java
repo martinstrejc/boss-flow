@@ -191,7 +191,7 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		}
 		
 		try {
-			JAXBContext jc = JAXBContext.newInstance("com.etnetera.boss.flow.builder.xml.jaxb");
+			JAXBContext jc = JAXBContext.newInstance("cz.wicketstuff.boss.flow.builder.xml.jaxb");
 			Unmarshaller um = jc.createUnmarshaller();
 
 			if(logger.isDebugEnabled()) {
