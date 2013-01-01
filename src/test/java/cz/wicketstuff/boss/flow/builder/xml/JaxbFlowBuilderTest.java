@@ -13,6 +13,12 @@ import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
 import cz.wicketstuff.boss.flow.test.FlowFileResource;
 
+/**
+ * Test creating flow tree from XML configuration files using JAXB.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public class JaxbFlowBuilderTest {
 	
 	private Logger log = LoggerFactory.getLogger(getClass().getName());
