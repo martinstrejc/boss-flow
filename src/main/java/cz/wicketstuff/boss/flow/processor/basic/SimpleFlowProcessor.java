@@ -306,7 +306,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	@Override
 	public void persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException {
 		IFlowStatePersister<T> p = getFlowStatePersister();
-		if(p!=null) {
+		if(p != null) {
 			p.persistFlowState(flow);
 		}		
 	}
