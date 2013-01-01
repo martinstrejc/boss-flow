@@ -22,9 +22,11 @@ import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
+import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
 import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
@@ -58,6 +60,8 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	
 	private IFlowStateResolver stateResolver;
 	private IFlowTransitionResolver<T> transitionResolver;
+	
+	private IFlowStatePersister<T> flowStatePersister;
 	
 	private int priority = 0;
 	
@@ -257,6 +261,15 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	public void setDefaultInitialStateName(String defaultInitialStateName) throws NoSuchStateException {
 		setDefaultInitialState(getStateResolver().resolveState(defaultInitialStateName));
 	}
+	
+	public IFlowStatePersister<T> getFlowStatePersister() {
+		return flowStatePersister;
+	}
+
+	public void setFlowStatePersister(IFlowStatePersister<T> flowStatePersister) {
+		this.flowStatePersister = flowStatePersister;
+	}
+
 	@Override
 	protected void finalize() throws Throwable {
 		carterFactory = null;
@@ -288,6 +301,14 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 
 	public void onFlowInitialized(IFlowCarter<T> flow) {
 		
+	}
+
+	@Override
+	public void persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException {
+		IFlowStatePersister<T> p = getFlowStatePersister();
+		if(p!=null) {
+			p.persistFlowState(flow);
+		}		
 	}
 
 }

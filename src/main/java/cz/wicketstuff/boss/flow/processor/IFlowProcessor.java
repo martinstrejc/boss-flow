@@ -43,7 +43,8 @@ public interface IFlowProcessor<T extends Serializable> extends
 	IFlowStateDataFactory,
 	IFlowTransitionResolver<T>,
 	IFlowTransitionChecker<T>,
-	IFlowStateResolver {	
+	IFlowStateResolver,
+	IFlowStatePersister<T> {	
 
 	Integer getFlowId();
 

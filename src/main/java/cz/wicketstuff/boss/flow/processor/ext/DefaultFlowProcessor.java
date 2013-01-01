@@ -12,6 +12,7 @@ import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.model.basic.FlowCarter;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
+import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
@@ -56,6 +57,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		setTransitionResolver(defaultFlowTransitionResolver(flowTree));
 		scanAnnotedBeans();
 		setDefaultInitialState(defaultInitialState());
+		setFlowStatePersister(defaultFlowStatePersister());
 		onAfterInitializeProcessor();
 		return this;
 	}
@@ -128,6 +130,10 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		return null;
 	}
 
+	public IFlowStatePersister<T> defaultFlowStatePersister() {
+		return null;
+	}
+	
 	protected SimpleFlowStateProcessor<T> getSimpleFlowStateProcessor() {
 		IFlowStateProcessor<T> p = getStateProcessor();
 		if (p instanceof SimpleFlowStateProcessor) {
