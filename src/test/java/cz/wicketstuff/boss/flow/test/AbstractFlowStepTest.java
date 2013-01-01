@@ -13,6 +13,7 @@ import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.FlowAlreadyFinishedException;
+import cz.wicketstuff.boss.flow.processor.FlowInitializationException;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowStateProcessor;
@@ -121,27 +122,34 @@ public abstract class AbstractFlowStepTest implements ICompleteFlowTest {
 
 	@Test
 	public void testSwitchToFinal() throws FlowException {
-		log.trace("Test switch condition default.");
+		log.trace("Test switch condition default: " + CASE_toFinal);
 		initializeCarter();
 		checkCurrentState(S0initialState);	
 		processor.invokeTransition(carter, T01);
 		checkCurrentState(S1realState);	
 		setIfExpressionResult(false);
 		setSwitchExpressionResult(null);
-		log.trace("Test switch condition default: " + CASE_toFinal);
 		setSwitchExpressionResult(CASE_toFinal);
 		processor.invokeTransition(carter, T15);
 		checkCurrentState(S9finalState);	
 	}
 
 	@Test
-	public void testSecondaryInitial() throws FlowException {
-		// fail("Test not defined yet.");
+	public void testSecondaryInitialState() throws FlowException {
+		log.trace("Test secondary initial state: " + S6viewStateInitial);
+		carter = null;
+		carter = processor.initFlow(flowId, payload, S6viewStateInitial);
+		checkCurrentState(S6viewStateInitial);	
+		processor.invokeTransition(carter, T68);
+		checkCurrentState(S9finalState);	
 	}
 
-	@Test
-	public void testWrongInitial() throws FlowException {
-		// fail("Test not defined yet.");
+	@Test(expected=FlowInitializationException.class)
+	public void testWrongInitialState() throws FlowException {
+		log.trace("Test wrong initial state: " + S3viewState);
+		carter = null;
+		carter = processor.initFlow(flowId, payload, S3viewState);
+		fail("Cannot init flow from step that is not an initial step.");
 	}
 
 

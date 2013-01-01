@@ -52,7 +52,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 	@Override
 	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException {
 		if(!initialState.isInitialState()) {
-			throw new FlowInitializationException("Cannot initialize flow, '" + initialState.getStateName() + "' is not a start state of flow '" + getFlowName() + "'.");
+			throw new FlowInitializationException("Cannot initialize flow, '" + initialState.getStateName() + "' is not an initial state of flow '" + getFlowName() + "'.");
 		}
 		IFlowCarter<T> flow = createFlowCarter(flowProcessId, initialState);
 		flow.setPayload(payload);
