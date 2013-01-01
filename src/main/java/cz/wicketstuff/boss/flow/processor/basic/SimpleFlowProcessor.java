@@ -30,7 +30,6 @@ import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
 import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
-import cz.wicketstuff.boss.flow.processor.INamedFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
 import cz.wicketstuff.boss.flow.processor.StateDataException;
@@ -39,8 +38,7 @@ import cz.wicketstuff.boss.flow.util.listener.IPriority;
 import cz.wicketstuff.boss.flow.validation.IFlowStateValidator;
 import cz.wicketstuff.boss.flow.validation.IFlowValidation;
 
-public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowProcessor<T> 
-	implements INamedFlowProcessor<T>, IFlowStateResolver {
+public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowProcessor<T> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -68,14 +66,14 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public IFlowCarter<T> startFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException {
+	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException {
 		return initFlow(flowProcessId, payload, getStateResolver().resolveState(initialStateName));
 	}
-	
+
 	@Override
 	public boolean invokeTransition(IFlowCarter<T> flow, String transitionName)
 			throws FlowException {
-		return runTransition(flow, resolveTransition(flow, transitionName));
+		return invokeTransition(flow, resolveTransition(flow, transitionName));
 	}
 
 

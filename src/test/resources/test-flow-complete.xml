@@ -10,9 +10,9 @@
 	<flowName>test-flow-complete</flowName>
 	<flowDescription>Complete test of all flow components</flowDescription>
 
-	<joinState initialState="true" name="S0initialState">
-		<nextTransition refName="t01" />
-	</joinState>
+	<realState initialState="true" name="S0initialState">
+		<transition refName="t01" />
+	</realState>
 	
 	<realState name="S1realState">
 		<transition refName="t12" />

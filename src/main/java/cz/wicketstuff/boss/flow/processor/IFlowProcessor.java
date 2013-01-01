@@ -42,7 +42,8 @@ public interface IFlowProcessor<T extends Serializable> extends
 	IFlowCarterFactory<T>,
 	IFlowStateDataFactory,
 	IFlowTransitionResolver<T>,
-	IFlowTransitionChecker<T> {	
+	IFlowTransitionChecker<T>,
+	IFlowStateResolver {	
 
 	Integer getFlowId();
 
@@ -52,10 +53,14 @@ public interface IFlowProcessor<T extends Serializable> extends
 
 	IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException;
 
+	IFlowCarter<T> initFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException;
+
 	IFlowState getDefaultInitialState();
 		
-	boolean runTransition(IFlowCarter<T> flow, IFlowTransition transition) throws FlowException;
-	
+	boolean invokeTransition(IFlowCarter<T> flow, IFlowTransition transition) throws FlowException;
+
+	boolean invokeTransition(IFlowCarter<T> flow, String transitionName) throws FlowException;
+
 	boolean isCurrentState(IFlowCarter<T> flow, IFlowState testedState);
 
 	boolean isCurrentState(IFlowCarter<T> flow, String testedFlowStateName);

@@ -11,6 +11,7 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.model.basic.FlowCarter;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
+import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
@@ -44,8 +45,8 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		super();
 	}
 
-	public void initializeFlow() throws FlowException {
-		onInitializeFlow();
+	public IFlowProcessor<T> initializeProcessor() throws FlowException {
+		onInitializeProcessor();
 		IFlowBuilder flowBuilder = defaultFlowBuilder();
 		IFlowTree flowTree = flowBuilder.buildFlowTree(
 				getFlowInputStream(), getFlowId(), getFlowName());
@@ -55,14 +56,15 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		setTransitionResolver(defaultFlowTransitionResolver(flowTree));
 		scanAnnotedBeans();
 		setDefaultInitialState(defaultInitialState());
-		onAfterInitializeFlow();
+		onAfterInitializeProcessor();
+		return this;
 	}
 
-	public void onInitializeFlow() {
+	public void onInitializeProcessor() {
 
 	}
 
-	public void onAfterInitializeFlow() {
+	public void onAfterInitializeProcessor() {
 
 	}
 
@@ -128,7 +130,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 
 	protected SimpleFlowStateProcessor<T> getSimpleFlowStateProcessor() {
 		IFlowStateProcessor<T> p = getStateProcessor();
-		if (p instanceof SimpleFlowProcessor) {
+		if (p instanceof SimpleFlowStateProcessor) {
 			return (SimpleFlowStateProcessor<T>) p;
 		}
 		throw new ClassCastException(
@@ -158,7 +160,11 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	}
 
 	public IFlowState defaultInitialState() throws NoSuchStateException {
-		return getStateResolver().resolveState(getDefaultInitialStateName());
+		String stateName = getDefaultInitialStateName();
+		if(stateName == null) {
+			throw new IllegalArgumentException("defaultInitialStateName cannot be null!");
+		}
+		return getStateResolver().resolveState(stateName);
 	}
 
 	public String getDefaultInitialStateName() {

@@ -37,7 +37,7 @@ public interface IFlowProcessorFactory {
 	public <T extends Serializable> IFlowProcessor<T> getFlowProcessor();
 
 	/**
-	 * Return the flow processor asociated to the specified flow indetified by its name.
+	 * Return the flow processor associated to the specified flow identified by its name.
 	 * 
 	 * @param flowName
 	 * @return flow processor

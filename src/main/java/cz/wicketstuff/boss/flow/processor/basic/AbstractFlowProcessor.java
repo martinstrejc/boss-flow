@@ -64,13 +64,13 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 		processState(flow);
 		IFlowTransition nextTransition = flow.getNextTransition(); 
 		if(nextTransition != null) {
-			runTransition(flow, nextTransition);
+			invokeTransition(flow, nextTransition);
 		}
 		return flow;
 	}
 	
 	@Override
-	public boolean runTransition(IFlowCarter<T> flow, IFlowTransition transition)
+	public boolean invokeTransition(IFlowCarter<T> flow, IFlowTransition transition)
 			throws FlowException {
 		if(flow.isFlowProcessed()) {
 			throw new FlowTransitionIsRunningException("Transition " + transition.getTransitionName() + " is currently running on " + flow.getCurrentState().getStateName());
