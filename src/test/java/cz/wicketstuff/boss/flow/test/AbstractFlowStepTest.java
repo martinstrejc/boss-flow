@@ -152,7 +152,6 @@ public abstract class AbstractFlowStepTest implements ICompleteFlowTest {
 		fail("Cannot init flow from step that is not an initial step.");
 	}
 
-
 	public IFlowProcessor<String> getProcessor() {
 		return processor;
 	}
@@ -160,7 +159,6 @@ public abstract class AbstractFlowStepTest implements ICompleteFlowTest {
 	public void setProcessor(IFlowProcessor<String> processor) {
 		this.processor = processor;
 	}
-
 
 	public IFlowCarter<String> getCarter() {
 		return carter;

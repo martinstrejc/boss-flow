@@ -40,6 +40,8 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 		FlowFileResource resourceHelper = new FlowFileResource();
 		processor.setFlowInputStream(resourceHelper.getCompleteFlowFileStream());
 		processor.setDefaultInitialStateName(S0initialState);
+		// not applicable here
+		// processor.scanAnnotedBeans(this, this, this, this);
 		return processor.initializeProcessor();
 	}
 
