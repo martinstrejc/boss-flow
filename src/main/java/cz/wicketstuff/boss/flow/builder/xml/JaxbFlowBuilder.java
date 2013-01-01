@@ -162,12 +162,20 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		if(logger.isDebugEnabled()) {
 			logger.debug("Processing transition map");											
 		}
+		IFlowState defaultInitialState = null;
 		for(Object o : flowDescriptor.getStateOrRealStateOrViewState()) {
 			if(o instanceof TransitionType) {
 				fillTransitionMaps((TransitionType) o, transitionNamesMap, transitionIdsMap);
 			}
 			if(o instanceof StateType) {
-				fillStateMaps((StateType) o, stateNamesMap, stateIdsMap);
+				StateType st = (StateType) o;
+				fillStateMaps(st, stateNamesMap, stateIdsMap);
+				if(defaultInitialState == null && st.isDefaultInitialState()) {
+					defaultInitialState = stateNamesMap.get(st.getName()).getFlowState();
+					if(logger.isTraceEnabled()) {
+						logger.trace("Found default initial state: " + defaultInitialState.getStateName());
+					}
+				}
 			}
 		}
 		if(logger.isDebugEnabled()) {
@@ -178,6 +186,7 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		carter.setStateNamesMap(stateNamesMap);
 		carter.setTransitionIdsMap(transitionIdsMap);
 		carter.setTransitionNamesMap(transitionNamesMap);
+		carter.setDefaultInitialState(defaultInitialState);
 		
 		buildTransitionGraph(carter);
 		buildStateGraph(carter);
@@ -217,6 +226,7 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		tree.setTransitionIdsMap(transitionIdsMap);
 		tree.setStateNamesMap(stateNamesMap);
 		tree.setStateIdsMap(stateIdsMap);
+		tree.setDefaultInitialState(carter.getDefaultInitialState());
 		
 		for(StateCapsule sc : carter.getStateIdsMap().values()) {
 			stateIdsMap.put(sc.getFlowState().getStateId(), sc.getFlowState());

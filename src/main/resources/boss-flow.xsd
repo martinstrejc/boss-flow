@@ -24,8 +24,15 @@
 		</attribute>
 		<attribute name="initialState" type="boolean" default="false">
 			<annotation>
-				<documentation>If 'true' this status an initial state. It means the
+				<documentation>If 'true' this state is an initial state. It means the
 					flow can start here.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="defaultInitialState" type="boolean" default="false">
+			<annotation>
+				<documentation>If 'true' this state is an initial state. It means the
+					flow starts here if no initial state in flow is defined.
 				</documentation>
 			</annotation>
 		</attribute>

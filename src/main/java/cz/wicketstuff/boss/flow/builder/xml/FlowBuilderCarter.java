@@ -18,6 +18,8 @@ package cz.wicketstuff.boss.flow.builder.xml;
 
 import java.util.Map;
 
+import cz.wicketstuff.boss.flow.model.IFlowState;
+
 /**
  * A carter to hold maps with state and transition holders.
  * 
@@ -31,6 +33,8 @@ public class FlowBuilderCarter {
 	private Map<Integer, TransitionCapsule> transitionIdsMap;
 	private Map<String, TransitionCapsule> transitionNamesMap;
 
+	private IFlowState defaultInitialState;
+	
 	public FlowBuilderCarter() {
 	}
 
@@ -95,6 +99,14 @@ public class FlowBuilderCarter {
 		return sc;
 	}
 
+	public IFlowState getDefaultInitialState() {
+		return defaultInitialState;
+	}
+
+	public void setDefaultInitialState(IFlowState defaultInitialState) {
+		this.defaultInitialState = defaultInitialState;
+	}
+
 	@Override
 	protected void finalize() throws Throwable {
 		if(stateIdsMap != null) {
@@ -113,6 +125,7 @@ public class FlowBuilderCarter {
 			transitionNamesMap.clear();
 			transitionNamesMap = null;
 		}
+		defaultInitialState = null;
 		super.finalize();
 	}
 	

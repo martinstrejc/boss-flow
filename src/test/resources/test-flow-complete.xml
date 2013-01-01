@@ -10,7 +10,7 @@
 	<flowName>test-flow-complete</flowName>
 	<flowDescription>Complete test of all flow components</flowDescription>
 
-	<realState initialState="true" name="S0initialState">
+	<realState defaultInitialState="true" name="S0initialState">
 		<transition refName="t01" />
 	</realState>
 	

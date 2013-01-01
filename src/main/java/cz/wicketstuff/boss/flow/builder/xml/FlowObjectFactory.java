@@ -128,7 +128,7 @@ public class FlowObjectFactory {
 		}
 		fs.setStateId(state.getId());
 		fs.setStateName(state.getName());
-		fs.setInitialState(state.isInitialState());
+		fs.setInitialState(state.isInitialState() || state.isDefaultInitialState());
 		fs.setFinalState(state.isFinalState());
 		fs.setStateValidatable(state.isStateValidatable());
 		fs.setPersistableState(state.isPersistableState());

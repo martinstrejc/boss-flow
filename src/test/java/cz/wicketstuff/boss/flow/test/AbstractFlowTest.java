@@ -49,7 +49,9 @@ public abstract class AbstractFlowTest implements ICompleteFlowTest {
 
 	protected void initializeCarter() throws FlowException {
 		carter = null;
-		carter = processor.initFlow(flowId, payload, S0initialState);
+		// test without initial, testing default
+		// carter = processor.initFlow(flowId, payload, S0initialState);
+		carter = processor.initFlow(flowId, payload);
 	}
 	
 	public IFlowProcessor<String> getProcessor() {
