@@ -26,12 +26,25 @@ public class DefaultFlowStateProcessor<T extends Serializable> extends SimpleFlo
 
 	private static final long serialVersionUID = 1L;
 	
+	private MappedFlowConditionProcessor<T> mappedFlowConditionProcessor = new MappedFlowConditionProcessor<T>();
+	private NamedFlowSwitchProcessor<T> namedFlowSwitchProcessor = new NamedFlowSwitchProcessor<T>();
+	
 	public DefaultFlowStateProcessor() {
 		this(null);
 	}
 
 	public DefaultFlowStateProcessor(IFlowProcessor<T> flowProcessor) {
-		super(flowProcessor, new MappedFlowConditionProcessor<T>(), new NamedFlowSwitchProcessor<T>());
+		super(flowProcessor);
+		setConditionProcessor(mappedFlowConditionProcessor);
+		setSwitchProcessor(namedFlowSwitchProcessor);
+	}
+
+	public MappedFlowConditionProcessor<T> getMappedFlowConditionProcessor() {
+		return mappedFlowConditionProcessor;
+	}
+
+	public NamedFlowSwitchProcessor<T> getNamedFlowSwitchProcessor() {
+		return namedFlowSwitchProcessor;
 	}
 	
 }
