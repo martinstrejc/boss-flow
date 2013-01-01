@@ -10,30 +10,13 @@ import org.slf4j.LoggerFactory;
 
 
 import cz.wicketstuff.boss.flow.FlowException;
-import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.FlowAlreadyFinishedException;
 import cz.wicketstuff.boss.flow.processor.FlowInitializationException;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
-import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
-import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowStateProcessor;
-import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
-import cz.wicketstuff.boss.flow.processor.condition.IFlowConditionProcessor;
-import cz.wicketstuff.boss.flow.processor.condition.IFlowSwitchProcessor;
 
-public abstract class AbstractFlowStepTest implements ICompleteFlowTest {
+public abstract class AbstractFlowStepTest extends AbstractFlowTest {
 
 	private final Logger log = LoggerFactory.getLogger(getClass().getName());
-	
-	public final String payload = "test payload";
-	public final long flowId = 17L;
-	
-	private boolean ifExpressionResult = false;
-	private String switchExpressionResult = null;
-	
-	private IFlowProcessor<String> processor;
-	
-	private IFlowCarter<String> carter;
 	
 	@Before
 	public void setUp() throws FlowException {
@@ -152,65 +135,5 @@ public abstract class AbstractFlowStepTest implements ICompleteFlowTest {
 		fail("Cannot init flow from step that is not an initial step.");
 	}
 
-	public IFlowProcessor<String> getProcessor() {
-		return processor;
-	}
-
-	public void setProcessor(IFlowProcessor<String> processor) {
-		this.processor = processor;
-	}
-
-	public IFlowCarter<String> getCarter() {
-		return carter;
-	}
-
-	public void setCarter(IFlowCarter<String> carter) {
-		this.carter = carter;
-	}
-	
-	public IFlowState getCurrentState() {
-		return getCarter().getCurrentState();
-	}
-	
-	public boolean isIfExpressionResult() {
-		return ifExpressionResult;
-	}
-
-	public void setIfExpressionResult(boolean ifExpressionResult) {
-		this.ifExpressionResult = ifExpressionResult;
-	}
-
-	public String getSwitchExpressionResult() {
-		return switchExpressionResult;
-	}
-
-	public void setSwitchExpressionResult(String switchExpressionResult) {
-		this.switchExpressionResult = switchExpressionResult;
-	}
-
-	protected void checkCurrentState(String stateName) {
-		assertEquals("Wrong current state of the flow", stateName, getCurrentState().getStateName());
-	}
-	
-	protected IFlowStateProcessor<String> createFlowStateProcessor() {
-		SimpleFlowStateProcessor<String> sp = new SimpleFlowStateProcessor<String>();
-		sp.setConditionProcessor(new IFlowConditionProcessor<String>() {
-			
-			@Override
-			public boolean ifCondition(String conditionExpression,
-					IFlowCarter<String> flow) throws CannotProcessConditionException {
-				return isIfExpressionResult();
-			}
-		});
-		sp.setSwitchProcessor(new IFlowSwitchProcessor<String>() {
-			
-			@Override
-			public String resolveSwitchExpression(IFlowCarter<String> flow,
-					String switchExpression) {
-				return getSwitchExpressionResult();
-			}
-		});
-		return sp;
-	}	
 	
 }

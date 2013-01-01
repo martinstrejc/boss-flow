@@ -44,7 +44,7 @@
 		<transition refName="t68" />
 	</viewState>
 	
-	<joinState name="S8joinState">
+	<joinState name="S8joinState" persistableState="false">
 		<nextTransition refName="t89" />
 	</joinState>
 	
