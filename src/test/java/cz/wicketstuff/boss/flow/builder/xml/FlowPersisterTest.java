@@ -60,7 +60,7 @@ public class FlowPersisterTest extends AbstractFlowTest implements IFlowStatePer
 		};
 		FlowFileResource resourceHelper = new FlowFileResource();
 		processor.setFlowInputStream(resourceHelper.getCompleteFlowFileStream());
-		processor.setDefaultInitialStateName(S0initialState);
+		// processor.setDefaultInitialStateName(S0initialState);
 		// not applicable here
 		// processor.scanAnnotedBeans(this, this, this, this);
 		return processor.initializeProcessor();

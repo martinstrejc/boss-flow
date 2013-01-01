@@ -61,6 +61,14 @@ public interface IFlowTree {
 	 * @return state or null
 	 */
 	public IFlowState getState(String name);
+
+	/**
+	 * Find a first initial state or set default initial state,
+	 * depends on implementation. Never returns null!
+	 * 
+	 * @return default initial state, never null
+	 */
+	public IFlowState getDefaultInitialState();
 	
 	/**
 	 * Find a state by id or return null if state hasn't been found.

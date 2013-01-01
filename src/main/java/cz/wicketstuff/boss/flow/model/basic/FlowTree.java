@@ -30,6 +30,8 @@ public class FlowTree implements IFlowTree, Serializable {
 	private Integer flowId;
 	private String flowName;
 	
+	private IFlowState defaultInitialState;
+	
 	private Map<String, IFlowTransition> transitionNamesMap;
 	private Map<Integer, IFlowTransition> transitionIdsMap;
 	private Map<String, IFlowState> stateNamesMap;
@@ -126,6 +128,15 @@ public class FlowTree implements IFlowTree, Serializable {
 	public void setStateIdsMap(Map<Integer, IFlowState> stateIdsMap) {
 		this.stateIdsMap = stateIdsMap;
 	}
+	
+	@Override
+	public IFlowState getDefaultInitialState() {
+		return defaultInitialState;
+	}
+
+	public void setDefaultInitialState(IFlowState defaultInitialState) {
+		this.defaultInitialState = defaultInitialState;
+	}
 
 	@Override
 	protected void finalize() throws Throwable {
@@ -145,6 +156,7 @@ public class FlowTree implements IFlowTree, Serializable {
 			transitionNamesMap.clear();
 			transitionNamesMap = null;
 		}
+		defaultInitialState = null;
 		super.finalize();
 	}
 

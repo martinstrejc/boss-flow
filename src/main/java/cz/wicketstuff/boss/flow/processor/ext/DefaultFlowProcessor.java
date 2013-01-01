@@ -3,6 +3,9 @@ package cz.wicketstuff.boss.flow.processor.ext;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.builder.IFlowBuilder;
 import cz.wicketstuff.boss.flow.builder.xml.JaxbFlowBuilder;
@@ -31,6 +34,8 @@ import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowTransitionResolver;
 public class DefaultFlowProcessor<T extends Serializable> extends
 		SimpleFlowProcessor<T> {
 
+	private static final Logger log = LoggerFactory.getLogger(DefaultFlowProcessor.class);
+	
 	private static final long serialVersionUID = 1L;
 
 	private String defaultInitialStateName;
@@ -49,15 +54,27 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	public IFlowProcessor<T> initializeProcessor() throws FlowException {
 		onInitializeProcessor();
 		IFlowBuilder flowBuilder = defaultFlowBuilder();
-		IFlowTree flowTree = flowBuilder.buildFlowTree(
+		flowTree = flowBuilder.buildFlowTree(
 				getFlowInputStream(), getFlowId(), getFlowName());
 		setCarterFactory(defaultCarterFactory());
 		setStateProcessor(defaultFlowStateProcessor(flowTree));
 		setStateResolver(defaultFlowStateResolver(flowTree));
 		setTransitionResolver(defaultFlowTransitionResolver(flowTree));
 		scanAnnotedBeans();
-		setDefaultInitialState(defaultInitialState());
-		setFlowStatePersister(defaultFlowStatePersister());
+		IFlowState initialState = defaultInitialState();
+		if(initialState != null) {
+			setDefaultInitialState(initialState);			
+		}
+		if(getDefaultInitialState() == null) {
+			log.warn("Default flow initial state is NULL!");
+		}
+		IFlowStatePersister<T> statePersister = defaultFlowStatePersister();
+		if(statePersister != null) {
+			setFlowStatePersister(statePersister);			
+		}
+		if(getFlowStatePersister() == null) {
+			log.warn("Missing flow state persister");
+		}
 		onAfterInitializeProcessor();
 		return this;
 	}
@@ -168,7 +185,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	public IFlowState defaultInitialState() throws NoSuchStateException {
 		String stateName = getDefaultInitialStateName();
 		if(stateName == null) {
-			throw new IllegalArgumentException("defaultInitialStateName cannot be null!");
+			return flowTree.getDefaultInitialState();
 		}
 		return getStateResolver().resolveState(stateName);
 	}
