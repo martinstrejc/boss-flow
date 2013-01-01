@@ -100,20 +100,38 @@ public abstract class AbstractFlowStepTest implements ICompleteFlowTest {
 		fail("No transaction cannot be invoked when flow is in a final state!");
 	}
 
-
 	@Test
 	public void testSwitchDefaultIfFalse() throws FlowException {
-		// fail("Test not defined yet.");
-	}
-
-	@Test
-	public void testSwitchToViewS6() throws FlowException {
-		// fail("Test not defined yet.");
+		log.trace("Test switch condition default.");
+		initializeCarter();
+		checkCurrentState(S0initialState);	
+		processor.invokeTransition(carter, T01);
+		checkCurrentState(S1realState);	
+		setIfExpressionResult(false);
+		setSwitchExpressionResult(null);
+		processor.invokeTransition(carter, T15);
+		checkCurrentState(S4viewState);	
+		log.trace("Test switch condition default: " + CASE_toViewS6);
+		setSwitchExpressionResult(CASE_toViewS6);
+		processor.invokeTransition(carter, T45);
+		checkCurrentState(S6viewStateInitial);	
+		processor.invokeTransition(carter, T68);
+		checkCurrentState(S9finalState);	
 	}
 
 	@Test
 	public void testSwitchToFinal() throws FlowException {
-		// fail("Test not defined yet.");
+		log.trace("Test switch condition default.");
+		initializeCarter();
+		checkCurrentState(S0initialState);	
+		processor.invokeTransition(carter, T01);
+		checkCurrentState(S1realState);	
+		setIfExpressionResult(false);
+		setSwitchExpressionResult(null);
+		log.trace("Test switch condition default: " + CASE_toFinal);
+		setSwitchExpressionResult(CASE_toFinal);
+		processor.invokeTransition(carter, T15);
+		checkCurrentState(S9finalState);	
 	}
 
 	@Test
