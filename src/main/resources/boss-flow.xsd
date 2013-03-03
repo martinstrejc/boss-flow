@@ -256,6 +256,13 @@
 					</documentation>
 				</annotation>
 			</element>
+			<element name="author" type="string" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Author of this flow descriptor
+					</documentation>
+				</annotation>
+			</element>
 			<choice maxOccurs="unbounded">
 				<element name="state" type="flow:StateType" maxOccurs="unbounded"
 					minOccurs="0">
