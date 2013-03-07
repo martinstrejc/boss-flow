@@ -128,6 +128,17 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 		this.flowProcessed = flowProcessed;
 	}
 
+	/**
+	 * The setter of stateHit is present due to persisting flow.
+	 * <br>
+	 * Do not set it manually outside the {@link FlowCarter} rather use to {@link #shiftFlow()}
+	 * 
+	 * @param stateHit the stateHit to set
+	 */
+	public void setStateHit(int stateHit) {
+		this.stateHit = stateHit;
+	}
+
 	@Override
 	public void shiftFlow() {
 		setPreviousState(getCurrentState());		
