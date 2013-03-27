@@ -224,8 +224,8 @@
 	</distributionManagement>
 
 	<issueManagement>
-		<system>sf-tickets</system>
-		<url>https://sourceforge.net/p/boss-flow/tickets/</url>
+		<system>JIRA</system>
+		<url>https://jira.twinstone.org/browse/BFLOW</url>
 	</issueManagement>
 
 	<scm>
