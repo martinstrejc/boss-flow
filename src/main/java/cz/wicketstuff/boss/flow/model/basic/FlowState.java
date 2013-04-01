@@ -36,6 +36,7 @@ public class FlowState implements IFlowState {
 	private boolean requireStateData;
 	private boolean stateValidatable;
 	private boolean persistableState;
+	private Integer order;
 	private Serializable stateData;
 
 	public FlowState() {
@@ -125,6 +126,21 @@ public class FlowState implements IFlowState {
 	@Override
 	public Iterator<IFlowTransition> getAvailableTransitions() {
 		return getTransitionsMap().values().iterator();
+	}
+
+	/**
+	 * @return the order
+	 */
+	@Override
+	public Integer getOrder() {
+		return order;
+	}
+
+	/**
+	 * @param order the order to set
+	 */
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	public void setTransitionsMap(Map<String, IFlowTransition> transitionsMap) {

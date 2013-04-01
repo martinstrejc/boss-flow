@@ -58,7 +58,7 @@
 				</documentation>
 			</annotation>
 		</attribute>
-		<attribute name="order" type="integer" use="optional">
+		<attribute name="order" type="int" use="optional">
 			<annotation>
 				<documentation>The ordinal non-unique value of this step. Steps can be 
 					compared and sorted by their ordinal values. See the default implementation

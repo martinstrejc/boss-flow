@@ -100,4 +100,11 @@ public interface IFlowState extends Serializable {
 	 */
 	public Iterator<IFlowTransition> getAvailableTransitions();
 	
+	/**
+	 * Return the state ordinal value. Be aware, this value is non-unique and it should be null.
+	 * 
+	 * @return state ordinal value, it can be null or non-unique
+	 */
+	public Integer getOrder();
+	
 }

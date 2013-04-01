@@ -132,6 +132,7 @@ public class FlowObjectFactory {
 		fs.setFinalState(state.isFinalState());
 		fs.setStateValidatable(state.isStateValidatable());
 		fs.setPersistableState(state.isPersistableState());
+		fs.setOrder(state.getOrder());
 		return fs;
 	}
 
