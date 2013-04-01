@@ -20,6 +20,7 @@ import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
+import cz.wicketstuff.boss.flow.processor.basic.DefaultFlowStateOrdinalComparator;
 import cz.wicketstuff.boss.flow.processor.basic.DefaultFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowStateProcessor;
@@ -60,6 +61,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		setStateProcessor(defaultFlowStateProcessor(flowTree));
 		setStateResolver(defaultFlowStateResolver(flowTree));
 		setTransitionResolver(defaultFlowTransitionResolver(flowTree));
+		setStateOrdinalComparator(new DefaultFlowStateOrdinalComparator());
 		scanAnnotedBeans();
 		IFlowState initialState = defaultInitialState();
 		if(initialState != null) {

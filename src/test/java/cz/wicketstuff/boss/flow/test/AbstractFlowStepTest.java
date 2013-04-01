@@ -16,14 +16,15 @@
  */
 package cz.wicketstuff.boss.flow.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.processor.FlowAlreadyFinishedException;
@@ -151,5 +152,4 @@ public abstract class AbstractFlowStepTest extends AbstractFlowTest {
 		fail("Cannot init flow from step that is not an initial step.");
 	}
 
-	
 }

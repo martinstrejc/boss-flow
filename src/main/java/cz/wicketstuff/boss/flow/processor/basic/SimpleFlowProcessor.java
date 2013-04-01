@@ -27,7 +27,6 @@ import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
-import cz.wicketstuff.boss.flow.processor.IFlowStateOrdinalComparator;
 import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
@@ -42,7 +41,7 @@ import cz.wicketstuff.boss.flow.util.listener.IPriority;
 import cz.wicketstuff.boss.flow.validation.IFlowStateValidator;
 import cz.wicketstuff.boss.flow.validation.IFlowValidation;
 
-public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowProcessor<T> implements IFlowStateOrdinalComparator {
+public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowProcessor<T> {
 
 	private static final long serialVersionUID = 1L;
 	

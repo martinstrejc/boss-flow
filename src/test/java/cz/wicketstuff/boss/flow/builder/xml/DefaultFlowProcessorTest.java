@@ -16,10 +16,15 @@
  */
 package cz.wicketstuff.boss.flow.builder.xml;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
@@ -60,5 +65,21 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 		// processor.scanAnnotedBeans(this, this, this, this);
 		return processor.initializeProcessor();
 	}
+	
+	@Test
+	public void testCompareStatesOrdinalityState() throws FlowException {
+		DefaultFlowProcessor<String> p = (DefaultFlowProcessor<String>)processor;
+		IFlowState stateNull = p.getStateResolver().resolveState(S2ifState);
+		IFlowState state1 = p.getStateResolver().resolveState(S1realState);
+		IFlowState state2 = p.getStateResolver().resolveState(S3viewState);
+		assertTrue("The first state is ordinally less than the second", p.compareStatesOrdinality(state1, state2) < 0);
+		assertTrue("The first state is ordinally grater than the second", p.compareStatesOrdinality(state2, state1) > 0);
+		assertTrue("The first state is ordinally less than the second", p.compareStatesOrdinality(stateNull, state2) < 0);
+		assertTrue("The first state is ordinally grater than the second", p.compareStatesOrdinality(state2, stateNull) > 0);
+		assertEquals("States are ordinally the same", 0, p.compareStatesOrdinality(state1, state1));
+
+	}
+	
+
 
 }
