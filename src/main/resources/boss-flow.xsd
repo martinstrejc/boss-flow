@@ -58,6 +58,15 @@
 				</documentation>
 			</annotation>
 		</attribute>
+		<attribute name="order" type="integer" use="optional">
+			<annotation>
+				<documentation>The ordinal non-unique value of this step. Steps can be 
+					compared and sorted by their ordinal values. See the default implementation
+					of sort how the null value is represented and if your XML processor really allows
+					non-unique order values. The default implementation sorts by order ascendant with nulls first.
+				</documentation>
+			</annotation>
+		</attribute>
 		<attributeGroup ref="flow:IdentifierAttributeGroup"></attributeGroup>
 	</complexType>
 
