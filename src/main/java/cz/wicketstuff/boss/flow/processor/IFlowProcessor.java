@@ -17,6 +17,7 @@
 package cz.wicketstuff.boss.flow.processor;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
@@ -65,5 +66,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	boolean isCurrentState(IFlowCarter<T> flow, IFlowState testedState);
 
 	boolean isCurrentState(IFlowCarter<T> flow, String testedFlowStateName);
+	
+	Comparator<IFlowState> getStateOrdinalComparator();
 	
 }

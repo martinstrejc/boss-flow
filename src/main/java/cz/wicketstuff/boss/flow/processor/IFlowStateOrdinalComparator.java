@@ -14,11 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package cz.wicketstuff.boss.flow.processor;
+
+import java.util.Comparator;
+
+import cz.wicketstuff.boss.flow.model.IFlowState;
+
 /**
- * Test helping classes.
- */
-/**
+ * Comparator that compares two flow states by their oridnal value.
+ *  
  * @author Martin Strejc
  *
  */
-package cz.wicketstuff.boss.flow.test;
+public interface IFlowStateOrdinalComparator {
+
+	/**
+	 * Comparator derived from {@link Comparator}
+	 * 
+	 * @param state1
+	 * @param state2
+	 * @return 0, negative or possitive as defined for {@link Comparator} 
+	 */
+	public int compareStatesOrdinality(IFlowState state1, IFlowState state2);
+
+}

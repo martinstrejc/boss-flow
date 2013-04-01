@@ -46,5 +46,5 @@ public class DefaultFlowStateProcessor<T extends Serializable> extends SimpleFlo
 	public NamedFlowSwitchProcessor<T> getNamedFlowSwitchProcessor() {
 		return namedFlowSwitchProcessor;
 	}
-	
+		
 }

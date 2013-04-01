@@ -17,6 +17,7 @@
 package cz.wicketstuff.boss.flow.processor.basic;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
@@ -26,6 +27,7 @@ import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
+import cz.wicketstuff.boss.flow.processor.IFlowStateOrdinalComparator;
 import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
@@ -40,7 +42,7 @@ import cz.wicketstuff.boss.flow.util.listener.IPriority;
 import cz.wicketstuff.boss.flow.validation.IFlowStateValidator;
 import cz.wicketstuff.boss.flow.validation.IFlowValidation;
 
-public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowProcessor<T> {
+public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowProcessor<T> implements IFlowStateOrdinalComparator {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -62,6 +64,8 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	private IFlowTransitionResolver<T> transitionResolver;
 	
 	private IFlowStatePersister<T> flowStatePersister;
+	
+	private Comparator<IFlowState> stateOrdinalComparator;
 	
 	private int priority = 0;
 	
@@ -269,6 +273,16 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	public void setFlowStatePersister(IFlowStatePersister<T> flowStatePersister) {
 		this.flowStatePersister = flowStatePersister;
 	}
+	
+	@Override
+	public Comparator<IFlowState> getStateOrdinalComparator() {
+		return stateOrdinalComparator;
+	}
+	
+	public void setStateOrdinalComparator(
+			Comparator<IFlowState> stateOrdinalComparator) {
+		this.stateOrdinalComparator = stateOrdinalComparator;
+	}
 
 	@Override
 	protected void finalize() throws Throwable {
@@ -297,6 +311,11 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+
+	@Override
+	public int compareStatesOrdinality(IFlowState state1, IFlowState state2) {
+		return getStateOrdinalComparator().compare(state1, state2);
 	}
 
 	public void onFlowInitialized(IFlowCarter<T> flow) {

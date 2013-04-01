@@ -14,11 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package cz.wicketstuff.boss.flow.processor.basic;
+
+import java.util.Comparator;
+
+import cz.wicketstuff.boss.flow.model.IFlowState;
+
 /**
- * Test helping classes.
- */
-/**
+ * Comparator to compare two state ordinal values.
+ * 
  * @author Martin Strejc
  *
  */
-package cz.wicketstuff.boss.flow.test;
+public class DefaultFlowStateOrdinalComparator implements Comparator<IFlowState> {
+
+	public DefaultFlowStateOrdinalComparator() {
+	}
+
+	@Override
+	public int compare(IFlowState state1, IFlowState state2) {
+		Integer ord1;
+		Integer ord2;
+		if(state1 == null) {
+			ord1 = null;
+		} else {
+			ord1 = state1.getOrder();			
+		}
+		if(state2 == null) {
+			ord2 = null;
+		} else {
+			ord2 = state2.getOrder();			
+		}
+		if(ord1 == null) {
+			if(ord2 == null) {
+				return 0;
+			} else {
+				return -ord2;
+			}
+		}
+		if(ord2 == null) {
+			return ord1;
+		}
+		return ord1.compareTo(ord2);
+	}
+
+}

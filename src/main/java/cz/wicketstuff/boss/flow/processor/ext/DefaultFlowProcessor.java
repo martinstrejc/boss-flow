@@ -213,7 +213,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	public void setFlowInputStream(InputStream flowInputStream) {
 		this.flowInputStream = flowInputStream;
 	}
-
+	
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
