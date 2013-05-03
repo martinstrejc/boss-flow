@@ -149,6 +149,42 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 			stateHit++;			
 		}
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((currentState == null) ? 0 : currentState.hashCode());
+		result = prime * result
+				+ ((flowProcessId == null) ? 0 : flowProcessId.hashCode());
+		result = prime * result + stateHit;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FlowCarter<?> other = (FlowCarter<?>) obj;
+		if (currentState == null) {
+			if (other.currentState != null)
+				return false;
+		} else if (!currentState.equals(other.currentState))
+			return false;
+		if (flowProcessId == null) {
+			if (other.flowProcessId != null)
+				return false;
+		} else if (!flowProcessId.equals(other.flowProcessId))
+			return false;
+		if (stateHit != other.stateHit)
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {

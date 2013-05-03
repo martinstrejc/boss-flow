@@ -83,5 +83,20 @@ public interface IFlowTransition extends Serializable {
 	 */
 	public boolean isDefaultPrevious();
 
+	
+	/**
+	 * Java hashCode method derivated from {@link Object}
+	 * 
+	 * @return hash code
+	 */
+	public int hashCode();
+	
+	/**
+	 * Java equals method derivated from {@link Object}
+	 * 
+	 * @return hash code
+	 */
+	public boolean equals(Object obj);
+
 
 }
