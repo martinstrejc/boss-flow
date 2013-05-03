@@ -23,6 +23,7 @@ import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
 import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
+import cz.wicketstuff.boss.flow.processor.UnsupportedStateOperationException;
 
 public class SimpleFlowTransitionResolver<T extends Serializable> implements IFlowTransitionResolver<T>, Serializable {
 
@@ -60,6 +61,23 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 	protected void finalize() throws Throwable {
 		flowTree = null;
 		super.finalize();
+	}
+
+	// FIXME MISSING CODE
+	@Override
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -23,6 +23,7 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
 import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
+import cz.wicketstuff.boss.flow.processor.UnsupportedStateOperationException;
 
 public class DefaultFlowTransitionResolver<T extends Serializable> implements IFlowTransitionResolver<T>, Serializable {
 
@@ -45,6 +46,25 @@ public class DefaultFlowTransitionResolver<T extends Serializable> implements IF
 			}
 		}
 		throw new NoSuchTransitionException("Transition name='" + transitionName + "' does not exist.");
+	}
+
+	
+	
+	// FIXME MISSING CODE
+	@Override
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

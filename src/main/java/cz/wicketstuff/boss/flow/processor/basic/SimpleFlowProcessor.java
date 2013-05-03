@@ -36,6 +36,7 @@ import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
 import cz.wicketstuff.boss.flow.processor.StateDataException;
+import cz.wicketstuff.boss.flow.processor.UnsupportedStateOperationException;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 import cz.wicketstuff.boss.flow.validation.IFlowStateValidator;
@@ -327,6 +328,23 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		if(p != null) {
 			p.persistFlowState(flow);
 		}		
+	}
+
+	// FIXME MISSING CODE
+	@Override
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

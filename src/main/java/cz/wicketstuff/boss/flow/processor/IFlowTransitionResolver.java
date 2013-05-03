@@ -21,8 +21,43 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 
+/**
+ * @author Martin Strejc
+ *
+ * @param <T>
+ */
 public interface IFlowTransitionResolver<T extends Serializable> {
 	
+	/**
+	 * Resolve transition by name
+	 * 
+	 * @param flow
+	 * @param transitionName
+	 * @return
+	 * @throws NoSuchTransitionException
+	 */
 	IFlowTransition resolveTransition(IFlowCarter<T> flow, String transitionName) throws NoSuchTransitionException;
+	
+	/**
+	 * Resolve next transition by name or by criteria. Name needn't be applied.
+	 * 
+	 * @param flow
+	 * @param transitionName
+	 * @return
+	 * @throws NoSuchTransitionException
+	 * @throws UnsupportedStateOperationException
+	 */
+	IFlowTransition resolveNextTransition(IFlowCarter<T> flow, String transitionName) throws NoSuchTransitionException, UnsupportedStateOperationException;
+	
+	/**
+	 * Resolve previous transition by name or by criteria. Name needn't be applied.
+	 * 
+	 * @param flow
+	 * @param transitionName
+	 * @return
+	 * @throws NoSuchTransitionException
+	 * @throws UnsupportedStateOperationException
+	 */
+	IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow, String transitionName) throws NoSuchTransitionException, UnsupportedStateOperationException;
 
 }
