@@ -3,7 +3,8 @@
 	targetNamespace="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel"
 	elementFormDefault="qualified" xmlns:flow="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel">
 
-	<complexType name="StateType">
+    <include schemaLocation=""></include>
+    <complexType name="StateType">
 		<annotation>
 			<documentation>General precendant of all statuses. Each status is
 				mandatory described by its name and transitions those are available
@@ -11,7 +12,7 @@
 			</documentation>
 		</annotation>
 		<sequence>
-			<element name="transition" type="flow:TransitionIdentifierType"
+			<element name="transition" type="flow:TransitionIdentifierDefaultsType"
 				maxOccurs="unbounded" minOccurs="0">
 			</element>
 		</sequence>
@@ -426,4 +427,38 @@
 	</attributeGroup>
 
 
+
+	<complexType name="TransitionIdentifierDefaultsType">
+        <annotation>
+        	<documentation>Extended transition identifier that can mark if the transition is default as next or previous transition. Application logic needn't to define it in the code, it is also possible to use XML to configure.</documentation>
+        </annotation>
+        <complexContent>
+			<extension base="flow:TransitionIdentifierType">
+				<attribute name="previous" type="boolean" use="optional" default="false">
+					<annotation>
+						<documentation>When true, transition is applicable as the previous transition. If the defautlPrevious transition is set. It also set this attribute to true itself.
+						Be aware, there is a possibility to get an exception when both of next and previous are attributes are set to true. 
+						</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="next" type="boolean" use="optional" default="false">
+					<annotation>
+						<documentation>When true, transition is applicable as the next transition. If the defautlNext transition is set. It also set this attribute to true itself.
+						Be aware, there is a possibility to get an exception when both of next and previous are attributes are set to true. 
+						</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="defaultPrevious" type="boolean" use="optional" default="false">
+					<annotation>
+						<documentation>When true, transition is used as the previous default transition. This attribute can be used just once in list of transitions of a state.</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="defaultNext" type="boolean" use="optional" default="false">
+					<annotation>
+						<documentation>When true, transition is used as the next default transition. This attribute can be used just once in list of transitions of a state.</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
 </schema>
