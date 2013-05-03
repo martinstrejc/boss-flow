@@ -27,6 +27,10 @@ public class FlowTransition implements IFlowTransition {
 	private String transitionName;
 	private IFlowState targetState;
 	private boolean hitCountable = true;
+	private boolean next = false;
+	private boolean previous = false;
+	private boolean defaultNext = false;
+	private boolean defaultPrevious = false;
 	
 	public FlowTransition() {
 		this(null, null);
@@ -82,6 +86,66 @@ public class FlowTransition implements IFlowTransition {
 
 	public void setHitCountable(boolean hitCountable) {
 		this.hitCountable = hitCountable;
+	}
+	
+	/**
+	 * @return the next
+	 */
+	@Override
+	public boolean isNext() {
+		return next;
+	}
+
+	/**
+	 * @param next the next to set
+	 */
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+	/**
+	 * @return the previous
+	 */
+	@Override
+	public boolean isPrevious() {
+		return previous;
+	}
+
+	/**
+	 * @param previous the previous to set
+	 */
+	public void setPrevious(boolean previous) {
+		this.previous = previous;
+	}
+
+	/**
+	 * @return the defaultNext
+	 */
+	@Override
+	public boolean isDefaultNext() {
+		return defaultNext;
+	}
+
+	/**
+	 * @param defaultNext the defaultNext to set
+	 */
+	public void setDefaultNext(boolean defaultNext) {
+		this.defaultNext = defaultNext;
+	}
+
+	/**
+	 * @return the defaultPrevious
+	 */
+	@Override
+	public boolean isDefaultPrevious() {
+		return defaultPrevious;
+	}
+
+	/**
+	 * @param defaultPrevious the defaultPrevious to set
+	 */
+	public void setDefaultPrevious(boolean defaultPrevious) {
+		this.defaultPrevious = defaultPrevious;
 	}
 
 	@Override

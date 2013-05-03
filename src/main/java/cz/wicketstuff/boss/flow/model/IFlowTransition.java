@@ -54,5 +54,34 @@ public interface IFlowTransition extends Serializable {
 	 * @return {@code true} if state hit of flow can be counted
 	 */
 	public boolean isHitCountable();
+	
+	/**
+	 * Return {@code true} if transition is applicable as a next transition.
+	 *  
+	 * @return true for next transitions
+	 */
+	public boolean isNext();
+	
+	/**
+	 * Return {@code true} if transition is applicable as a previous transition.
+	 *  
+	 * @return true for previous transitions
+	 */
+	public boolean isPrevious();
+
+	/**
+	 * Return {@code true} if transition is the default of next transitions
+	 *  
+	 * @return true for the default next transition
+	 */
+	public boolean isDefaultNext();
+	
+	/**
+	 * Return {@code true} if transition is the default of previous transitions
+	 *  
+	 * @return true for the default previous transition
+	 */
+	public boolean isDefaultPrevious();
+
 
 }
