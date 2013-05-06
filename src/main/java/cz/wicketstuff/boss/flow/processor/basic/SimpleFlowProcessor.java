@@ -279,7 +279,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	public void setDefaultInitialStateName(String defaultInitialStateName) throws NoSuchStateException {
-		setDefaultInitialState(getStateResolver().resolveState(defaultInitialStateName));
+		defaultInitialState = getStateResolver().resolveState(defaultInitialStateName);
 	}
 	
 	public IFlowStatePersister<T> getFlowStatePersister() {
