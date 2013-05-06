@@ -243,6 +243,37 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		}
 		return tree;
 	} 
+	
+	protected void fillPrevNextTransitions(FlowTree flowTree) throws InvalidFlowAttributeException {
+		Map<IFlowState, IFlowTransition> transitionNextMap = new HashMap<IFlowState, IFlowTransition>();
+		Map<IFlowState, IFlowTransition> transitionPreviousMap = new HashMap<IFlowState, IFlowTransition>();
+		for(IFlowState flowState : flowTree.getStateNamesMap().values()) {
+			for(Iterator<IFlowTransition> it = flowState.getAvailableTransitions(); it.hasNext();) {
+				IFlowTransition t = it.next();
+				boolean defaultNext = t.isDefaultNext();
+				boolean defaultPrevious = t.isDefaultPrevious();
+				if(defaultNext && defaultPrevious) {
+					throw new InvalidFlowAttributeException("Flow transition cannot has both of next and previous attribute, check transition '" + t.getTransitionName() + "'.");
+				}
+				if(defaultNext) {
+					IFlowTransition inMapTr = transitionNextMap.put(flowState, t);
+					if(inMapTr != null) {
+						throw new InvalidFlowAttributeException("Just one transition is allowed with defaultNext attribute in a state, check state '" + flowState.getStateName() + "' " +
+								", transitions '" + inMapTr.getTransitionName() + "' and '" + t.getTransitionName() + "'.");						
+					}
+				}
+				if(defaultPrevious) {
+					IFlowTransition inMapTr = transitionPreviousMap.put(flowState, t);
+					if(inMapTr != null) {
+						throw new InvalidFlowAttributeException("Just one transition is allowed with defaultPrevious attribute in a state, check state '" + flowState.getStateName() + "' " +
+								", transitions '" + inMapTr.getTransitionName() + "' and '" + t.getTransitionName() + "'.");						
+					}
+				}
+			}
+		}
+		flowTree.setTransitionNextMap(transitionNextMap);
+		flowTree.setTransitionPreviousMap(transitionPreviousMap);
+	}
 
 	@Override
 	public IFlowTree buildFlowTree(InputStream inputStream, Integer flowId, String flowName) throws FlowException {
