@@ -61,6 +61,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	private IFlowStateValidationListener<T> stateValidationListener;
 	
 	private IFlowStateResolver stateResolver;
+	
 	private IFlowTransitionResolver<T> transitionResolver;
 	
 	private IFlowStatePersister<T> flowStatePersister;
@@ -176,6 +177,21 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 			throws NoSuchTransitionException {
 		return getTransitionResolver().resolveTransition(flow, transitionName);
 	}
+
+	@Override
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		return getTransitionResolver().resolveNextTransition(flow, transitionName);
+	}
+
+	@Override
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
+			String transitionName) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		return getTransitionResolver().resolvePreviousTransition(flow, transitionName);
+	}
+
 
 	public IFlowStateChangeListener<T> getStateChangeListener() {
 		return stateChangeListener;
@@ -328,23 +344,6 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		if(p != null) {
 			p.persistFlowState(flow);
 		}		
-	}
-
-	// FIXME MISSING CODE
-	@Override
-	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
-			String transitionName) throws NoSuchTransitionException,
-			UnsupportedStateOperationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
-			String transitionName) throws NoSuchTransitionException,
-			UnsupportedStateOperationException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
