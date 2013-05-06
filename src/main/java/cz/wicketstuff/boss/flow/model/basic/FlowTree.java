@@ -36,6 +36,8 @@ public class FlowTree implements IFlowTree, Serializable {
 	private Map<Integer, IFlowTransition> transitionIdsMap;
 	private Map<String, IFlowState> stateNamesMap;
 	private Map<Integer, IFlowState> stateIdsMap;
+	private Map<IFlowState, IFlowTransition> transitionNextMap;
+	private Map<IFlowState, IFlowTransition> transitionPreviousMap;
 	
 
 	public FlowTree() {
@@ -58,42 +60,52 @@ public class FlowTree implements IFlowTree, Serializable {
 
 	@Override
 	public IFlowTransition getTransition(String name) {
-		return getTransitionNamesMap().get(name);
+		return transitionNamesMap.get(name);
 	}
 
 	@Override
 	public IFlowTransition getTransition(Integer id) {
-		return getTransitionIdsMap().get(id);
+		return transitionIdsMap.get(id);
+	}
+
+	@Override
+	public IFlowTransition getNextTransition(IFlowState state) {
+		return transitionNextMap.get(state);
+	}
+
+	@Override
+	public IFlowTransition getPreviousTransition(IFlowState state) {
+		return transitionPreviousMap.get(state);
 	}
 
 	@Override
 	public IFlowState getState(String name) {
-		return getStateNamesMap().get(name);
+		return stateNamesMap.get(name);
 	}
 
 	@Override
 	public IFlowState getState(Integer id) {
-		return getStateIdsMap().get(id);
+		return stateIdsMap.get(id);
 	}
 
 	@Override
 	public boolean containsTransition(String name) {
-		return getTransitionNamesMap().containsKey(name);
+		return transitionNamesMap.containsKey(name);
 	}
 
 	@Override
 	public boolean containsTransition(Integer id) {
-		return getTransitionIdsMap().containsKey(id);
+		return transitionIdsMap.containsKey(id);
 	}
 
 	@Override
 	public boolean containsState(String name) {
-		return getStateNamesMap().containsKey(name);
+		return stateNamesMap.containsKey(name);
 	}
 
 	@Override
 	public boolean containsState(Integer id) {
-		return getStateIdsMap().containsKey(id);
+		return stateIdsMap.containsKey(id);
 	}
 
 	public Map<String, IFlowTransition> getTransitionNamesMap() {
@@ -129,6 +141,36 @@ public class FlowTree implements IFlowTree, Serializable {
 		this.stateIdsMap = stateIdsMap;
 	}
 	
+	/**
+	 * @return the transitionNextMap
+	 */
+	public Map<IFlowState, IFlowTransition> getTransitionNextMap() {
+		return transitionNextMap;
+	}
+
+	/**
+	 * @param transitionNextMap the transitionNextMap to set
+	 */
+	public void setTransitionNextMap(
+			Map<IFlowState, IFlowTransition> transitionNextMap) {
+		this.transitionNextMap = transitionNextMap;
+	}
+
+	/**
+	 * @return the transitionPreviousMap
+	 */
+	public Map<IFlowState, IFlowTransition> getTransitionPreviousMap() {
+		return transitionPreviousMap;
+	}
+
+	/**
+	 * @param transitionPreviousMap the transitionPreviousMap to set
+	 */
+	public void setTransitionPreviousMap(
+			Map<IFlowState, IFlowTransition> transitionPreviousMap) {
+		this.transitionPreviousMap = transitionPreviousMap;
+	}
+
 	@Override
 	public IFlowState getDefaultInitialState() {
 		return defaultInitialState;

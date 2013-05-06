@@ -45,6 +45,22 @@ public interface IFlowTree {
 	 * @return transition or null
 	 */
 	public IFlowTransition getTransition(String name);
+
+	/**
+	 * Find the next transition of a given state or return null if transition hasn't been found.
+	 * 
+	 * @param name
+	 * @return transition or null
+	 */
+	public IFlowTransition getNextTransition(IFlowState state);
+
+	/**
+	 * Find the previous transition of a given state or return null if transition hasn't been found.
+	 * 
+	 * @param name
+	 * @return transition or null
+	 */
+	public IFlowTransition getPreviousTransition(IFlowState state);
 	
 	/**
 	 * Find a transition by id or return null if transition hasn't been found.

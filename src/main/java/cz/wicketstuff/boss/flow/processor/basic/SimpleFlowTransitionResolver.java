@@ -19,6 +19,7 @@ package cz.wicketstuff.boss.flow.processor.basic;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
@@ -48,6 +49,34 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 		}
 		return t;
 	}
+
+	@Override
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		IFlowState currentState = flow.getCurrentState();
+		if(currentState == null) {
+			return null;
+		}
+		IFlowTransition t = flowTree.getNextTransition(flow.getCurrentState());
+		if(t == null) {
+			throw new NoSuchTransitionException("Cannot find default transition for state '" + currentState.getStateName() + "'.");
+		}
+		return t;
+	}
+
+	@Override
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
+			UnsupportedStateOperationException {
+		IFlowState currentState = flow.getCurrentState();
+		if(currentState == null) {
+			return null;
+		}
+		IFlowTransition t = flowTree.getPreviousTransition(flow.getCurrentState());
+		if(t == null) {
+			throw new NoSuchTransitionException("Cannot find default transition for state '" + currentState.getStateName() + "'.");
+		}
+		return t;
+	}
 	
 	public IFlowTree getFlowTree() {
 		return flowTree;
@@ -61,21 +90,6 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 	protected void finalize() throws Throwable {
 		flowTree = null;
 		super.finalize();
-	}
-
-	// FIXME MISSING CODE
-	@Override
-	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
-			UnsupportedStateOperationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
-			UnsupportedStateOperationException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

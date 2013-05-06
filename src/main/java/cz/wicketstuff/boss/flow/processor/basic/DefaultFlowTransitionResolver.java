@@ -45,24 +45,31 @@ public class DefaultFlowTransitionResolver<T extends Serializable> implements IF
 				return t;
 			}
 		}
-		throw new NoSuchTransitionException("Transition name='" + transitionName + "' does not exist.");
+		throw new NoSuchTransitionException("Transition name='" + transitionName + "' does not exist for state '" + flow.getCurrentState().getStateName() + "'.");
 	}
 
-	
-	
-	// FIXME MISSING CODE
 	@Override
 	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		// TODO Auto-generated method stub
-		return null;
+		for(Iterator<IFlowTransition> it = flow.getCurrentState().getAvailableTransitions(); it.hasNext();) {
+			IFlowTransition t = it.next();
+			if(t.isDefaultNext()) {
+				return t;
+			}
+		}
+		throw new NoSuchTransitionException("The default next transition does not exist for state '" + flow.getCurrentState().getStateName() + "'.");
 	}
 
 	@Override
 	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		// TODO Auto-generated method stub
-		return null;
+		for(Iterator<IFlowTransition> it = flow.getCurrentState().getAvailableTransitions(); it.hasNext();) {
+			IFlowTransition t = it.next();
+			if(t.isDefaultPrevious()) {
+				return t;
+			}
+		}
+		throw new NoSuchTransitionException("The default previous transition does not exist for state '" + flow.getCurrentState().getStateName() + "'.");
 	}
 
 
