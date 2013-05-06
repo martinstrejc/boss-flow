@@ -179,17 +179,15 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
-			String transitionName) throws NoSuchTransitionException,
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		return transitionResolver.resolveNextTransition(flow, transitionName);
+		return transitionResolver.resolveNextTransition(flow);
 	}
 
 	@Override
-	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
-			String transitionName) throws NoSuchTransitionException,
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		return transitionResolver.resolvePreviousTransition(flow, transitionName);
+		return transitionResolver.resolvePreviousTransition(flow);
 	}
 
 

@@ -42,22 +42,20 @@ public interface IFlowTransitionResolver<T extends Serializable> {
 	 * Resolve next transition by name or by criteria. Name needn't be applied.
 	 * 
 	 * @param flow
-	 * @param transitionName
 	 * @return
 	 * @throws NoSuchTransitionException
 	 * @throws UnsupportedStateOperationException
 	 */
-	IFlowTransition resolveNextTransition(IFlowCarter<T> flow, String transitionName) throws NoSuchTransitionException, UnsupportedStateOperationException;
+	IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException, UnsupportedStateOperationException;
 	
 	/**
 	 * Resolve previous transition by name or by criteria. Name needn't be applied.
 	 * 
 	 * @param flow
-	 * @param transitionName
 	 * @return
 	 * @throws NoSuchTransitionException
 	 * @throws UnsupportedStateOperationException
 	 */
-	IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow, String transitionName) throws NoSuchTransitionException, UnsupportedStateOperationException;
+	IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException, UnsupportedStateOperationException;
 
 }

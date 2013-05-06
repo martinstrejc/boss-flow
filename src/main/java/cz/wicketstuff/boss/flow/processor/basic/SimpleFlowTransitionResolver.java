@@ -65,16 +65,14 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 
 	// FIXME MISSING CODE
 	@Override
-	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
-			String transitionName) throws NoSuchTransitionException,
+	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
-			String transitionName) throws NoSuchTransitionException,
+	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
 		// TODO Auto-generated method stub
 		return null;
