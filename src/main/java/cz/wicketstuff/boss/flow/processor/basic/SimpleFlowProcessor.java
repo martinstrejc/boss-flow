@@ -115,81 +115,81 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 
 	@Override
 	public IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState initialState) throws FlowException {
-		return getCarterFactory().createFlowCarter(flowProcessId, initialState);
+		return carterFactory.createFlowCarter(flowProcessId, initialState);
 	}
 
 	@Override
 	public IFlowValidation validateState(IFlowCarter<T> flow) {
-		return getStateValidator().validateState(flow);
+		return stateValidator.validateState(flow);
 	}
 	
 	@Override
 	public void processState(IFlowCarter<T> flow) throws FlowException {
-		getStateProcessor().processState(flow);
+		stateProcessor.processState(flow);
 		
 	}
 
 	@Override
 	public void onStateValid(IFlowCarter<T> flow) {
-		if(getStateValidationListener() != null)
-			getStateValidationListener().onStateValid(flow);
+		if(stateValidationListener != null)
+			stateValidationListener.onStateValid(flow);
 	}
 
 	@Override
 	public void onStateInvalid(IFlowCarter<T> flow) {
-		if(getStateValidationListener() != null)
-			getStateValidationListener().onStateInvalid(flow);
+		if(stateValidationListener != null)
+			stateValidationListener.onStateInvalid(flow);
 		
 	}
 
 	@Override
 	public void onTransitionStart(IFlowCarter<T> flow) {
-		if(getTransitionChangeListener() != null)
-			getTransitionChangeListener().onTransitionStart(flow);
+		if(transitionChangeListener != null)
+			transitionChangeListener.onTransitionStart(flow);
 	}
 
 	@Override
 	public void onTransitionFinished(IFlowCarter<T> flow) {
-		if(getTransitionChangeListener() != null)
-			getTransitionChangeListener().onTransitionFinished(flow);
+		if(transitionChangeListener != null)
+			transitionChangeListener.onTransitionFinished(flow);
 	}
 
 	@Override
 	public void onStateEntry(IFlowCarter<T> flow) {
-		if(getStateChangeListener() != null)
-			getStateChangeListener().onStateEntry(flow);
+		if(stateChangeListener != null)
+			stateChangeListener.onStateEntry(flow);
 	}
 
 	@Override
 	public void onStateLeaving(IFlowCarter<T> flow) {
-		if(getStateChangeListener() != null)
-			getStateChangeListener().onStateLeaving(flow);
+		if(stateChangeListener != null)
+			stateChangeListener.onStateLeaving(flow);
 	}
 
 	@Override
 	public IFlowState resolveState(String stateName)
 			throws NoSuchStateException {
-		return getStateResolver().resolveState(stateName);
+		return stateResolver.resolveState(stateName);
 	}
 
 	@Override
 	public IFlowTransition resolveTransition(IFlowCarter<T> flow, String transitionName)
 			throws NoSuchTransitionException {
-		return getTransitionResolver().resolveTransition(flow, transitionName);
+		return transitionResolver.resolveTransition(flow, transitionName);
 	}
 
 	@Override
 	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow,
 			String transitionName) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		return getTransitionResolver().resolveNextTransition(flow, transitionName);
+		return transitionResolver.resolveNextTransition(flow, transitionName);
 	}
 
 	@Override
 	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow,
 			String transitionName) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		return getTransitionResolver().resolvePreviousTransition(flow, transitionName);
+		return transitionResolver.resolvePreviousTransition(flow, transitionName);
 	}
 
 
@@ -239,7 +239,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	@Override
 	public Serializable createStateData(IFlowState flowState)
 			throws NoSuchStateException, StateDataException {
-		return getStateDataFactory().createStateData(flowState);
+		return stateDataFactory.createStateData(flowState);
 	}
 
 	public IFlowStateDataFactory getStateDataFactory() {
@@ -275,7 +275,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 	
 	public String getDefaultInitialStateName() {
-		return getDefaultInitialState().getStateName();
+		return defaultInitialState.getStateName();
 	}
 
 	public void setDefaultInitialStateName(String defaultInitialStateName) throws NoSuchStateException {
@@ -331,7 +331,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 
 	@Override
 	public int compareStatesOrdinality(IFlowState state1, IFlowState state2) {
-		return getStateOrdinalComparator().compare(state1, state2);
+		return stateOrdinalComparator.compare(state1, state2);
 	}
 
 	public void onFlowInitialized(IFlowCarter<T> flow) {
@@ -340,9 +340,8 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 
 	@Override
 	public void persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException {
-		IFlowStatePersister<T> p = getFlowStatePersister();
-		if(p != null) {
-			p.persistFlowState(flow);
+		if(flowStatePersister != null) {
+			flowStatePersister.persistFlowState(flow);
 		}		
 	}
 
