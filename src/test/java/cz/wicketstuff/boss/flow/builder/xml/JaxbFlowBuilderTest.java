@@ -93,6 +93,27 @@ public class JaxbFlowBuilderTest {
 		fail("Parsing '" + resourceHelper.getFlowDuplicatedTransitionFileName() + "' failed, a duplicated transition must be detected!");
 	}
 
+	@Test(expected=InvalidFlowAttributeException.class)
+	public void testBuildFlowInputStreamInvalidPrevNextTransition1() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowInvalidPrevNext1FileStream());
+		log.error("Parsing failed, wrong default previous and next transition attributes must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowInvalidPrevNext1FileName() + "' failed, wrong default previous and next transition attributes must be detected!");
+	}
+
+	@Test(expected=InvalidFlowAttributeException.class)
+	public void testBuildFlowInputStreamInvalidPrevNextTransition2() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowInvalidPrevNext2FileStream());
+		log.error("Parsing failed, wrong default previous and next transition attributes must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowInvalidPrevNext2FileName() + "' failed, wrong default previous and next transition attributes be detected!");
+	}
+
+	@Test(expected=InvalidFlowAttributeException.class)
+	public void testBuildFlowInputStreamInvalidPrevNextTransition3() throws FlowException {
+		builder.buildFlow(resourceHelper.getFlowInvalidPrevNext3FileStream());
+		log.error("Parsing failed, wrong default previous and next transition attributes must be detected!");
+		fail("Parsing '" + resourceHelper.getFlowInvalidPrevNext3FileName() + "' failed, wrong default previous and next transition attributes must be detected!");
+	}
+
 	@After
 	public void tearDown() throws Exception {
 		builder = null;

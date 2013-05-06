@@ -209,7 +209,8 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 			@SuppressWarnings("unchecked")
 			JAXBElement<FlowDescriptorType> fdElement = (JAXBElement<FlowDescriptorType>) um.unmarshal(inputStream);		
 			
-			FlowBuilderCarter carter = buildFlow(fdElement.getValue());		
+			FlowBuilderCarter carter = buildFlow(fdElement.getValue());	
+			
 			return carter;
 		} catch (JAXBException e) {
 			throw new FlowException("Cannot build the flow", e);
@@ -241,10 +242,14 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		for(TransitionCapsule sc : carter.getTransitionNamesMap().values()) {
 			transitionNamesMap.put(sc.getFlowTransition().getTransitionName(), sc.getFlowTransition());
 		}
+		fillPrevNextTransitions(tree);
 		return tree;
 	} 
 	
 	protected void fillPrevNextTransitions(FlowTree flowTree) throws InvalidFlowAttributeException {
+		if(logger.isDebugEnabled()) {
+			logger.debug("Fill previous and next transition maps");
+		}		
 		Map<IFlowState, IFlowTransition> transitionNextMap = new HashMap<IFlowState, IFlowTransition>();
 		Map<IFlowState, IFlowTransition> transitionPreviousMap = new HashMap<IFlowState, IFlowTransition>();
 		for(IFlowState flowState : flowTree.getStateNamesMap().values()) {

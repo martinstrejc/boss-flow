@@ -32,6 +32,9 @@ public class FlowFileResource {
 	public static final String FLOW_FILE_MISSING_TRANSITION = "test-flow-missing-transition.xml";
 	public static final String FLOW_FILE_DUPLICATED_STATE = "test-flow-duplicated-state.xml";
 	public static final String FLOW_FILE_DUPLICATED_TRANSITION = "test-flow-duplicated-transition.xml";
+	public static final String FLOW_FILE_INVALID_PREVNEXT1 = "test-flow-invalid-prevnext1.xml";
+	public static final String FLOW_FILE_INVALID_PREVNEXT2 = "test-flow-invalid-prevnext2.xml";
+	public static final String FLOW_FILE_INVALID_PREVNEXT3 = "test-flow-invalid-prevnext3.xml";
 	
 	public FlowFileResource() {
 	}
@@ -87,4 +90,27 @@ public class FlowFileResource {
 		return getResourceAsStream(getFlowDuplicatedTransitionFileName());
 	}
 
+	public String getFlowInvalidPrevNext1FileName() {
+		return FLOW_FILE_INVALID_PREVNEXT1;
+	}
+	
+	public InputStream getFlowInvalidPrevNext1FileStream() {
+		return getResourceAsStream(getFlowInvalidPrevNext1FileName());
+	}
+
+	public String getFlowInvalidPrevNext2FileName() {
+		return FLOW_FILE_INVALID_PREVNEXT2;
+	}
+	
+	public InputStream getFlowInvalidPrevNext2FileStream() {
+		return getResourceAsStream(getFlowInvalidPrevNext2FileName());
+	}
+
+	public String getFlowInvalidPrevNext3FileName() {
+		return FLOW_FILE_INVALID_PREVNEXT3;
+	}
+	
+	public InputStream getFlowInvalidPrevNext3FileStream() {
+		return getResourceAsStream(getFlowInvalidPrevNext3FileName());
+	}
 }
