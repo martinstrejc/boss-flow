@@ -56,21 +56,6 @@ public interface IFlowTransition extends Serializable {
 	public boolean isHitCountable();
 	
 	/**
-	 * Return {@code true} if transition is the default of next transitions
-	 *  
-	 * @return true for the default next transition
-	 */
-	public boolean isDefaultNext();
-	
-	/**
-	 * Return {@code true} if transition is the default of previous transitions
-	 *  
-	 * @return true for the default previous transition
-	 */
-	public boolean isDefaultPrevious();
-
-	
-	/**
 	 * Java hashCode method derivated from {@link Object}
 	 * 
 	 * @return hash code

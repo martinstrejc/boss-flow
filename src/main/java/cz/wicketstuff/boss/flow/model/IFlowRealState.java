@@ -26,4 +26,19 @@ package cz.wicketstuff.boss.flow.model;
  */
 public interface IFlowRealState extends IFlowState {
 
+	/**
+	 * Return a transition that is used as default next transition
+	 * 
+	 * @return default next transition
+	 */
+	public IFlowTransition getDefaultNextTransition();
+	
+	/**
+	 * Return a transition that is used as default previous transition
+	 * 
+	 * @return default previous transition
+	 */
+	public IFlowTransition getDefaultPreviousTransition();
+	
+
 }

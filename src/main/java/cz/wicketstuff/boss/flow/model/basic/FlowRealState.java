@@ -25,6 +25,9 @@ public class FlowRealState extends FlowState implements IFlowRealState {
 
 	private static final long serialVersionUID = 1L;
 
+	private IFlowTransition defaultNextTransition;
+	private IFlowTransition defaultPreviousTransition;
+
 	public FlowRealState() {
 		super();
 	}
@@ -47,6 +50,29 @@ public class FlowRealState extends FlowState implements IFlowRealState {
 		super(stateId, stateName);
 	}
 	
-	
-	
+	@Override
+	public IFlowTransition getDefaultNextTransition() {
+		return defaultNextTransition;
+	}
+
+	/**
+	 * @param defaultNextTransition the defaultNextTransition to set
+	 */
+	public void setDefaultNextTransition(IFlowTransition defaultNextTransition) {
+		this.defaultNextTransition = defaultNextTransition;
+	}
+
+	@Override
+	public IFlowTransition getDefaultPreviousTransition() {
+		return defaultPreviousTransition;
+	}
+
+	/**
+	 * @param defaultPreviousTransition the defaultPreviousTransition to set
+	 */
+	public void setDefaultPreviousTransition(
+			IFlowTransition defaultPreviousTransition) {
+		this.defaultPreviousTransition = defaultPreviousTransition;
+	}
+
 }

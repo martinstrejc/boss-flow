@@ -36,8 +36,6 @@ public class FlowTree implements IFlowTree, Serializable {
 	private Map<Integer, IFlowTransition> transitionIdsMap;
 	private Map<String, IFlowState> stateNamesMap;
 	private Map<Integer, IFlowState> stateIdsMap;
-	private Map<IFlowState, IFlowTransition> transitionNextMap;
-	private Map<IFlowState, IFlowTransition> transitionPreviousMap;
 	
 
 	public FlowTree() {
@@ -66,16 +64,6 @@ public class FlowTree implements IFlowTree, Serializable {
 	@Override
 	public IFlowTransition getTransition(Integer id) {
 		return transitionIdsMap.get(id);
-	}
-
-	@Override
-	public IFlowTransition getNextTransition(IFlowState state) {
-		return transitionNextMap.get(state);
-	}
-
-	@Override
-	public IFlowTransition getPreviousTransition(IFlowState state) {
-		return transitionPreviousMap.get(state);
 	}
 
 	@Override
@@ -141,36 +129,6 @@ public class FlowTree implements IFlowTree, Serializable {
 		this.stateIdsMap = stateIdsMap;
 	}
 	
-	/**
-	 * @return the transitionNextMap
-	 */
-	public Map<IFlowState, IFlowTransition> getTransitionNextMap() {
-		return transitionNextMap;
-	}
-
-	/**
-	 * @param transitionNextMap the transitionNextMap to set
-	 */
-	public void setTransitionNextMap(
-			Map<IFlowState, IFlowTransition> transitionNextMap) {
-		this.transitionNextMap = transitionNextMap;
-	}
-
-	/**
-	 * @return the transitionPreviousMap
-	 */
-	public Map<IFlowState, IFlowTransition> getTransitionPreviousMap() {
-		return transitionPreviousMap;
-	}
-
-	/**
-	 * @param transitionPreviousMap the transitionPreviousMap to set
-	 */
-	public void setTransitionPreviousMap(
-			Map<IFlowState, IFlowTransition> transitionPreviousMap) {
-		this.transitionPreviousMap = transitionPreviousMap;
-	}
-
 	@Override
 	public IFlowState getDefaultInitialState() {
 		return defaultInitialState;

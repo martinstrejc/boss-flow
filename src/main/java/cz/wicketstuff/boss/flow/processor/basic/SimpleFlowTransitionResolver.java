@@ -19,6 +19,7 @@ package cz.wicketstuff.boss.flow.processor.basic;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowRealState;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
@@ -57,7 +58,11 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 		if(currentState == null) {
 			return null;
 		}
-		IFlowTransition t = flowTree.getNextTransition(flow.getCurrentState());
+		if(!(currentState instanceof IFlowRealState)) {
+			throw new NoSuchTransitionException("Cannot get next transition from state that is not a subclass of IFlowRealState");
+		}
+		IFlowTransition t = ((IFlowRealState)currentState).getDefaultNextTransition();
+		
 		if(t == null) {
 			throw new NoSuchTransitionException("Cannot find default transition for state '" + currentState.getStateName() + "'.");
 		}
@@ -71,7 +76,10 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 		if(currentState == null) {
 			return null;
 		}
-		IFlowTransition t = flowTree.getPreviousTransition(flow.getCurrentState());
+		if(!(currentState instanceof IFlowRealState)) {
+			throw new NoSuchTransitionException("Cannot get previous transition from state that is not a subclass of IFlowRealState");
+		}
+		IFlowTransition t = ((IFlowRealState)currentState).getDefaultPreviousTransition();
 		if(t == null) {
 			throw new NoSuchTransitionException("Cannot find default transition for state '" + currentState.getStateName() + "'.");
 		}

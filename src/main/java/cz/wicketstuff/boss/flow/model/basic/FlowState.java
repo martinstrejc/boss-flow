@@ -170,7 +170,7 @@ public class FlowState implements IFlowState {
 	public Map<String, IFlowTransition> createTransitionMap() {
 		return new HashMap<String, IFlowTransition>();
 	}
-
+	
 	@Override
 	public String toString() {
 		return super.toString() + " is [id:" + getStateId() + ", name:" + getStateName() + "]";

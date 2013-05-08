@@ -11,6 +11,7 @@ import cz.wicketstuff.boss.flow.builder.xml.jaxb.RealStateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.StateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.SwitchCaseType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.SwitchStateType;
+import cz.wicketstuff.boss.flow.builder.xml.jaxb.TransitionIdentifierDefaultsType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.TransitionIdentifierType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.ViewStateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.VirtualStateType;
@@ -83,8 +84,9 @@ public class StateGraphBuilder {
 	 * 
 	 * @param stateCapsule
 	 * @throws NoSuchTransitionException
+	 * @throws InvalidFlowAttributeException 
 	 */
-	public void buildStateGraph(StateCapsule stateCapsule) throws NoSuchTransitionException {
+	public void buildStateGraph(StateCapsule stateCapsule) throws NoSuchTransitionException, InvalidFlowAttributeException {
 		StateType state = stateCapsule.getState();
 		FlowState flowState = stateCapsule.getFlowState();
 		if(state instanceof ViewStateType) {
@@ -118,19 +120,46 @@ public class StateGraphBuilder {
 	
 	protected void buildOutTransitions(FlowState flowState, StateType state) throws NoSuchTransitionException {
 		Map<String, IFlowTransition> transitionsMap = new HashMap<String, IFlowTransition>();
-		for(TransitionIdentifierType ti : state.getTransition()) {
+		for(TransitionIdentifierDefaultsType ti : state.getTransition()) {
 			IFlowTransition t = findTransition(ti).getFlowTransition();
 			transitionsMap.put(t.getTransitionName(), t);
 		}
 		flowState.setTransitionsMap(transitionsMap);
 	}
 
-	protected void buildFlowViewState(FlowViewState flowState, ViewStateType state) throws NoSuchTransitionException {
+	protected void buildDefaultPreviousNextTransitions(FlowRealState realState, RealStateType realStateType) throws NoSuchTransitionException, InvalidFlowAttributeException {
+		for(TransitionIdentifierDefaultsType ti : realStateType.getTransition()) {
+			boolean defaultNext = ti.isDefaultNext();
+			boolean defaultPrevious = ti.isDefaultPrevious();
+			if(defaultNext || defaultPrevious) {
+				IFlowTransition t = findTransition(ti).getFlowTransition(); 
+				if(defaultNext && defaultPrevious) {
+					throw new InvalidFlowAttributeException("Flow transition cannot has both of next and previous attribute, check state '" + realState.getStateName() + "' and transition '" + t.getTransitionName() + "'.");
+				}
+				if(defaultNext) {
+					if(realState.getDefaultNextTransition() != null) {
+						throw new InvalidFlowAttributeException("Default next transition has been already defined, check state '" + realState.getStateName() + "' and transition '" + t.getTransitionName() + "'.");						
+					}
+					realState.setDefaultNextTransition(t);
+				}
+				if(defaultPrevious) {
+					if(realState.getDefaultPreviousTransition() != null) {
+						throw new InvalidFlowAttributeException("Default previous transition has been already defined, check state '" + realState.getStateName() + "' and transition '" + t.getTransitionName() + "'.");						
+					}
+					realState.setDefaultPreviousTransition(t);
+				}
+			}
+		}
+	}
+
+	protected void buildFlowViewState(FlowViewState flowState, ViewStateType state) throws NoSuchTransitionException, InvalidFlowAttributeException {
 		buildOutTransitions(flowState, state);
+		buildDefaultPreviousNextTransitions(flowState, state);
 	}
 	
-	protected void buildFlowRealState(FlowRealState flowState, RealStateType state) throws NoSuchTransitionException {
+	protected void buildFlowRealState(FlowRealState flowState, RealStateType state) throws NoSuchTransitionException, InvalidFlowAttributeException {
 		buildOutTransitions(flowState, state);
+		buildDefaultPreviousNextTransitions(flowState, state);
 	}
 	
 	protected void buildFlowJoinState(FlowJoinState flowState, JoinStateType state) throws NoSuchTransitionException {

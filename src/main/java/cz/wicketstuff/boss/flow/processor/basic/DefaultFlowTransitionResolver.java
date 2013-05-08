@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowRealState;
+import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionResolver;
 import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
@@ -51,25 +53,29 @@ public class DefaultFlowTransitionResolver<T extends Serializable> implements IF
 	@Override
 	public IFlowTransition resolveNextTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		for(Iterator<IFlowTransition> it = flow.getCurrentState().getAvailableTransitions(); it.hasNext();) {
-			IFlowTransition t = it.next();
-			if(t.isDefaultNext()) {
-				return t;
-			}
+		IFlowState cs = flow.getCurrentState();
+		if(!(cs instanceof IFlowRealState)) {
+			throw new UnsupportedStateOperationException("Cannot resolve the default next transition of state that is not a subclass of IFlowRealState check '" + flow.getCurrentState().getStateName() + "'.");		
 		}
-		throw new NoSuchTransitionException("The default next transition does not exist for state '" + flow.getCurrentState().getStateName() + "'.");
+		IFlowTransition t = ((IFlowRealState)cs).getDefaultNextTransition();
+		if(t == null) {
+			throw new NoSuchTransitionException("The default next transition does not exist for state '" + flow.getCurrentState().getStateName() + "'.");			
+		}
+		return t;
 	}
 
 	@Override
 	public IFlowTransition resolvePreviousTransition(IFlowCarter<T> flow) throws NoSuchTransitionException,
 			UnsupportedStateOperationException {
-		for(Iterator<IFlowTransition> it = flow.getCurrentState().getAvailableTransitions(); it.hasNext();) {
-			IFlowTransition t = it.next();
-			if(t.isDefaultPrevious()) {
-				return t;
-			}
+		IFlowState cs = flow.getCurrentState();
+		if(!(cs instanceof IFlowRealState)) {
+			throw new UnsupportedStateOperationException("Cannot resolve the previous next transition of state that is not a subclass of IFlowRealState check '" + flow.getCurrentState().getStateName() + "'.");		
 		}
-		throw new NoSuchTransitionException("The default previous transition does not exist for state '" + flow.getCurrentState().getStateName() + "'.");
+		IFlowTransition t = ((IFlowRealState)cs).getDefaultPreviousTransition();
+		if(t == null) {
+			throw new NoSuchTransitionException("The default previous transition does not exist for state '" + flow.getCurrentState().getStateName() + "'.");
+		}
+		return t;
 	}
 
 

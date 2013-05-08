@@ -120,5 +120,5 @@ public interface IFlowState extends Serializable {
 	 * @return hash code
 	 */
 	public boolean equals(Object obj);
-
+	
 }
