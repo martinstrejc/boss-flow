@@ -299,6 +299,18 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
+	public boolean invokeDefaultNextTransition(IFlowCarter<T> flow)
+			throws FlowException {
+		return invokeTransition(flow, transitionResolver.resolveNextTransition(flow));
+	}
+
+	@Override
+	public boolean invokeDefaultPreviousTransition(IFlowCarter<T> flow)
+			throws FlowException {
+		return invokeTransition(flow, transitionResolver.resolvePreviousTransition(flow));
+	}
+
+	@Override
 	protected void finalize() throws Throwable {
 		carterFactory = null;
 		defaultInitialState = null;

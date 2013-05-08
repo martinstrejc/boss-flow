@@ -18,6 +18,10 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * @author Martin Strejc
+ *
+ */
 public class UnsupportedStateOperationException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

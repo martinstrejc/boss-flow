@@ -64,6 +64,10 @@ public interface IFlowProcessor<T extends Serializable> extends
 
 	boolean invokeTransition(IFlowCarter<T> flow, String transitionName) throws FlowException;
 
+	boolean invokeDefaultNextTransition(IFlowCarter<T> flow) throws FlowException;
+
+	boolean invokeDefaultPreviousTransition(IFlowCarter<T> flow) throws FlowException;
+
 	boolean isCurrentState(IFlowCarter<T> flow, IFlowState testedState);
 
 	boolean isCurrentState(IFlowCarter<T> flow, String testedFlowStateName);
