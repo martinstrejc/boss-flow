@@ -59,7 +59,7 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 			return null;
 		}
 		if(!(currentState instanceof IFlowRealState)) {
-			throw new NoSuchTransitionException("Cannot get next transition from state that is not a subclass of IFlowRealState");
+			throw new UnsupportedStateOperationException("Cannot get next transition from state that is not a subclass of IFlowRealState");
 		}
 		IFlowTransition t = ((IFlowRealState)currentState).getDefaultNextTransition();
 		
@@ -77,7 +77,7 @@ public class SimpleFlowTransitionResolver<T extends Serializable> implements IFl
 			return null;
 		}
 		if(!(currentState instanceof IFlowRealState)) {
-			throw new NoSuchTransitionException("Cannot get previous transition from state that is not a subclass of IFlowRealState");
+			throw new UnsupportedStateOperationException("Cannot get previous transition from state that is not a subclass of IFlowRealState");
 		}
 		IFlowTransition t = ((IFlowRealState)currentState).getDefaultPreviousTransition();
 		if(t == null) {

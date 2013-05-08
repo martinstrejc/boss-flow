@@ -27,9 +27,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.model.basic.FlowCarter;
 import cz.wicketstuff.boss.flow.processor.FlowAlreadyFinishedException;
 import cz.wicketstuff.boss.flow.processor.FlowInitializationException;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
+import cz.wicketstuff.boss.flow.processor.NoSuchTransitionException;
+import cz.wicketstuff.boss.flow.processor.UnsupportedStateOperationException;
 
 public abstract class AbstractFlowStepTest extends AbstractFlowTest {
 
@@ -80,7 +83,8 @@ public abstract class AbstractFlowStepTest extends AbstractFlowTest {
 		setIfExpressionResult(true);
 		processor.invokeTransition(carter, T12);
 		checkCurrentState(S3viewState);	
-		processor.invokeTransition(carter, T38);
+		// processor.invokeTransition(carter, T38);
+		processor.invokeDefaultPreviousTransition(carter);
 		checkCurrentState(S9finalState);	
 	}
 
@@ -92,13 +96,39 @@ public abstract class AbstractFlowStepTest extends AbstractFlowTest {
 		processor.invokeTransition(carter, T01);
 		checkCurrentState(S1realState);	
 		setIfExpressionResult(true);
-		processor.invokeTransition(carter, T12);
+		// processor.invokeTransition(carter, T12);
+		processor.invokeDefaultNextTransition(carter);
 		checkCurrentState(S3viewState);	
 		processor.invokeTransition(carter, T38);
 		checkCurrentState(S9finalState);	
 		log.trace("Test after final.");
 		processor.invokeTransition(carter, T96);
 		fail("No transaction cannot be invoked when flow is in a final state!");
+	}
+
+	@Test(expected=NoSuchTransitionException.class)
+	public void testIncorrectState1() throws FlowException {
+		log.trace("Test if true to final and after final.");
+		initializeCarter();
+		checkCurrentState(S0initialState);	
+		processor.invokeDefaultNextTransition(carter);
+		fail("Next transaction cannot be invoked here!");
+	}
+
+	@Test(expected=UnsupportedStateOperationException.class)
+	public void testIncorrectState2() throws FlowException {
+		log.trace("Test if true to final and after final.");
+		initializeCarter();
+		checkCurrentState(S0initialState);	
+		processor.invokeTransition(carter, T01);
+		checkCurrentState(S1realState);	
+		setIfExpressionResult(true);
+		processor.invokeTransition(carter, T12);
+		FlowCarter<?> fc = (FlowCarter<?>)carter;
+		fc.setCurrentState(fc.getPreviousState());
+		log.debug("CURRENT: " + fc.getCurrentState());
+		processor.invokeDefaultNextTransition(carter);
+		fail("Exception hasn't been thrown!");
 	}
 
 	@Test

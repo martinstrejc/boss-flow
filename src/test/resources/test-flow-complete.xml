@@ -15,7 +15,7 @@
 	</realState>
 	
 	<realState name="S1realState" order="10">
-		<transition refName="t12" />
+		<transition refName="t12" defaultNext="true" />
 		<transition refName="t15" />
 	</realState>
 	
@@ -26,7 +26,7 @@
 	</conditionState>
 	
 	<viewState name="S3viewState" order="20">
-		<transition refName="t38"/>
+		<transition refName="t38" defaultPrevious="true" />
 	</viewState>
 	
 	<viewState name="S4viewState">
