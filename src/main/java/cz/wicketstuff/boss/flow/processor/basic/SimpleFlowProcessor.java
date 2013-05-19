@@ -25,6 +25,7 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
+import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
@@ -56,6 +57,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	private IFlowStateProcessor<T> stateProcessor;
 	private IFlowStateValidator<T> stateValidator;
 	
+	private IFlowListener<T> flowListener;
 	private IFlowStateChangeListener<T> stateChangeListener;
 	private IFlowTransitionChangeListener<T> transitionChangeListener;
 	private IFlowStateValidationListener<T> stateValidationListener;
@@ -140,6 +142,20 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		if(stateValidationListener != null)
 			stateValidationListener.onStateInvalid(flow);
 		
+	}
+	
+	@Override
+	public void onFlowInitialized(IFlowCarter<T> flow) {
+		if(flowListener != null) {
+			flowListener.onFlowInitialized(flow);
+		}
+	}
+
+	@Override
+	public void onFlowFinished(IFlowCarter<T> flow) {
+		if(flowListener != null) {
+			flowListener.onFlowFinished(flow);
+		}
 	}
 
 	@Override
@@ -288,6 +304,20 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		this.flowStatePersister = flowStatePersister;
 	}
 	
+	/**
+	 * @return the flowListener
+	 */
+	public IFlowListener<T> getFlowListener() {
+		return flowListener;
+	}
+
+	/**
+	 * @param flowListener the flowListener to set
+	 */
+	public void setFlowListener(IFlowListener<T> flowListener) {
+		this.flowListener = flowListener;
+	}
+
 	@Override
 	public Comparator<IFlowState> getStateOrdinalComparator() {
 		return stateOrdinalComparator;
@@ -322,6 +352,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		stateValidator = null;
 		transitionChangeListener = null;
 		transitionResolver = null;
+		flowListener = null;
 		super.finalize();
 	}
 
@@ -342,10 +373,6 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	@Override
 	public int compareStatesOrdinality(IFlowState state1, IFlowState state2) {
 		return stateOrdinalComparator.compare(state1, state2);
-	}
-
-	public void onFlowInitialized(IFlowCarter<T> flow) {
-		
 	}
 
 	@Override

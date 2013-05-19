@@ -118,7 +118,10 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 				}
 				processState(flow);
 			} while (flow.getNextTransition() != null);
-			flow.setFlowProcessed(false);			
+			flow.setFlowProcessed(false);	
+			if(flow.getCurrentState().isFinalState()) {
+				onFlowFinished(flow);
+			}
 			return flow.getStateHit() == stateHit;
 		} catch (Exception e) {
 			flow.setFlowProcessed(false);
@@ -164,6 +167,4 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 		this.maxFlowHits = maxFlowHits;
 	}
 	
-	abstract public void onFlowInitialized(IFlowCarter<T> flow);
-
 }

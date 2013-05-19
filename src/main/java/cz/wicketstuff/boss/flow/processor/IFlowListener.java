@@ -22,30 +22,30 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 /**
- * Listeners of state changing events.
+ * Listeners of flow events.
  * 
  * @author Martin Strejc
  *
  * @param <T> type of flow payload
  */
-public interface IFlowStateChangeListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
+public interface IFlowListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
 	
 	/**
-	 * Listen on entering the state.
+	 * Listen on initializing the flow.
 	 * See the flow implementation lifecycle to understand 
 	 * order of event's orders.
 	 * 
 	 * @param flow
 	 */
-	void onStateEntry(IFlowCarter<T> flow);
+	void onFlowInitialized(IFlowCarter<T> flow);
 
 	/**
-	 * Listen on leaving the state.
+	 * Listen on finishing the flow. It means to reach the final state.
 	 * See the flow implementation lifecycle to understand 
 	 * order of event's orders.
 	 * 
 	 * @param flow
 	 */
-	void onStateLeaving(IFlowCarter<T> flow);
+	void onFlowFinished(IFlowCarter<T> flow);
 
 }

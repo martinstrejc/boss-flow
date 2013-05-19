@@ -35,6 +35,7 @@ import cz.wicketstuff.boss.flow.validation.IFlowStateValidator;
  * @param <T> type of flow payload
  */
 public interface IFlowProcessor<T extends Serializable> extends 
+	IFlowListener<T>,
 	IFlowStateValidationListener<T>, 
 	IFlowStateChangeListener<T>,
 	IFlowTransitionChangeListener<T>,
