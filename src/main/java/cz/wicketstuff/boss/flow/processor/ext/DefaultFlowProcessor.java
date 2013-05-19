@@ -107,11 +107,13 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 
 	public void scanAnnotedBeans() throws FlowAnnotationException {
 		scanAnnotedBeans(defaultConditionBean(), defaultSwitchBean(),
-				defaultStateListenerBean(), defaultTransitionListenerBean());
+				defaultStateListenerBean(), defaultTransitionListenerBean(),
+				defaultFlowListenerBean());
 	}
 
 	public void scanAnnotedBeans(Object conditionBean, Object switchBean,
-			Object stateListenerBean, Object transitionListenerBean)
+			Object stateListenerBean, Object transitionListenerBean,
+			Object flowListenerBean)
 			throws FlowAnnotationException {
 		SimpleFlowStateProcessor<T> stateProcessor = getSimpleFlowStateProcessor();
 		AnnotationFlowFactory<T> annotFactory = defaultAnnotationFlowFactory(getFlowTree());
@@ -131,6 +133,10 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 			setTransitionChangeListener(annotFactory
 					.getTransitionChangeListeners(transitionListenerBean));
 		}
+		if(flowListenerBean != null) {
+			setFlowListener(annotFactory.
+					getFlowListeners(flowListenerBean));
+		}
 	}
 
 	public Object defaultConditionBean() {
@@ -138,6 +144,10 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	}
 
 	public Object defaultSwitchBean() {
+		return null;
+	}
+
+	public Object defaultFlowListenerBean() {
 		return null;
 	}
 

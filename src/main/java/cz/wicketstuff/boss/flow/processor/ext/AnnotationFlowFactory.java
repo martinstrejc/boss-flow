@@ -28,12 +28,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.annotation.FlowConditionProcessor;
+import cz.wicketstuff.boss.flow.annotation.FlowEvents;
 import cz.wicketstuff.boss.flow.annotation.FlowStateEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation;
 import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
+import cz.wicketstuff.boss.flow.util.listener.FlowListenersCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateChangeListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateValidationListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowTransitionChangeListenerCollection;
@@ -45,6 +47,55 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	protected static final Logger logger = LoggerFactory.getLogger(AnnotationFlowFactory.class);
 	
 	public AnnotationFlowFactory() {
+	}
+	
+	public FlowListenersCollection<T> newFlowListenersCollection() {
+		return new FlowListenersCollection<T>();
+	}  
+	
+	public FlowListenersCollection<T> getFlowListeners(Object bean) throws FlowAnnotationException {
+		return getFlowListeners(bean, newFlowListenersCollection());
+	}
+
+	public FlowListenersCollection<T> getFlowListeners(final Object bean, FlowListenersCollection<T> listeners) throws FlowAnnotationException {
+		for(final Method method : findMethodCandidates(bean, FlowEvents.class)) {
+			FlowEvents eventAnnotation = method.getAnnotation(FlowEvents.class);
+			if(logger.isDebugEnabled()) {
+				logger.debug("Adding annoted FlowEvents method '" + method.getName() + "' of bean '" + bean + "'");
+			}
+			listeners.add(new FilteredFlowListener<T>(eventAnnotation.event(), eventAnnotation.priority()) {
+
+				
+				
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				protected void onFlowInitializedFiltered(IFlowCarter<T> flow) {
+					try {
+						method.invoke(bean, flow);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException
+							| InvocationTargetException e) {
+						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					}
+					
+				}
+
+				@Override
+				protected void onFlowFinishedFiltered(IFlowCarter<T> flow) {
+					try {
+						method.invoke(bean, flow);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException
+							| InvocationTargetException e) {
+						throw new IllegalStateException("Cannot invoke annoted method of bean '" + bean + "' because: " + e.getMessage(), e);
+					}
+				}
+				
+			});
+		}
+		listeners.sort();
+		return listeners;
 	}
 	
 	public FlowStateChangeListenerCollection<T> newFlowStateChangeListenerCollection() {
