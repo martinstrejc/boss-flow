@@ -18,12 +18,34 @@ package cz.wicketstuff.boss.flow.validation;
 
 import java.util.Iterator;
 
+/**
+ * Validation result API interface
+ * 
+ * @author Martin Strejc
+ *
+ */
 public interface IFlowValidationResult {
 
+	/**
+	 * Return the key of validation result.
+	 * It can be used in a localizer or to identify the validation problem.
+	 * 
+	 * @return
+	 */
 	public String getItemKey();
 	
+	/**
+	 * Return true if this result means that state is valid.
+	 * 
+	 * @return true for valid state
+	 */
 	public boolean isValid();
 	
+	/**
+	 * Return all messages that has been passed during this validation
+	 * related to the key {@link #getItemKey()}
+	 * @return
+	 */
 	public Iterator<IFlowValidationMessage> getValidationMessages();
 	
 }

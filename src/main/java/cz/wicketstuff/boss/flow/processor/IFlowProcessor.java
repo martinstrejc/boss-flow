@@ -27,12 +27,12 @@ import cz.wicketstuff.boss.flow.validation.IFlowStateValidator;
 
 
 /**
- * Service interface of payment flow.
- * This interface represents business logic of the flow.  
+ * Interface represents main business logic of the flow. 
+ * It is just a facade of many interface that adds some functionality.
  * 
  * @author Martin Strejc
  *
- * @param <T> stepData class
+ * @param <T> type of flow payload
  */
 public interface IFlowProcessor<T extends Serializable> extends 
 	IFlowStateValidationListener<T>, 
@@ -48,30 +48,127 @@ public interface IFlowProcessor<T extends Serializable> extends
 	IFlowStatePersister<T>,
 	IFlowStateOrdinalComparator {	
 
+	/**
+	 * Returns id of the flow. It is used when more flow type are present.
+	 * For example an ID defined in XML.
+	 * 
+	 * @return
+	 */
 	Integer getFlowId();
 
+	/**
+	 * Returns flow name. For example a name defined in the XML.
+	 * 
+	 * @return flow name 
+	 */
 	String getFlowName();
 	
+	/**
+	 * Initialize a new flow in a default initial state. 
+	 * Exception is thrown when none initial state exists. 
+	 * 
+	 * @param flowProcessId
+	 * @param payload
+	 * @return
+	 * @throws FlowException
+	 */
 	IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException;
 
+	/**
+	 * Initialize a new flow and start it in an initial state. 
+	 * Exception is thrown when the required initial state is not marked as initial.
+	 * 
+	 * @param flowProcessId
+	 * @param payload
+	 * @param initialState
+	 * @return
+	 * @throws FlowException
+	 */
 	IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException;
 
+	/**
+	 * Initialize a new flow and start it in an initial state, the inital state is found by its name.
+	 * 
+	 * @param flowProcessId
+	 * @param payload
+	 * @param initialStateName
+	 * @return
+	 * @throws FlowException
+	 */
 	IFlowCarter<T> initFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException;
 
+	/**
+	 * Return default flow initial state or null if none initial state exists.
+	 * 
+	 * @return default initial state or null
+	 */
 	IFlowState getDefaultInitialState();
 		
+	/**
+	 * Invoke the given transition on the current flow state using whole flow object.
+	 *  
+	 * @param flow
+	 * @param transition
+	 * @return
+	 * @throws FlowException
+	 */
 	boolean invokeTransition(IFlowCarter<T> flow, IFlowTransition transition) throws FlowException;
 
+	/**
+	 * Invoke the given transition on the current flow state using whole flow object.
+	 * It tries to find the transition by name.
+	 * 
+	 * @param flow
+	 * @param transitionName
+	 * @return
+	 * @throws FlowException
+	 */
 	boolean invokeTransition(IFlowCarter<T> flow, String transitionName) throws FlowException;
 
+	/**
+	 * Invoke the default next transition and shift the flow.
+	 * Exception is thrown when none next transition is defined for the current state.
+	 * 
+	 * @param flow
+	 * @return
+	 * @throws FlowException
+	 */
 	boolean invokeDefaultNextTransition(IFlowCarter<T> flow) throws FlowException;
 
+	/**
+	 * Invoke the default previous transition and shift the flow.
+	 * Exception is thrown when none previous transition is defined for the current state.
+	 * 
+	 * 
+	 * @param flow
+	 * @return
+	 * @throws FlowException
+	 */
 	boolean invokeDefaultPreviousTransition(IFlowCarter<T> flow) throws FlowException;
 
+	/**
+	 * Compare a testedState and returns true if the state is a current state of flow.
+	 * 
+	 * @param flow
+	 * @param testedState
+	 * @return
+	 */
 	boolean isCurrentState(IFlowCarter<T> flow, IFlowState testedState);
 
+	/**
+	 * Compare a testState by its name and returns true if the state is a current state of flow.
+	 * 
+	 * @param flow
+	 * @param testedFlowStateName
+	 * @return
+	 */
 	boolean isCurrentState(IFlowCarter<T> flow, String testedFlowStateName);
 	
+	/**
+	 * Return the ordinal comparator of low states. Be aware, states needn't be oridnal in all cases.
+	 * 
+	 * @return
+	 */
 	Comparator<IFlowState> getStateOrdinalComparator();
 	
 }

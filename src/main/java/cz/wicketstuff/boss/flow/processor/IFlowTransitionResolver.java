@@ -22,9 +22,11 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 
 /**
+ * Transition resolver.
+ * 
  * @author Martin Strejc
  *
- * @param <T>
+ * @param <T>  type of flow payload
  */
 public interface IFlowTransitionResolver<T extends Serializable> {
 	

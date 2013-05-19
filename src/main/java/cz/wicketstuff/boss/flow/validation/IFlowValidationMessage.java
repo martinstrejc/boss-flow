@@ -18,12 +18,33 @@ package cz.wicketstuff.boss.flow.validation;
 
 import java.io.Serializable;
 
+/**
+ * Validation message API interface.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public interface IFlowValidationMessage {
 
+	/**
+	 * Return the message key, it can be used to localize the message
+	 * or to identify the validation problem.
+	 * @return
+	 */
 	public String getMessageKey();
 
+	/**
+	 * Return the message as String
+	 * 
+	 * @return message
+	 */
 	public String getMessage();
 
+	/**
+	 * Return mixed data related to this message
+	 * 
+	 * @return message data
+	 */
 	public Serializable getData();
 	
 }

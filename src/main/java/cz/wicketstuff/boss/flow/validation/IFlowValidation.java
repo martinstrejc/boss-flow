@@ -18,12 +18,33 @@ package cz.wicketstuff.boss.flow.validation;
 
 import java.util.Iterator;
 
+/**
+ * Validation results inteface.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public interface IFlowValidation {
 
+	/**
+	 * Return true if state has been validated.
+	 * 
+	 * @return true stae has been validated
+	 */
 	public boolean isValidated();
 		
+	/**
+	 * Return true if state is valid and it can be shifted by the next transition.
+	 * 
+	 * @return true if stat is valid
+	 */
 	public boolean isValid();
 	
+	/**
+	 * Return all validation results from the previous validation.
+	 * 
+	 * @return validation results
+	 */
 	public Iterator<IFlowValidationResult> getValidationResults();
 	
 }

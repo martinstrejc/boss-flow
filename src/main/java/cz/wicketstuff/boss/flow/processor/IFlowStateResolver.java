@@ -18,8 +18,21 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.model.IFlowState;
 
+/**
+ * Resolver of states.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public interface IFlowStateResolver {
 	
+	/**
+	 * Resolve the state by name.
+	 * 
+	 * @param stateName
+	 * @return
+	 * @throws NoSuchStateException
+	 */
 	public IFlowState resolveState(String stateName) throws NoSuchStateException;
 
 }

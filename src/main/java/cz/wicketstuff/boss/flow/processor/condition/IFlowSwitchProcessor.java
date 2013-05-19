@@ -20,10 +20,23 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 
+/**
+ * Processor of Switch State
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowSwitchProcessor<T extends Serializable> {
 	
+	/**
+	 * Evaluate the expression and returns its result that used to choose
+	 * which transition can be used to continu the switch state.
+	 * 
+	 * @param flow
+	 * @param switchExpression
+	 * @return
+	 */
 	public String resolveSwitchExpression(IFlowCarter<T> flow, String switchExpression);
-
-	// public boolean compareSwitchCase(String switchValue, String caseValue, IFlowCarter<T> flow);
 
 }

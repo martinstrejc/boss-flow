@@ -19,11 +19,18 @@ package cz.wicketstuff.boss.flow.util.listener;
 import java.io.Serializable;
 
 /**
+ * Prioritized classes interface.
+ * 
  * @author Martin Strejc
  *
  */
 public interface IPriority extends Serializable, Comparable<IPriority> {
 	
+	/**
+	 * Return the priority of implementing class. Smaller value means higher priority.
+	 * 
+	 * @return priority - smaller value means higher priority
+	 */
 	int getPriority();
 	
 }

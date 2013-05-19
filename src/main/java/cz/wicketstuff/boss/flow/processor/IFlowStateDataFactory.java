@@ -21,8 +21,23 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 
 
+/**
+ * Factory for to create state specific data.
+ *  
+ * @author Martin Strejc
+ *
+ */
 public interface IFlowStateDataFactory {
 
+	/**
+	 * Create state specific data object. There is only one condition of state specific data. 
+	 * The object must be serializable.
+	 *  
+	 * @param flowState
+	 * @return
+	 * @throws NoSuchStateException
+	 * @throws StateDataException
+	 */
 	Serializable createStateData(IFlowState flowState) throws NoSuchStateException, StateDataException;
 
 }

@@ -20,8 +20,23 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 
+/**
+ * Processor of Condition State
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowConditionProcessor<T extends Serializable> {
 	
+	/**
+	 * Evaluate the expression of condition state and return its boolean result.
+	 *   
+	 * @param conditionExpression
+	 * @param flow
+	 * @return result of evaluating boolean expression
+	 * @throws CannotProcessConditionException
+	 */
 	public boolean ifCondition(String conditionExpression, IFlowCarter<T> flow) throws CannotProcessConditionException;
 
 }

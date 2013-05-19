@@ -20,8 +20,21 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 
+/**
+ * Validation API inteface
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowStateValidator<T extends Serializable> {
 	
+	/**
+	 * Validate the current state.
+	 * 
+	 * @param flow
+	 * @return
+	 */
 	IFlowValidation validateState(IFlowCarter<T> flow);
 
 }

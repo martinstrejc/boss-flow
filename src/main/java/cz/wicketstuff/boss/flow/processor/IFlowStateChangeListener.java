@@ -21,10 +21,30 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
+/**
+ * Listeners of state changing events.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public interface IFlowStateChangeListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
 	
+	/**
+	 * Listen on entering the state.
+	 * See the flow implementation lifecycle to understand 
+	 * order of event's orders.
+	 * 
+	 * @param flow
+	 */
 	void onStateEntry(IFlowCarter<T> flow);
 
+	/**
+	 * Listen on leaving the state.
+	 * See the flow implementation lifecycle to understand 
+	 * order of event's orders.
+	 * 
+	 * @param flow
+	 */
 	void onStateLeaving(IFlowCarter<T> flow);
 
 }

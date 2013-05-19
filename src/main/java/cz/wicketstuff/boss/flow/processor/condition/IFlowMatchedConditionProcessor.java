@@ -20,8 +20,22 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 
+/**
+ * Internal processor of Condition State
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowMatchedConditionProcessor<T extends Serializable> extends IFlowConditionProcessor<T> {
 	
+	/**
+	 * Internal method equals to {@link IFlowConditionProcessor#ifCondition(String, IFlowCarter)}
+	 * 
+	 * @param conditionExpression
+	 * @param flow
+	 * @return 
+	 */
 	public boolean match(String conditionExpression, IFlowCarter<T> flow);
 
 }

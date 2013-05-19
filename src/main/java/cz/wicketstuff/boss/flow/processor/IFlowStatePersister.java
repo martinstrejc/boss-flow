@@ -21,8 +21,21 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
+/**
+ * Persister API for the flow.
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowStatePersister<T extends Serializable> extends Comparable<IPriority>, IPriority {
 	
+	/**
+	 * Persist flow. See the flow lifecycle to understand when flow persists.
+	 * 
+	 * @param flow
+	 * @throws FlowPersistingException
+	 */
 	void persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException;
 
 }

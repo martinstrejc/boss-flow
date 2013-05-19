@@ -21,10 +21,31 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
+/**
+ * Listeners of transition lifecycle events.
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowTransitionChangeListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
 	
+	/**
+	 * Listen on beginning the transition.
+	 * See the flow implementation lifecycle to understand 
+	 * order of event's orders.
+	 * 
+	 * @param flow
+	 */
 	void onTransitionStart(IFlowCarter<T> flow);
 
+	/**
+	 * Listen on finishing the transition.
+	 * See the flow implementation lifecycle to understand 
+	 * order of event's orders.
+	 * 
+	 * @param flow
+	 */
 	void onTransitionFinished(IFlowCarter<T> flow);
 	
 }

@@ -20,8 +20,22 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 
+/**
+ * Internal processor of Switch State
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowMatchedSwitchProcessor<T extends Serializable> extends IFlowSwitchProcessor<T> {
 	
+	/**
+	 * Internal method equals to {@link IFlowSwitchProcessor#resolveSwitchExpression(IFlowCarter, String)}
+	 * 
+	 * @param switchExpression
+	 * @param flow
+	 * @return
+	 */
 	public boolean match(String switchExpression, IFlowCarter<T> flow);
 
 }

@@ -21,14 +21,23 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 
-
 /**
+ * Checking the transition validity.
  * 
  * @author Martin Strejc
  *
+ * @param <T> type of flow payload
  */
 public interface IFlowTransitionChecker<T extends Serializable> {	
 		
+	/**
+	 * Checks if transition is valid for the flow and for the current state.
+	 * You can call this method to prevent exception on invoking an invalid transition.
+	 * 
+	 * @param flow
+	 * @param nextTransition
+	 * @return
+	 */
 	boolean checkTransition(IFlowCarter<T> flow, IFlowTransition nextTransition);
 	
 }

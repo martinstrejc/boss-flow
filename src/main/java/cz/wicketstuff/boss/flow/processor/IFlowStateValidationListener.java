@@ -21,10 +21,27 @@ import java.io.Serializable;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
+/**
+ * Listeners of flow state validation lifecycle events.
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T> type of flow payload
+ */
 public interface IFlowStateValidationListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
 	
+	/**
+	 * Listen on state that is valid it is going to be shifted.
+	 * 
+	 * @param flow
+	 */
 	void onStateValid(IFlowCarter<T> flow);
 	
+	/**
+	 * Listen on state that is not valid it is going to stay in the current state.
+	 * 
+	 * @param flow
+	 */
 	void onStateInvalid(IFlowCarter<T> flow);
 	
 }

@@ -22,8 +22,23 @@ import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 
+/**
+ * API definition of a factory to create flow carter.
+ * 
+ * @author Martin Strejc
+ *
+ * @param <T>
+ */
 public interface IFlowCarterFactory<T extends Serializable> {
 
+	/**
+	 * Create flow carter in an initial state.
+	 *  
+	 * @param flowProcessId id of a flow, it can be database id
+	 * @param initialState
+	 * @return
+	 * @throws FlowException
+	 */
 	IFlowCarter<T> createFlowCarter(Long flowProcessId, IFlowState initialState) throws FlowException;
 
 }

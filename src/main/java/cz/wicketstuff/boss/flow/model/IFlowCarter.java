@@ -23,7 +23,7 @@ import java.io.Serializable;
  * 
  * @author Martin Strejc
  *
- * @param <T>
+ * @param <T> type of flow payload
  */
 public interface IFlowCarter<T extends Serializable> extends Serializable {
 	
