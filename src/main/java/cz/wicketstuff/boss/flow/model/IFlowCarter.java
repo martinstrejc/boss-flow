@@ -139,14 +139,16 @@ public interface IFlowCarter<T extends Serializable> extends Serializable {
 	public void setFlowProcessed(boolean flowProcessed);
 	
 	/**
-	 * Force change the current flow state without state hit and data change
+	 * Force change the current flow state without state hit and data change.
+	 * It is NOT RECOMMENDED to invoke this method if you exactly don't know what are you doing.
 	 * 
 	 * @param flowState
 	 */
 	public void forceSetFlowState(IFlowState flowState);
 	
 	/**
-	 * Force change the current flow state
+	 * Force change the current flow state.
+	 * It is NOT RECOMMENDED to invoke this method if you exactly don't know what are you doing.
 	 * 
 	 * Force change
 	 * @param flowState

@@ -147,7 +147,8 @@ public interface IFlowProcessor<T extends Serializable> extends
 	public boolean invokeDefaultPreviousTransition(IFlowCarter<T> flow) throws FlowException;
 	
 	/**
-	 * Force change the flow state
+	 * Force change the flow state. 
+	 * It is NOT RECOMMENDED to invoke this method if you exactly don't know what are you doing.
 	 * 
 	 * @param flow
 	 * @param flowState
@@ -156,7 +157,8 @@ public interface IFlowProcessor<T extends Serializable> extends
 	public void forceSetFlowState(IFlowCarter<T> flow, IFlowState flowState) throws FlowException;
 	
 	/**
-	 * Force change the flow state
+	 * Force change the flow state.
+	 * It is NOT RECOMMENDED to invoke this method if you exactly don't know what are you doing.
 	 * 
 	 * @param flow
 	 * @param flowState
