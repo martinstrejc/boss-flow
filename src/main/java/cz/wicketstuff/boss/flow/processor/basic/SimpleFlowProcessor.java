@@ -382,4 +382,10 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		}		
 	}
 
+	@Override
+	public void forceSetFlowState(IFlowCarter<T> flow, IFlowState flowState)
+			throws FlowException {
+		flow.forceSetFlowState(flowState);
+	}
+
 }

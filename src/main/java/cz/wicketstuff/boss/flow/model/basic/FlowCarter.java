@@ -153,6 +153,21 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 	}
 	
 	@Override
+	public void forceSetFlowState(IFlowState flowState) {
+		setCurrentState(flowState);
+	}
+	
+	@Override
+	public void forceSetFlowState(IFlowState flowState, Serializable stateData,
+			boolean countHit) {
+		setCurrentState(flowState);
+		setStateData(stateData);
+		if(countHit) {
+			stateHit++;
+		}
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

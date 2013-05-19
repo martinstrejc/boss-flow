@@ -128,6 +128,12 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 			throw e;
 		}
 	}
+
+	@Override
+	public void forceSetFlowState(IFlowCarter<T> flow, IFlowState flowState,
+			Serializable stateData, boolean countHit) throws FlowException {
+		flow.forceSetFlowState(flowState, stateData, countHit);
+	}
 	
 	public boolean isMaxHitsReached(IFlowCarter<T> flow) {
 		Integer max = getMaxFlowHits(); 

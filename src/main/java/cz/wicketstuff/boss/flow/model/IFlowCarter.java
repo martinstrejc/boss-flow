@@ -137,5 +137,22 @@ public interface IFlowCarter<T extends Serializable> extends Serializable {
 	 * @param flowProcessed {@code true} to mark the flow as being processed
 	 */
 	public void setFlowProcessed(boolean flowProcessed);
+	
+	/**
+	 * Force change the current flow state without state hit and data change
+	 * 
+	 * @param flowState
+	 */
+	public void forceSetFlowState(IFlowState flowState);
+	
+	/**
+	 * Force change the current flow state
+	 * 
+	 * Force change
+	 * @param flowState
+	 * @param stateData
+	 * @param countHit
+	 */
+	public void forceSetFlowState(IFlowState flowState, Serializable stateData, boolean countHit);
 
 }

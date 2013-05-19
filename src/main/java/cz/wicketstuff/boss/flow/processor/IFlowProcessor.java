@@ -55,14 +55,14 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * 
 	 * @return
 	 */
-	Integer getFlowId();
+	public Integer getFlowId();
 
 	/**
 	 * Returns flow name. For example a name defined in the XML.
 	 * 
 	 * @return flow name 
 	 */
-	String getFlowName();
+	public String getFlowName();
 	
 	/**
 	 * Initialize a new flow in a default initial state. 
@@ -73,7 +73,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return
 	 * @throws FlowException
 	 */
-	IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException;
+	public IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException;
 
 	/**
 	 * Initialize a new flow and start it in an initial state. 
@@ -85,7 +85,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return
 	 * @throws FlowException
 	 */
-	IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException;
+	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException;
 
 	/**
 	 * Initialize a new flow and start it in an initial state, the inital state is found by its name.
@@ -96,14 +96,14 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return
 	 * @throws FlowException
 	 */
-	IFlowCarter<T> initFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException;
+	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, String initialStateName) throws FlowException;
 
 	/**
 	 * Return default flow initial state or null if none initial state exists.
 	 * 
 	 * @return default initial state or null
 	 */
-	IFlowState getDefaultInitialState();
+	public IFlowState getDefaultInitialState();
 		
 	/**
 	 * Invoke the given transition on the current flow state using whole flow object.
@@ -113,7 +113,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return
 	 * @throws FlowException
 	 */
-	boolean invokeTransition(IFlowCarter<T> flow, IFlowTransition transition) throws FlowException;
+	public boolean invokeTransition(IFlowCarter<T> flow, IFlowTransition transition) throws FlowException;
 
 	/**
 	 * Invoke the given transition on the current flow state using whole flow object.
@@ -124,7 +124,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return
 	 * @throws FlowException
 	 */
-	boolean invokeTransition(IFlowCarter<T> flow, String transitionName) throws FlowException;
+	public boolean invokeTransition(IFlowCarter<T> flow, String transitionName) throws FlowException;
 
 	/**
 	 * Invoke the default next transition and shift the flow.
@@ -134,19 +134,38 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return
 	 * @throws FlowException
 	 */
-	boolean invokeDefaultNextTransition(IFlowCarter<T> flow) throws FlowException;
+	public boolean invokeDefaultNextTransition(IFlowCarter<T> flow) throws FlowException;
 
 	/**
 	 * Invoke the default previous transition and shift the flow.
 	 * Exception is thrown when none previous transition is defined for the current state.
 	 * 
-	 * 
 	 * @param flow
 	 * @return
 	 * @throws FlowException
 	 */
-	boolean invokeDefaultPreviousTransition(IFlowCarter<T> flow) throws FlowException;
-
+	public boolean invokeDefaultPreviousTransition(IFlowCarter<T> flow) throws FlowException;
+	
+	/**
+	 * Force change the flow state
+	 * 
+	 * @param flow
+	 * @param flowState
+	 * @throws FlowException
+	 */
+	public void forceSetFlowState(IFlowCarter<T> flow, IFlowState flowState) throws FlowException;
+	
+	/**
+	 * Force change the flow state
+	 * 
+	 * @param flow
+	 * @param flowState
+	 * @param stateData
+	 * @param countHit
+	 * @throws FlowException
+	 */
+	public void forceSetFlowState(IFlowCarter<T> flow, IFlowState flowState, Serializable stateData, boolean countHit) throws FlowException;
+	
 	/**
 	 * Compare a testedState and returns true if the state is a current state of flow.
 	 * 
@@ -154,7 +173,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @param testedState
 	 * @return
 	 */
-	boolean isCurrentState(IFlowCarter<T> flow, IFlowState testedState);
+	public boolean isCurrentState(IFlowCarter<T> flow, IFlowState testedState);
 
 	/**
 	 * Compare a testState by its name and returns true if the state is a current state of flow.
@@ -163,13 +182,13 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @param testedFlowStateName
 	 * @return
 	 */
-	boolean isCurrentState(IFlowCarter<T> flow, String testedFlowStateName);
+	public boolean isCurrentState(IFlowCarter<T> flow, String testedFlowStateName);
 	
 	/**
 	 * Return the ordinal comparator of low states. Be aware, states needn't be oridnal in all cases.
 	 * 
 	 * @return
 	 */
-	Comparator<IFlowState> getStateOrdinalComparator();
+	public Comparator<IFlowState> getStateOrdinalComparator();
 	
 }
