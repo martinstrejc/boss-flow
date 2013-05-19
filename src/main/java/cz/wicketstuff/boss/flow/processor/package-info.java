@@ -16,8 +16,7 @@
  */
 /**
  * API of flow processor and listeners.
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

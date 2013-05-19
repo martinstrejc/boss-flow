@@ -16,8 +16,7 @@
  */
 /**
  * Support collections as implementation of listeners. 
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

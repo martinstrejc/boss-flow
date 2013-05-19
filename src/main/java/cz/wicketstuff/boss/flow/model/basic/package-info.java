@@ -16,8 +16,7 @@
  */
 /**
  * Basic implementations of flow models used in this flow API implementation.
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

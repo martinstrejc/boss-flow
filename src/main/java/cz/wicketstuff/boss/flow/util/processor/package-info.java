@@ -16,8 +16,7 @@
  */
 /**
  * Support collections as implementation of virtual state processors. 
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

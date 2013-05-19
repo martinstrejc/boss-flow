@@ -16,8 +16,7 @@
  */
 /**
  * Support for processing virtual states.
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

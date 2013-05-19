@@ -16,8 +16,7 @@
  */
 /**
  * Build flow from XML, see {@link cz.wicketstuff.boss.flow.builder.xml.JaxbFlowBuilder}.
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

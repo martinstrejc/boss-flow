@@ -17,8 +17,7 @@
 /**
  * Annotations to mark beans as a part of flow processing,
  * see {@link cz.wicketstuff.boss.flow.processor.ext.AnnotationFlowFactory}
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

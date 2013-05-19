@@ -18,8 +18,7 @@
  * Interfaces of all models/data implemented in this flow,
  * each data class is just an implementation of an interface from this package,
  * but it is also possible to make any own implementations.
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

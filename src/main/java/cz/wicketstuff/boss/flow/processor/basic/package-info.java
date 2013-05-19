@@ -16,8 +16,7 @@
  */
 /**
  * Basic packages of flow processors that can create a flow and navigate between flow steps.
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

@@ -16,8 +16,7 @@
  */
 /**
  * Mixed special tools and utilities. 
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

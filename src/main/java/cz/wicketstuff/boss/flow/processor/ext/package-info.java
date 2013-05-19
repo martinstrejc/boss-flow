@@ -16,8 +16,7 @@
  */
 /**
  * Support for special actions, listeners including annotated methods. 
- */
-/**
+ *
  * @author Martin Strejc
  *
  */

@@ -16,8 +16,7 @@
  */
 /**
  * Validation system of validatable states. 
- */
-/**
+ *
  * @author Martin Strejc
  *
  */
