@@ -19,35 +19,35 @@ package cz.wicketstuff.boss.flow.builder.xml;
 import cz.wicketstuff.boss.flow.FlowException;
 
 /**
- * Exception is thrown when a transition has been found more than once
+ * Exception is thrown when a state has been found more than once
  * in the configuration XML of the flow.
  * 
- * This exception means that the name or the id of transition is duplicated.
+ * This exception means that the name or the id of a state is duplicated.
  * 
  * @author Martin Strejc
  *
  */
-public class DuplicateTransitionException extends FlowException {
+public class DuplicatedStateException extends FlowException {
 
 	private static final long serialVersionUID = 1L;
 
-	public DuplicateTransitionException() {
+	public DuplicatedStateException() {
 	}
 
-	public DuplicateTransitionException(String message, Throwable cause,
+	public DuplicatedStateException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
-	public DuplicateTransitionException(String message, Throwable cause) {
+	public DuplicatedStateException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public DuplicateTransitionException(String message) {
+	public DuplicatedStateException(String message) {
 		super(message);
 	}
 
-	public DuplicateTransitionException(Throwable cause) {
+	public DuplicatedStateException(Throwable cause) {
 		super(cause);
 	}
 

@@ -18,6 +18,14 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * Exception is thrown when a flow transition had been invoked,
+ * that transition had been running till now and another transition
+ * was also invoked. It prevents flow to come to an inconsistent state.  
+ * 
+ * @author Martin Strejc
+ *
+ */
 public class FlowTransitionIsRunningException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

@@ -18,6 +18,13 @@ package cz.wicketstuff.boss.flow.processor.condition;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * Exception is thrown when a 'Condition State' cannot be processed. 
+ * It usually means that no condition is attached to the state.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public class CannotProcessConditionException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

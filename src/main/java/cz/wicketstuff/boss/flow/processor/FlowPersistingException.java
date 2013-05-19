@@ -4,7 +4,7 @@ import cz.wicketstuff.boss.flow.FlowException;
 
 /**
  * Exception is thrown when flow cannot be persisted.
- * Common cause is a JDBC runtime exception.
+ * The common cause is a JDBC runtime exception.
  * 
  * @author Martin Strejc
  *

@@ -18,6 +18,13 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * General ancestor or exceptions related to state data. 
+ * It usually means that it is not possible to create or persist state data obejct.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public class StateDataException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

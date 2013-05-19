@@ -79,14 +79,14 @@ public class JaxbFlowBuilderTest {
 		fail("Parsing '" + resourceHelper.getFlowMissingTransitionFileName() + "' failed, a missing transition must be detected!");
 	}
 
-	@Test(expected=DuplicateStateException.class)
+	@Test(expected=DuplicatedStateException.class)
 	public void testBuildFlowInputStreamDuplicatedState() throws FlowException {
 		builder.buildFlow(resourceHelper.getFlowDuplicatedStateFileStream());
 		log.error("Parsing failed, a duplicated state must be detected!");
 		fail("Parsing '" + resourceHelper.getFlowDuplicatedStateFileName() + "' failed, a duplicated state must be detected!");
 	}
 	
-	@Test(expected=DuplicateTransitionException.class)
+	@Test(expected=DuplicatedTransitionException.class)
 	public void testBuildFlowInputStreamDuplicatedTransition() throws FlowException {
 		builder.buildFlow(resourceHelper.getFlowDuplicatedTransitionFileStream());
 		log.error("Parsing failed, a duplicated transition must be detected!");

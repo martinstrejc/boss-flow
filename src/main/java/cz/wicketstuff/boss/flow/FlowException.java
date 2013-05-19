@@ -17,7 +17,8 @@
 package cz.wicketstuff.boss.flow;
 
 /**
- * General precendant of flow mandatory throwable exceptions.
+ * General exception of flow mandatory throwable exceptions.
+ * It's constructor is in Java 7 style, see {@link #FlowException(String, Throwable, boolean, boolean)}
  * 
  * @author Martin Strejc
  *

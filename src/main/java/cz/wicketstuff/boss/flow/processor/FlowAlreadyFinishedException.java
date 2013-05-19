@@ -18,6 +18,13 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * Exception is thrown when somebody tries to invoke a transition on a finished flow.
+ * It means a flow that is in a final state.
+ *  
+ * @author Martin Strejc
+ *
+ */
 public class FlowAlreadyFinishedException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

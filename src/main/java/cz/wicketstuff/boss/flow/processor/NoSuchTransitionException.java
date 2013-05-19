@@ -18,6 +18,12 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * Exception is thrown when the transition cannot be found by its name or id.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public class NoSuchTransitionException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

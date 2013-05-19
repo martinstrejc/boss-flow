@@ -18,6 +18,13 @@ package cz.wicketstuff.boss.flow.processor.ext;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * Exception is thrown while scanning bean when a method is annotated with wrong annotation
+ * or a method has wrong argument's types or when a method has wrong result type.
+ * 
+ * @author Martin Strejc
+ *
+ */
 public class FlowAnnotationException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

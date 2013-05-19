@@ -19,6 +19,10 @@ package cz.wicketstuff.boss.flow.processor;
 import cz.wicketstuff.boss.flow.FlowException;
 
 /**
+ * Exception is thrown when maxHits property has been sets and flow
+ * has been transited more time that maxHits allows. It prevents flow
+ * to be cycled by an unfinite loop.
+ * 
  * @author Martin Strejc
  *
  */

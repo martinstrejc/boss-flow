@@ -18,6 +18,12 @@ package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
+/**
+ * Exception is thrown when the state cannot be found by its name or id.
+ *  
+ * @author Martin Strejc
+ *
+ */
 public class NoSuchStateException extends FlowException {
 
 	private static final long serialVersionUID = 1L;

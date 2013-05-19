@@ -19,6 +19,10 @@ package cz.wicketstuff.boss.flow.processor;
 import cz.wicketstuff.boss.flow.FlowException;
 
 /**
+ * Exception is thrown when somebody try to invoke an undefined operation on the state.
+ * It usually means that a defaultNextTanstion or defaultNextTransition attempted to be invoked,
+ * event there is no next or previous transition defined for the state.
+ *  
  * @author Martin Strejc
  *
  */

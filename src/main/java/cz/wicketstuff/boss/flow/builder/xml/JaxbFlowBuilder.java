@@ -76,43 +76,43 @@ public class JaxbFlowBuilder implements IFlowBuilder {
 		return new StateCapsule(state, getFlowObjectFactory().createFlowState(state));
 	}
 
-	protected void fillTransitionMaps(List<? extends TransitionType> transitions, Map<String, TransitionCapsule> transitionNamesMap, Map<Integer, TransitionCapsule> transitionIdsMap) throws DuplicateTransitionException {
+	protected void fillTransitionMaps(List<? extends TransitionType> transitions, Map<String, TransitionCapsule> transitionNamesMap, Map<Integer, TransitionCapsule> transitionIdsMap) throws DuplicatedTransitionException {
 		for(TransitionType t : transitions) {
 			fillTransitionMaps(t, transitionNamesMap, transitionIdsMap);
 		}		
 	}
 
-	protected void fillTransitionMaps(TransitionType transition, Map<String, TransitionCapsule> transitionNamesMap, Map<Integer, TransitionCapsule> transitionIdsMap) throws DuplicateTransitionException {
+	protected void fillTransitionMaps(TransitionType transition, Map<String, TransitionCapsule> transitionNamesMap, Map<Integer, TransitionCapsule> transitionIdsMap) throws DuplicatedTransitionException {
 		TransitionCapsule tc = newTransitionCapsule(transition);
 		if(logger.isDebugEnabled()) {
 			logger.debug("fill transition " + transition.getId() + ": " + transition.getName() + " -> " + transition.getTargetStateName());											
 		}
 		if(transitionIdsMap.containsKey(transition.getId())) {
-			throw new DuplicateTransitionException("Duplicated ID, cannot place transition id=" + transition.getId() + ", name=" + transition.getName() + " has been already found by id.");
+			throw new DuplicatedTransitionException("Duplicated ID, cannot place transition id=" + transition.getId() + ", name=" + transition.getName() + " has been already found by id.");
 		}
 		if(transitionNamesMap.containsKey(transition.getName())) {
-			throw new DuplicateTransitionException("Duplicated NAME, cannot place transition id=" + transition.getId() + ", name=" + transition.getName() + " has been already found by name.");
+			throw new DuplicatedTransitionException("Duplicated NAME, cannot place transition id=" + transition.getId() + ", name=" + transition.getName() + " has been already found by name.");
 		}
 		transitionIdsMap.put(transition.getId(), tc);
 		transitionNamesMap.put(transition.getName(), tc);
 	}
 
-	protected void fillStateMaps(List<? extends StateType> states, Map<String, StateCapsule> stateNamesMap, Map<Integer, StateCapsule> stateIdsMap) throws DuplicateStateException {
+	protected void fillStateMaps(List<? extends StateType> states, Map<String, StateCapsule> stateNamesMap, Map<Integer, StateCapsule> stateIdsMap) throws DuplicatedStateException {
 		for(StateType s : states) {
 			fillStateMaps(s, stateNamesMap, stateIdsMap);
 		}		
 	}
 	
-	protected void fillStateMaps(StateType state, Map<String, StateCapsule> stateNamesMap, Map<Integer, StateCapsule> stateIdsMap) throws DuplicateStateException {
+	protected void fillStateMaps(StateType state, Map<String, StateCapsule> stateNamesMap, Map<Integer, StateCapsule> stateIdsMap) throws DuplicatedStateException {
 		StateCapsule sc = newStateCapsule(state);
 		if(logger.isDebugEnabled()) {
 			logger.debug("fill state " + state.getId() + ": " + state.getName() + " of '" + state.getClass().getSimpleName() + "' ");											
 		}
 		if(stateIdsMap.containsKey(state.getId())) {
-			throw new DuplicateStateException("Duplicated ID, cannot place state id=" + state.getId() + ", name=" + state.getName() + " has been already found by id.");
+			throw new DuplicatedStateException("Duplicated ID, cannot place state id=" + state.getId() + ", name=" + state.getName() + " has been already found by id.");
 		}
 		if(stateNamesMap.containsKey(state.getName())) {
-			throw new DuplicateStateException("Duplicated NAME, cannot place state id=" + state.getId() + ", name=" + state.getName() + " has been already found by name.");
+			throw new DuplicatedStateException("Duplicated NAME, cannot place state id=" + state.getId() + ", name=" + state.getName() + " has been already found by name.");
 		}
 		stateIdsMap.put(state.getId(), sc);
 		stateNamesMap.put(state.getName(), sc);
