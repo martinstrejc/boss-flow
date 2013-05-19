@@ -34,6 +34,7 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 	private T payload;
 	private int stateHit = 0;
 	private boolean flowProcessed = false;
+	private Serializable stateData;
 	
 	public FlowCarter() {
 		this(null);
@@ -99,14 +100,15 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 		this.payload = payload;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <C extends Serializable> C getStateData() {
-		return getCurrentState().getStateData();
+		return (C)stateData;
 	}
 
 	@Override
 	public void setStateData(Serializable stateData) {
-		getCurrentState().setStateData(stateData);
+		this.stateData = stateData;
 	}
 	
 	@Override
@@ -206,6 +208,8 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 		sb.append(getCurrentState());
 		sb.append(", payload=");
 		sb.append(getPayload());
+		sb.append(", stateData=");
+		sb.append(getStateData());
 		sb.append("}");
 		return sb.toString();
 	}
@@ -218,6 +222,7 @@ public class FlowCarter<T extends Serializable> implements IFlowCarter<T> {
 		payload = null;
 		previousState = null;
 		previousTransition = null;
+		stateData = null;
 		super.finalize();
 	}
 

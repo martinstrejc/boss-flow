@@ -76,23 +76,7 @@ public interface IFlowState extends Serializable {
 	 * @return {@code true} if this state require state data
 	 */
 	public boolean isRequireStateData();
-	
-	/**
-	 * Return the state data
-	 * see {@link IFlowCarter#getStateData()}
-	 * 
-	 * @return state data
-	 */
-	public <C extends Serializable> C getStateData();
-
-	/**
-	 * Set state data
-	 * see {@link IFlowCarter#setStateData(Serializable)}
-	 * 
-	 * @param stateData
-	 */
-	public void setStateData(Serializable stateData);
-	
+		
 	/**
 	 * Return an iterator over all transitions available for this step.
 	 * 

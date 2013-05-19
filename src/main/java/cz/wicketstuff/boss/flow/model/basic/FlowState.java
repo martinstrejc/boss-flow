@@ -16,7 +16,6 @@
  */
 package cz.wicketstuff.boss.flow.model.basic;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -37,7 +36,6 @@ public class FlowState implements IFlowState {
 	private boolean stateValidatable;
 	private boolean persistableState;
 	private Integer order;
-	private Serializable stateData;
 
 	public FlowState() {
 		this(null, null);
@@ -105,17 +103,6 @@ public class FlowState implements IFlowState {
 	@Override
 	public boolean isStateValidatable() {
 		return stateValidatable;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <C extends Serializable> C getStateData() {
-		return (C) stateData;
-	}
-
-	@Override
-	public void setStateData(Serializable stateData) {
-		this.stateData = stateData;
 	}
 
 	@Override
@@ -219,7 +206,6 @@ public class FlowState implements IFlowState {
 			transitionsMap.clear();
 			transitionsMap = null;
 		}
-		stateData = null;
 		super.finalize();
 	}
 
