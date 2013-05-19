@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 /**
- * Flow builders those can build flow tree from
- * inputs such as XML
- * 
- * see implementation {@link cz.wicketstuff.boss.flow.builder.xml.JaxbFlowBuilder}
+ * Flow builders those can build flow tree from inputs such as XML, currently only XML is supported, 
+ * see implementation implementation {@link cz.wicketstuff.boss.flow.builder.xml.JaxbFlowBuilder}
+ */
+/**
+ * @author Martin Strejc
+ *
  */
 package cz.wicketstuff.boss.flow.builder;

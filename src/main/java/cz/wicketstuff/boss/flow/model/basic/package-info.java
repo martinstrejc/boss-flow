@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 /**
- * Basic packages of flow processors that can create a flow and navigate between flow steps.
+ * Basic implementations of flow models used in this flow API implementation.
  */
 /**
  * @author Martin Strejc
  *
  */
-package cz.wicketstuff.boss.flow.processor.basic;
+package cz.wicketstuff.boss.flow.model.basic;

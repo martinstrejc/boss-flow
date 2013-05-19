@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 /**
- * Basic packages of flow processors that can create a flow and navigate between flow steps.
+ * Mixed special tools and utilities. 
  */
 /**
  * @author Martin Strejc
  *
  */
-package cz.wicketstuff.boss.flow.processor.basic;
+package cz.wicketstuff.boss.flow.util;

@@ -16,6 +16,10 @@
  */
 /**
  * The main flow package, see {@link cz.wicketstuff.boss.flow.IFlowProcessorFactory}
- * see {@link cz.wicketstuff.boss.flow.processor.ext.DefaultFlowProcessor}
+ * and {@link cz.wicketstuff.boss.flow.processor.ext.DefaultFlowProcessor}
+ */
+/**
+ * @author Martin Strejc
+ *
  */
 package cz.wicketstuff.boss.flow;
