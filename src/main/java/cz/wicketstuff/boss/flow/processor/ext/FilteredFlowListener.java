@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.annotation.FlowEvents.FlowEvent;
-import cz.wicketstuff.boss.flow.annotation.FlowStateEvent.StateEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
@@ -50,7 +49,7 @@ public abstract class FilteredFlowListener<T extends Serializable> implements IF
 
 	@Override
 	public void onFlowInitialized(IFlowCarter<T> flow) {
-		if(StateEvent.all.equals(event) || StateEvent.onStateEntry.equals(event)) {
+		if(FlowEvent.all.equals(event) || FlowEvent.onFlowInitialized.equals(event)) {
 			if(log.isDebugEnabled()) {
 				log.debug("onFlowInitialized: " + toString());
 			}
@@ -63,7 +62,7 @@ public abstract class FilteredFlowListener<T extends Serializable> implements IF
 
 	@Override
 	public void onFlowFinished(IFlowCarter<T> flow) {
-		if(StateEvent.all.equals(event) || StateEvent.onStateLeaving.equals(event)) {
+		if(FlowEvent.all.equals(event) || FlowEvent.onFlowFinished.equals(event)) {
 			if(log.isDebugEnabled()) {
 				log.debug("onFlowFinished: " + toString());
 			}
