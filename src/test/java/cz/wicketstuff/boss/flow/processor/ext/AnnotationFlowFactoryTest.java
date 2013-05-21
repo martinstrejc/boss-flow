@@ -30,6 +30,7 @@ import org.junit.Test;
 import cz.wicketstuff.boss.flow.annotation.FlowConditionProcessor;
 import cz.wicketstuff.boss.flow.annotation.FlowEvents;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation;
+import cz.wicketstuff.boss.flow.annotation.FlowStateValidation.ValidationEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowEvents.FlowEvent;
@@ -42,6 +43,7 @@ import cz.wicketstuff.boss.flow.model.basic.FlowState;
 import cz.wicketstuff.boss.flow.model.basic.FlowTransition;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
+import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
 
 /**
@@ -283,7 +285,64 @@ public class AnnotationFlowFactoryTest {
 	
 	@Test
 	public void testGetStateValidationListenersObject() throws FlowAnnotationException {
-		fail("Not yet implemented"); // TODO
+		IFlowStateValidationListener<String> listener;
+		IFlowCarter<String> flowCarter = createFlowCarter();
+		listener = annotationFactory.getStateValidationListeners(new Serializable() {
+
+			private static final long serialVersionUID = 1L;
+		
+			@SuppressWarnings("unused")
+			public void notifier1(IFlowCarter<String> carter) {
+				notify1 = true;
+			}
+			
+		});
+		listener.onStateValid(flowCarter);
+		assertFalse("Listener is not annotated.", notify1);
+		clearResults();
+
+		listener = annotationFactory.getStateValidationListeners(new Serializable() {
+
+			private static final long serialVersionUID = 1L;
+		
+			@FlowStateValidation(event=ValidationEvent.valid)
+			public void notifier1(IFlowCarter<String> carter) {
+				notify1 = true;
+			}
+
+			@FlowStateValidation(event=ValidationEvent.invalid)
+			public void notifier2(IFlowCarter<String> carter) {
+				notify2 = true;
+			}
+			
+		});
+		listener.onStateValid(flowCarter);
+		assertTrue("Expected onStateValid.", notify1);
+		assertFalse("UNExpected onStateLeaving.", notify2);
+		clearResults();
+		listener.onStateInvalid(flowCarter);
+		assertFalse("UNExpected onStateValid.", notify1);
+		assertTrue("Expected onStateInvalid.", notify2);
+		clearResults();
+
+		listener = annotationFactory.getStateValidationListeners(new Serializable() {
+
+			private static final long serialVersionUID = 1L;
+		
+			@FlowStateValidation(event=ValidationEvent.all)
+			public void notifier1(IFlowCarter<String> carter) {
+				notify1 = true;
+			}
+
+		});
+		listener.onStateValid(flowCarter);
+		assertTrue("Expected onStateValid.", notify1);
+		assertTrue("Expected onStateInvalid.", notify2);
+		clearResults();
+		listener.onStateInvalid(flowCarter);
+		assertTrue("Expected onStateValid.", notify1);
+		assertTrue("Expected onStateInvalid.", notify2);
+
 	}
 
 	@Test(expected=FlowAnnotationException.class)
