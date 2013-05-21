@@ -16,26 +16,26 @@
  */
 package cz.wicketstuff.boss.flow.processor.ext;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.beans.Transient;
 import java.io.Serializable;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cz.wicketstuff.boss.flow.annotation.FlowConditionProcessor;
 import cz.wicketstuff.boss.flow.annotation.FlowEvents;
+import cz.wicketstuff.boss.flow.annotation.FlowEvents.FlowEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowStateEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowStateEvent.StateEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation.ValidationEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
-import cz.wicketstuff.boss.flow.annotation.FlowEvents.FlowEvent;
-import cz.wicketstuff.boss.flow.annotation.FlowStateEvent;
-import cz.wicketstuff.boss.flow.annotation.FlowStateEvent.StateEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent.TransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.basic.FlowCarter;
@@ -45,6 +45,9 @@ import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
+import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
+import cz.wicketstuff.boss.flow.processor.condition.IFlowConditionProcessor;
+import cz.wicketstuff.boss.flow.processor.condition.IFlowSwitchProcessor;
 
 /**
  * @author Martin Strejc
@@ -54,17 +57,8 @@ public class AnnotationFlowFactoryTest {
 
 	private AnnotationFlowFactory<String> annotationFactory = new AnnotationFlowFactory<>();
 	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-	
 	private boolean notify1;
 	private boolean notify2;
-	private boolean notify3;
 	
 
 	@Before
@@ -253,7 +247,7 @@ public class AnnotationFlowFactoryTest {
 
 			private static final long serialVersionUID = 1L;
 		
-			@FlowEvents(event=FlowEvent.all)
+			@FlowStateEvent(event=StateEvent.all)
 			public void notifier1(IFlowCarter<String> carter) {
 				notify1 = true;
 			}
@@ -441,15 +435,46 @@ public class AnnotationFlowFactoryTest {
 			private static final long serialVersionUID = 1L;
 		
 			@FlowConditionProcessor
-			public void notifier1() {
+			public void condition1() {
 				notify1 = true;
 			}
 			
 		});
 	}
 
-	public void testGetFlowConditionProcessorsObject() throws FlowAnnotationException {
-		fail("Not yet implemented"); // TODO
+	public void testGetFlowConditionProcessorsObject1() throws FlowAnnotationException, CannotProcessConditionException {
+		IFlowConditionProcessor<String> processor;
+		IFlowCarter<String> flowCarter = createFlowCarter();
+		notify1 = true;
+		processor = annotationFactory.getFlowConditionProcessors(new Serializable() {
+
+			private static final long serialVersionUID = 1L;
+		
+			@FlowConditionProcessor
+			public boolean condition1(String conditionExpression, IFlowCarter<String> carter) {
+				return notify1;
+			}
+			
+		});
+		assertTrue(processor.ifCondition("expression1", flowCarter));
+	}
+
+	@Test(expected=CannotProcessConditionException.class)
+	public void testGetFlowConditionProcessorsObject2() throws FlowAnnotationException, CannotProcessConditionException {
+		IFlowConditionProcessor<String> processor;
+		IFlowCarter<String> flowCarter = createFlowCarter();
+		notify1 = true;
+		processor = annotationFactory.getFlowConditionProcessors(new Serializable() {
+
+			private static final long serialVersionUID = 1L;
+		
+			@FlowConditionProcessor(conditionExpressionRegex="expression1")
+			public boolean condition1(String conditionExpression, IFlowCarter<String> carter) {
+				return notify1;
+			}
+			
+		});
+		assertTrue(processor.ifCondition("expression2", flowCarter));
 	}
 
 	@Test(expected=FlowAnnotationException.class)
@@ -468,37 +493,21 @@ public class AnnotationFlowFactoryTest {
 
 	@Test
 	public void testGetFlowSwitchProcessorsObject() throws FlowAnnotationException {
-		fail("Not yet implemented"); // TODO
+		IFlowSwitchProcessor<String> processor;
+		IFlowCarter<String> flowCarter = createFlowCarter();
+		notify1 = true;
+		processor = annotationFactory.getFlowSwitchProcessors(new Serializable() {
+
+			private static final long serialVersionUID = 1L;
+		
+			@FlowSwitchProcessorExpression(switchExpressionRegex="expression1")
+			public String expression1(String conditionExpression, IFlowCarter<String> carter) {
+				return "RESULT";
+			}
+
+		});
+		assertEquals("RESULT", processor.resolveSwitchExpression(flowCarter, "expression1"));
+		assertNotEquals("XX", processor.resolveSwitchExpression(flowCarter, "expression2"));
 	}
 	
-//	@Test
-//	public void testFindMethodCandidates() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	@Test
-//	public void testFindMethodConditionCandidates() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	@Test
-//	public void testFindMethodSwitchCandidates() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	@Test
-//	public void testCheckFlowMethod() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	@Test
-//	public void testCheckConditionMethod() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	@Test
-//	public void testCheckSwitchMethod() {
-//		fail("Not yet implemented"); // TODO
-//	}
-
 }
