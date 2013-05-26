@@ -63,6 +63,16 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @return flow name 
 	 */
 	public String getFlowName();
+
+	/**
+	 * Initialize a new flow in a default initial state. 
+	 * Exception is thrown when none initial state exists. 
+	 * 
+	 * @param flowProcessId
+	 * @return
+	 * @throws FlowException
+	 */
+	public IFlowCarter<T> initFlow(Long flowProcessId) throws FlowException;
 	
 	/**
 	 * Initialize a new flow in a default initial state. 
