@@ -1,5 +1,6 @@
 package cz.wicketstuff.boss.flow.processor.ext;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
@@ -55,8 +56,13 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 	public IFlowProcessor<T> initializeProcessor() throws FlowException {
 		onInitializeProcessor();
 		IFlowBuilder flowBuilder = defaultFlowBuilder();
-		flowTree = flowBuilder.buildFlowTree(
-				getFlowInputStream(), getFlowId(), getFlowName());
+		try {
+			flowTree = flowBuilder.buildFlowTree(
+					getFlowInputStream(), getFlowId(), getFlowName());
+		} catch (IOException e) {
+			log.error("Cannot parse flow because of wrong input and XML Exception", e);
+			throw new FlowException("Cannot parse flow because of wrong input and XML Exception", e);
+		}
 		setCarterFactory(defaultCarterFactory());
 		setStateProcessor(defaultFlowStateProcessor(flowTree));
 		setStateResolver(defaultFlowStateResolver(flowTree));
@@ -218,7 +224,7 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		this.flowTree = flowTree;
 	}
 
-	public InputStream getFlowInputStream() {
+	public InputStream getFlowInputStream() throws IOException {
 		return flowInputStream;
 	}
 
