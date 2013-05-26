@@ -62,7 +62,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	private IFlowTransitionChangeListener<T> transitionChangeListener;
 	private IFlowStateValidationListener<T> stateValidationListener;
 	
-	private IFlowStateResolver stateResolver;
+	private IFlowStateResolver<T> stateResolver;
 	
 	private IFlowTransitionResolver<T> transitionResolver;
 	
@@ -189,6 +189,11 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
+	public String resolveCurrentViewName(IFlowCarter<T> flowCarter) {
+		return stateResolver.resolveCurrentViewName(flowCarter);
+	}
+
+	@Override
 	public IFlowTransition resolveTransition(IFlowCarter<T> flow, String transitionName)
 			throws NoSuchTransitionException {
 		return transitionResolver.resolveTransition(flow, transitionName);
@@ -272,11 +277,11 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		this.carterFactory = carterFactory;
 	}
 
-	public IFlowStateResolver getStateResolver() {
+	public IFlowStateResolver<T> getStateResolver() {
 		return stateResolver;
 	}
 
-	public void setStateResolver(IFlowStateResolver stateResolver) {
+	public void setStateResolver(IFlowStateResolver<T> stateResolver) {
 		this.stateResolver = stateResolver;
 	}
 
@@ -387,5 +392,6 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 			throws FlowException {
 		flow.forceSetFlowState(flowState);
 	}
+
 
 }

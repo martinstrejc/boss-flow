@@ -16,6 +16,9 @@
  */
 package cz.wicketstuff.boss.flow.processor;
 
+import java.io.Serializable;
+
+import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 
 /**
@@ -24,7 +27,7 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
  * @author Martin Strejc
  *
  */
-public interface IFlowStateResolver {
+public interface IFlowStateResolver<T extends Serializable> {
 	
 	/**
 	 * Resolve the state by name.
@@ -34,5 +37,14 @@ public interface IFlowStateResolver {
 	 * @throws NoSuchStateException
 	 */
 	public IFlowState resolveState(String stateName) throws NoSuchStateException;
+	
+	/**
+	 * Resolve the view name of the current state or returns <code>null</code>
+	 * if current view is not possible to resolve.
+	 *  
+	 * @param flowCarter
+	 * @return
+	 */
+	public String resolveCurrentViewName(IFlowCarter<T> flowCarter);
 
 }

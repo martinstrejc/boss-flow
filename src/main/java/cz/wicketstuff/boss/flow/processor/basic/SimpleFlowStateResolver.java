@@ -18,12 +18,14 @@ package cz.wicketstuff.boss.flow.processor.basic;
 
 import java.io.Serializable;
 
+import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
+import cz.wicketstuff.boss.flow.model.IFlowViewState;
 import cz.wicketstuff.boss.flow.processor.IFlowStateResolver;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 
-public class SimpleFlowStateResolver implements IFlowStateResolver, Serializable {
+public class SimpleFlowStateResolver<T extends Serializable> implements IFlowStateResolver<T>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -48,6 +50,24 @@ public class SimpleFlowStateResolver implements IFlowStateResolver, Serializable
 		return s;
 	}
 
+	@Override
+	public String resolveCurrentViewName(IFlowCarter<T> flowCarter) {
+		IFlowState currentState = flowCarter.getCurrentState();
+		if(currentState instanceof IFlowViewState) {
+			IFlowViewState view = (IFlowViewState) currentState;
+			String viewName = view.getViewName();
+			if(viewName == null) {
+				viewName = view.getStateName();
+			}
+			if(viewName == null) {
+				viewName = view.getStateId().toString();
+			}
+			return viewName;
+		} else {
+			return null;
+		}
+	}
+
 	public IFlowTree getFlowTree() {
 		return flowTree;
 	}
@@ -61,6 +81,5 @@ public class SimpleFlowStateResolver implements IFlowStateResolver, Serializable
 		flowTree = null;
 		super.finalize();
 	}
-
 
 }
