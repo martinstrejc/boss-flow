@@ -46,7 +46,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 
 	@Override
 	public IFlowCarter<T> initFlow(Long flowProcessId) throws FlowException {
-		return initFlow(flowProcessId, null, getDefaultInitialState());
+		return initFlow(flowProcessId, null);
 	}
 
 	@Override
@@ -56,6 +56,9 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 
 	@Override
 	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException {
+		if(log.isTraceEnabled()) {
+			log.trace("Initializing flow");			
+		}
 		if(initialState == null) {
 			throw new FlowInitializationException("Cannot initialize flow with null initialState. Check if a defaultInitialState is defined.");
 		}
