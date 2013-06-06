@@ -186,8 +186,8 @@ public class DefaultFlowProcessor<T extends Serializable> extends
 		return new DefaultFlowStateProcessor<T>();
 	}
 
-	public IFlowStateResolver defaultFlowStateResolver(IFlowTree flowTree) {
-		return new SimpleFlowStateResolver(flowTree);
+	public IFlowStateResolver<T> defaultFlowStateResolver(IFlowTree flowTree) {
+		return new SimpleFlowStateResolver<T>(flowTree);
 	}
 
 	public IFlowTransitionResolver<T> defaultFlowTransitionResolver(
