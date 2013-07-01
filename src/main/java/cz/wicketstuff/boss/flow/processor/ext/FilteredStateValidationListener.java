@@ -17,6 +17,7 @@
 package cz.wicketstuff.boss.flow.processor.ext;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 
 	private ValidationEvent event;
 	
-	private String stateNameRegex;
+	private Pattern stateNamePattern;
 	
 	private Class<? extends IFlowState> type;
 
@@ -49,7 +50,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	public FilteredStateValidationListener(ValidationEvent event, String stateNameRegex,
 			Class<? extends IFlowState> type, int priority) {
 		this.event = event;
-		this.stateNameRegex = stateNameRegex;
+		this.stateNamePattern = Pattern.compile(stateNameRegex);
 		this.type = type;
 		this.priority = priority;
 	}
@@ -87,7 +88,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	}
 	
 	public boolean matchStateName(String stateName) {
-		return this.stateNameRegex == null || (stateName.matches(this.stateNameRegex));
+		return this.stateNamePattern == null || stateNamePattern.matcher(stateName).matches();
 	}
 
 	public boolean matchStateType(IFlowState implementingObject) {
@@ -103,11 +104,11 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	}
 
 	public String getStateNameRegex() {
-		return stateNameRegex;
+		return stateNamePattern.toString();
 	}
 
 	public void setStateNameRegex(String stateNameRegex) {
-		this.stateNameRegex = stateNameRegex;
+		this.stateNamePattern = Pattern.compile(stateNameRegex);
 	}
 
 	public Class<? extends IFlowState> getType() {
@@ -125,7 +126,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	@Override
 	protected void finalize() throws Throwable {
 		event = null;
-		stateNameRegex = null;
+		stateNamePattern = null;
 		type = null;
 		super.finalize();
 	}
@@ -150,8 +151,8 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 		sb.append(super.toString());
 		sb.append(": event=");
 		sb.append(event);
-		sb.append(", stateNameRegex=");
-		sb.append(stateNameRegex);
+		sb.append(", stateNamePattern=");
+		sb.append(stateNamePattern.toString());
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", priority=");

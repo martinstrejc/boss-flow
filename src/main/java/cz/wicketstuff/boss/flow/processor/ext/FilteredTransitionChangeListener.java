@@ -17,6 +17,7 @@
 package cz.wicketstuff.boss.flow.processor.ext;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 
 	private TransitionEvent event;
 	
-	private String transitionNameRegex;
+	private Pattern transitionNamePattern;
 
 	private int priority;
 
@@ -46,7 +47,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	
 	public FilteredTransitionChangeListener(TransitionEvent event, String transitionNameRegex, int priority) {
 		this.event = event;
-		this.transitionNameRegex = transitionNameRegex;
+		this.transitionNamePattern = Pattern.compile(transitionNameRegex);
 		this.priority = priority;
 	}
 
@@ -79,7 +80,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	}
 
 	public boolean matchTransition(IFlowTransition transition) {
-		return this.transitionNameRegex == null || transition.getTransitionName().matches(this.transitionNameRegex);
+		return this.transitionNamePattern == null || transitionNamePattern.matcher(transition.getTransitionName()).matches();
 	}
 
 	public TransitionEvent getEvent() {
@@ -93,11 +94,11 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 
 
 	public String getTransitionNameRegex() {
-		return transitionNameRegex;
+		return transitionNamePattern.toString();
 	}
 
 	public void setTransitionNameRegex(String transitionNameRegex) {
-		this.transitionNameRegex = transitionNameRegex;
+		this.transitionNamePattern = Pattern.compile(transitionNameRegex);
 	}
 
 	abstract protected void onTransitionStartFiltered(IFlowCarter<T> flow);
@@ -107,7 +108,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	@Override
 	protected void finalize() throws Throwable {
 		event = null;
-		transitionNameRegex = null;
+		transitionNamePattern = null;
 		super.finalize();
 	}
 
@@ -131,8 +132,8 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 		sb.append(super.toString());
 		sb.append(": event=");
 		sb.append(event);
-		sb.append(", transitionNameRegex=");
-		sb.append(transitionNameRegex);
+		sb.append(", transitionNamePattern=");
+		sb.append(transitionNamePattern.toString());
 		sb.append(", priority=");
 		sb.append(priority);
 		return sb.toString();

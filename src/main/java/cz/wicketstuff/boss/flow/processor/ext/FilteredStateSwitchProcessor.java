@@ -17,6 +17,7 @@
 package cz.wicketstuff.boss.flow.processor.ext;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,9 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 
 	private static final Logger log = LoggerFactory.getLogger(FilteredStateSwitchProcessor.class);
 
-	private String switchExpressionRegex;
+	private Pattern switchExpressionPattern;
 	
-	private String stateNameRegex;
+	private Pattern stateNamePattern;
 	
 	private Class<? extends IFlowState> type;
 
@@ -43,8 +44,8 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	
 	public FilteredStateSwitchProcessor(String switchExpressionRegex,
 			String stateNameRegex, Class<? extends IFlowState> type) {
-		this.switchExpressionRegex = switchExpressionRegex;
-		this.stateNameRegex = stateNameRegex;
+		this.switchExpressionPattern = Pattern.compile(switchExpressionRegex);
+		this.stateNamePattern = Pattern.compile(stateNameRegex);
 		this.type = type;
 	}
 
@@ -64,11 +65,11 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	}
 
 	public boolean matchExpressionName(String switchExpression) {
-		return this.switchExpressionRegex == null || switchExpression.matches(this.switchExpressionRegex);
+		return this.switchExpressionPattern == null || switchExpressionPattern.matcher(switchExpression).matches();
 	}
 
 	public boolean matchStateName(String stateName) {
-		return this.stateNameRegex == null || stateName.matches(this.stateNameRegex);
+		return this.stateNamePattern == null || stateNamePattern.matcher(stateName).matches();
 	}
 
 	
@@ -77,19 +78,19 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	}
 
 	public String getSwitchExpressionRegex() {
-		return switchExpressionRegex;
+		return switchExpressionPattern.toString();
 	}
 
 	public void setSwitchExpressionRegex(String switchExpressionRegex) {
-		this.switchExpressionRegex = switchExpressionRegex;
+		this.switchExpressionPattern = Pattern.compile(switchExpressionRegex);
 	}
 
 	public String getStateNameRegex() {
-		return stateNameRegex;
+		return stateNamePattern.toString();
 	}
 
 	public void setStateNameRegex(String stateNameRegex) {
-		this.stateNameRegex = stateNameRegex;
+		this.stateNamePattern = Pattern.compile(stateNameRegex);
 	}
 
 	public Class<? extends IFlowState> getType() {
@@ -102,8 +103,8 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 
 	@Override
 	protected void finalize() throws Throwable {
-		stateNameRegex = null;
-		switchExpressionRegex = null;
+		stateNamePattern = null;
+		switchExpressionPattern = null;
 		type = null;
 		super.finalize();
 	}
@@ -112,10 +113,10 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append(": switchExpressionRegex=");
-		sb.append(switchExpressionRegex);
-		sb.append(", stateNameRegex=");
-		sb.append(stateNameRegex);
+		sb.append(": switchExpressionPattern=");
+		sb.append(switchExpressionPattern);
+		sb.append(", stateNamePattern=");
+		sb.append(stateNamePattern.toString());
 		sb.append(", type=");
 		sb.append(type);
 		return sb.toString();

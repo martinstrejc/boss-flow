@@ -17,6 +17,7 @@
 package cz.wicketstuff.boss.flow.processor.ext;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,9 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 
 	private static final Logger log = LoggerFactory.getLogger(FilteredStateConditionProcessor.class);
 
-	private String conditionExpressionRegex;
+	private Pattern conditionExpressionPattern;
 	
-	private String stateNameRegex;
+	private Pattern stateNamePattern;
 	
 	private Class<? extends IFlowState> type;
 
@@ -43,8 +44,8 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	
 	public FilteredStateConditionProcessor(String conditionExpressionRegex,
 			String stateNameRegex, Class<? extends IFlowState> type) {
-		this.conditionExpressionRegex = conditionExpressionRegex;
-		this.stateNameRegex = stateNameRegex;
+		this.conditionExpressionPattern = Pattern.compile(conditionExpressionRegex);
+		this.stateNamePattern = Pattern.compile(stateNameRegex);
 		this.type = type;
 	}
 
@@ -64,11 +65,11 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	}
 
 	public boolean matchExpressionName(String conditionExpression) {
-		return this.conditionExpressionRegex == null || conditionExpression.matches(this.conditionExpressionRegex);
+		return this.conditionExpressionPattern == null || conditionExpressionPattern.matcher(conditionExpression).matches();
 	}
 
 	public boolean matchStateName(String stateName) {
-		return this.stateNameRegex == null || stateName.matches(this.stateNameRegex);
+		return this.stateNamePattern == null || stateNamePattern.matcher(stateName).matches();
 	}
 
 	
@@ -85,25 +86,25 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	}
 
 	public String getConditionExpressionRegex() {
-		return conditionExpressionRegex;
+		return conditionExpressionPattern.toString();
 	}
 
 	public void setConditionExpressionRegex(String conditionExpressionRegex) {
-		this.conditionExpressionRegex = conditionExpressionRegex;
+		this.conditionExpressionPattern = Pattern.compile(conditionExpressionRegex);
 	}
 
 	public String getStateNameRegex() {
-		return stateNameRegex;
+		return stateNamePattern.toString();
 	}
 
 	public void setStateNameRegex(String stateNameRegex) {
-		this.stateNameRegex = stateNameRegex;
+		this.stateNamePattern = Pattern.compile(stateNameRegex);
 	}
 
 	@Override
 	protected void finalize() throws Throwable {
-		conditionExpressionRegex = null;
-		stateNameRegex = null;
+		conditionExpressionPattern = null;
+		stateNamePattern = null;
 		type = null;
 		super.finalize();
 	}
@@ -112,10 +113,10 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append(": conditionExpressionRegex=");
-		sb.append(conditionExpressionRegex);
-		sb.append(", stateNameRegex=");
-		sb.append(stateNameRegex);
+		sb.append(": conditionExpressionPattern=");
+		sb.append(conditionExpressionPattern);
+		sb.append(", stateNamePattern=");
+		sb.append(stateNamePattern);
 		sb.append(", type=");
 		sb.append(type);
 		return sb.toString();
