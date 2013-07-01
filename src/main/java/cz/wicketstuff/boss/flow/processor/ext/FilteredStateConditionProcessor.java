@@ -44,8 +44,13 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	
 	public FilteredStateConditionProcessor(String conditionExpressionRegex,
 			String stateNameRegex, Class<? extends IFlowState> type) {
-		this.conditionExpressionPattern = Pattern.compile(conditionExpressionRegex);
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this(Pattern.compile(conditionExpressionRegex), Pattern.compile(stateNameRegex), type);
+	}
+
+	public FilteredStateConditionProcessor(Pattern conditionExpressionPattern,
+			Pattern stateNamePattern, Class<? extends IFlowState> type) {
+		this.conditionExpressionPattern = conditionExpressionPattern;
+		this.stateNamePattern = stateNamePattern;
 		this.type = type;
 	}
 
@@ -100,6 +105,38 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	public void setStateNameRegex(String stateNameRegex) {
 		this.stateNamePattern = Pattern.compile(stateNameRegex);
 	}
+
+	/**
+	 * @return the conditionExpressionPattern
+	 */
+	public Pattern getConditionExpressionPattern() {
+		return conditionExpressionPattern;
+	}
+
+
+	/**
+	 * @param conditionExpressionPattern the conditionExpressionPattern to set
+	 */
+	public void setConditionExpressionPattern(Pattern conditionExpressionPattern) {
+		this.conditionExpressionPattern = conditionExpressionPattern;
+	}
+
+
+	/**
+	 * @return the stateNamePattern
+	 */
+	public Pattern getStateNamePattern() {
+		return stateNamePattern;
+	}
+
+
+	/**
+	 * @param stateNamePattern the stateNamePattern to set
+	 */
+	public void setStateNamePattern(Pattern stateNamePattern) {
+		this.stateNamePattern = stateNamePattern;
+	}
+
 
 	@Override
 	protected void finalize() throws Throwable {

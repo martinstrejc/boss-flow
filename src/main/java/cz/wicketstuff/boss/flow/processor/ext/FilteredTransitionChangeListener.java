@@ -46,11 +46,14 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 
 	
 	public FilteredTransitionChangeListener(TransitionEvent event, String transitionNameRegex, int priority) {
-		this.event = event;
-		this.transitionNamePattern = Pattern.compile(transitionNameRegex);
-		this.priority = priority;
+		this(event, Pattern.compile(transitionNameRegex), priority);
 	}
 
+	public FilteredTransitionChangeListener(TransitionEvent event, Pattern transitionNamePattern, int priority) {
+		this.event = event;
+		this.transitionNamePattern = transitionNamePattern;
+		this.priority = priority;
+	}
 
 	@Override
 	public void onTransitionStart(IFlowCarter<T> flow) {
@@ -126,6 +129,22 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 		this.priority = priority;
 	}
 	
+	/**
+	 * @return the transitionNamePattern
+	 */
+	public Pattern getTransitionNamePattern() {
+		return transitionNamePattern;
+	}
+
+
+	/**
+	 * @param transitionNamePattern the transitionNamePattern to set
+	 */
+	public void setTransitionNamePattern(Pattern transitionNamePattern) {
+		this.transitionNamePattern = transitionNamePattern;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

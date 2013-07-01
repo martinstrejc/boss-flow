@@ -49,12 +49,16 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	
 	public FilteredStateChangeListener(StateEvent event, String stateNameRegex,
 			Class<? extends IFlowState> type, int priority) {
+		this(event, Pattern.compile(stateNameRegex), type, priority);
+	}
+
+	public FilteredStateChangeListener(StateEvent event, Pattern stateNamePattern,
+			Class<? extends IFlowState> type, int priority) {
 		this.event = event;
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this.stateNamePattern = stateNamePattern;
 		this.type = type;
 		this.priority = priority;
 	}
-
 
 	@Override
 	public void onStateEntry(IFlowCarter<T> flow) {
@@ -117,6 +121,22 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	public void setType(Class<? extends IFlowState> type) {
 		this.type = type;
 	}
+
+	/**
+	 * @return the stateNamePattern
+	 */
+	public Pattern getStateNamePattern() {
+		return stateNamePattern;
+	}
+
+
+	/**
+	 * @param stateNamePattern the stateNamePattern to set
+	 */
+	public void setStateNamePattern(Pattern stateNamePattern) {
+		this.stateNamePattern = stateNamePattern;
+	}
+
 
 	abstract protected void onStateEntryFiltered(IFlowCarter<T> flow);
 

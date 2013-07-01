@@ -44,8 +44,13 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	
 	public FilteredStateSwitchProcessor(String switchExpressionRegex,
 			String stateNameRegex, Class<? extends IFlowState> type) {
-		this.switchExpressionPattern = Pattern.compile(switchExpressionRegex);
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this(Pattern.compile(switchExpressionRegex), Pattern.compile(stateNameRegex), type);
+	}
+
+	public FilteredStateSwitchProcessor(Pattern switchExpressionPattern,
+			Pattern stateNamePattern, Class<? extends IFlowState> type) {
+		this.switchExpressionPattern = switchExpressionPattern;
+		this.stateNamePattern = stateNamePattern;
 		this.type = type;
 	}
 
@@ -100,6 +105,38 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	public void setType(Class<? extends IFlowState> type) {
 		this.type = type;
 	}
+
+	/**
+	 * @return the switchExpressionPattern
+	 */
+	public Pattern getSwitchExpressionPattern() {
+		return switchExpressionPattern;
+	}
+
+
+	/**
+	 * @param switchExpressionPattern the switchExpressionPattern to set
+	 */
+	public void setSwitchExpressionPattern(Pattern switchExpressionPattern) {
+		this.switchExpressionPattern = switchExpressionPattern;
+	}
+
+
+	/**
+	 * @return the stateNamePattern
+	 */
+	public Pattern getStateNamePattern() {
+		return stateNamePattern;
+	}
+
+
+	/**
+	 * @param stateNamePattern the stateNamePattern to set
+	 */
+	public void setStateNamePattern(Pattern stateNamePattern) {
+		this.stateNamePattern = stateNamePattern;
+	}
+
 
 	@Override
 	protected void finalize() throws Throwable {

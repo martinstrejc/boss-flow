@@ -49,8 +49,13 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	
 	public FilteredStateValidationListener(ValidationEvent event, String stateNameRegex,
 			Class<? extends IFlowState> type, int priority) {
+		this(event, Pattern.compile(stateNameRegex), type, priority);
+	}
+
+	public FilteredStateValidationListener(ValidationEvent event, Pattern stateNamePattern,
+			Class<? extends IFlowState> type, int priority) {
 		this.event = event;
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this.stateNamePattern = stateNamePattern;
 		this.type = type;
 		this.priority = priority;
 	}
@@ -144,6 +149,22 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+
+	/**
+	 * @return the stateNamePattern
+	 */
+	public Pattern getStateNamePattern() {
+		return stateNamePattern;
+	}
+
+
+	/**
+	 * @param stateNamePattern the stateNamePattern to set
+	 */
+	public void setStateNamePattern(Pattern stateNamePattern) {
+		this.stateNamePattern = stateNamePattern;
+	}
+
 
 	@Override
 	public String toString() {
