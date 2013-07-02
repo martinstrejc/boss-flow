@@ -15,6 +15,7 @@
 	</realState>
 	
 	<realState name="S1realState" order="10">
+		<category>Cat1</category>
 		<transition refName="t12" defaultNext="true" />
 		<transition refName="t15" />
 	</realState>
@@ -26,6 +27,8 @@
 	</conditionState>
 	
 	<viewState name="S3viewState" order="20">
+		<category>Cat2</category>
+		<category>View</category>
 		<transition refName="t38" defaultPrevious="true" />
 	</viewState>
 	
