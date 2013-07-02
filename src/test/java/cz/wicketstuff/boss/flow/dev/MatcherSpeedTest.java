@@ -45,8 +45,8 @@ public class MatcherSpeedTest {
 	private static final long REPEATS = 1000;
 
 	
-	private static boolean USE_LOG_TEXTS = false;
-//	private static boolean USE_LOG_TEXTS = true;
+//	private static boolean USE_LONG_TEXTS = false;
+	private static boolean USE_LONG_TEXTS = true;
 	
 	
 	@Rule 
@@ -60,7 +60,7 @@ public class MatcherSpeedTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		log.trace("USE_LOG_TEXTS = {}", USE_LOG_TEXTS);
+		log.trace("USE_LONG_TEXTS = {}", USE_LONG_TEXTS);
 		log.trace("REPEATS = {}", REPEATS);
 		
 		regexStrings = new ArrayList<>(1000);
@@ -89,7 +89,7 @@ public class MatcherSpeedTest {
 		comparedStrings.add("<invalid<tag>");
 		comparedStrings.add("<a href=\"anywehere\">");
 		comparedStrings.add("2013/07/23");
-		if(USE_LOG_TEXTS) {
+		if(USE_LONG_TEXTS) {
 			comparedStrings.add("CorrectPassword#1234");
 			comparedStrings.add("Exmaple text: Regular expression is an art of the programing, " +
 					"it’s hard to debug , learn and understand, " +
