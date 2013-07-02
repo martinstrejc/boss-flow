@@ -112,7 +112,11 @@ public class AnnotationFlowFactory<T extends Serializable> {
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowStateEvent method '" + method.getName() + "' of bean '" + bean + "'");
 			}
-			listeners.add(new FilteredStateChangeListener<T>(eventAnnotation.event(), "".equals(eventAnnotation.stateNameRegex()) ? null : eventAnnotation.stateNameRegex(), eventAnnotation.type(), eventAnnotation.priority()) {
+			listeners.add(new FilteredStateChangeListener<T>(eventAnnotation.event(),
+					emptyStringConversion(eventAnnotation.stateNameRegex()),
+					emptyStringConversion(eventAnnotation.categoryNameRegex()),
+					eventAnnotation.type(), 
+					eventAnnotation.priority()) {
 
 				private static final long serialVersionUID = 1L;
 
@@ -159,7 +163,11 @@ public class AnnotationFlowFactory<T extends Serializable> {
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowStateValidation method '" + method.getName() + "' of bean '" + bean + "'");
 			}
-			listeners.add(new FilteredStateValidationListener<T>(eventAnnotation.event(), "".equals(eventAnnotation.stateNameRegex()) ? null : eventAnnotation.stateNameRegex(), eventAnnotation.type(), eventAnnotation.priority()) {
+			listeners.add(new FilteredStateValidationListener<T>(eventAnnotation.event(), 
+					emptyStringConversion(eventAnnotation.stateNameRegex()),
+					emptyStringConversion(eventAnnotation.categoryNameRegex()),
+					eventAnnotation.type(), 
+					eventAnnotation.priority()) {
 
 				private static final long serialVersionUID = 1L;
 
@@ -205,7 +213,10 @@ public class AnnotationFlowFactory<T extends Serializable> {
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowTransitionEvent change listener method '" + method.getName() + "' of bean '" + bean + "'");
 			}
-			listeners.add(new FilteredTransitionChangeListener<T>(eventAnnotation.event(), "".equals(eventAnnotation.transitionNameRegex()) ? null : eventAnnotation.transitionNameRegex(), eventAnnotation.priority()) {
+			listeners.add(new FilteredTransitionChangeListener<T>(eventAnnotation.event(), 
+					emptyStringConversion(eventAnnotation.transitionNameRegex()), 
+					emptyStringConversion(eventAnnotation.categoryNameRegex()),
+					eventAnnotation.priority()) {
 
 				private static final long serialVersionUID = 1L;
 
@@ -254,8 +265,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 			}
 			processorCollection.add(
 					new FilteredStateConditionProcessor<T>(
-							"".equals(conditionAnnotation.conditionExpressionRegex()) ? null : conditionAnnotation.conditionExpressionRegex(),
-							"".equals(conditionAnnotation.stateNameRegex()) ? null : conditionAnnotation.stateNameRegex(), 
+							emptyStringConversion(conditionAnnotation.conditionExpressionRegex()),
+							emptyStringConversion(conditionAnnotation.stateNameRegex()),
+							emptyStringConversion(conditionAnnotation.categoryNameRegex()),
 							conditionAnnotation.type()) {
 
 						private static final long serialVersionUID = 1L;
@@ -293,8 +305,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 			}
 			processorCollection.add(
 					new FilteredStateSwitchProcessor<T>(
-							"".equals(conditionAnnotation.switchExpressionRegex()) ? null : conditionAnnotation.switchExpressionRegex(),
-							"".equals(conditionAnnotation.stateNameRegex()) ? null : conditionAnnotation.stateNameRegex(), 
+							emptyStringConversion(conditionAnnotation.switchExpressionRegex()),
+							emptyStringConversion(conditionAnnotation.stateNameRegex()), 
+							emptyStringConversion(conditionAnnotation.categoryNameRegex()), 
 							conditionAnnotation.type()) {
 
 						private static final long serialVersionUID = 1L;
@@ -427,6 +440,10 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		if(!Modifier.isPublic(method.getModifiers())) {
 			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' is not public!");					
 		}
+	}
+	
+	protected String emptyStringConversion(String object) {
+		return "".equals(object) ? null : object;
 	}
 
 

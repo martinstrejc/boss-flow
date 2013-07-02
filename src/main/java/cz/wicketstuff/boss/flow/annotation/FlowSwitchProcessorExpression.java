@@ -63,6 +63,14 @@ public @interface FlowSwitchProcessorExpression {
 	 * @return regular expression state name filter
 	 */
 	String stateNameRegex() default "";
+
+	/**
+	 * The java regular expression the state category name must match.
+	 * The "" value means any category name
+	 * 
+	 * @return regular expression to match condition name
+	 */
+	String categoryNameRegex() default "";
 	
 	/**
 	 * The class that a state has to implement

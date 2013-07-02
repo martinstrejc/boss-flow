@@ -38,20 +38,27 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	private TransitionEvent event;
 	
 	private Pattern transitionNamePattern;
-
+	
+	private Pattern categoryNamePattern;
+	
 	private int priority;
 
 	public FilteredTransitionChangeListener() {
 	}
 
 	
-	public FilteredTransitionChangeListener(TransitionEvent event, String transitionNameRegex, int priority) {
-		this(event, Pattern.compile(transitionNameRegex), priority);
+	public FilteredTransitionChangeListener(TransitionEvent event, String transitionNameRegex, 
+			String categoryNameRegex, 
+			int priority) {
+		this(event, Pattern.compile(transitionNameRegex), Pattern.compile(categoryNameRegex), 
+				priority);
 	}
 
-	public FilteredTransitionChangeListener(TransitionEvent event, Pattern transitionNamePattern, int priority) {
+	public FilteredTransitionChangeListener(TransitionEvent event, Pattern transitionNamePattern, 
+			Pattern categoryNamePattern, int priority) {
 		this.event = event;
 		this.transitionNamePattern = transitionNamePattern;
+		this.categoryNamePattern = categoryNamePattern;
 		this.priority = priority;
 	}
 
@@ -112,6 +119,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	protected void finalize() throws Throwable {
 		event = null;
 		transitionNamePattern = null;
+		categoryNamePattern = null;
 		super.finalize();
 	}
 
@@ -153,6 +161,8 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 		sb.append(event);
 		sb.append(", transitionNamePattern=");
 		sb.append(transitionNamePattern.toString());
+		sb.append(", categoryNamePattern=");
+		sb.append(categoryNamePattern.toString());
 		sb.append(", priority=");
 		sb.append(priority);
 		return sb.toString();

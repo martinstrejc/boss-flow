@@ -36,6 +36,8 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	
 	private Pattern stateNamePattern;
 	
+	private Pattern categoryNamePattern;
+	
 	private Class<? extends IFlowState> type;
 
 	public FilteredStateConditionProcessor() {
@@ -43,13 +45,18 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 
 	
 	public FilteredStateConditionProcessor(String conditionExpressionRegex,
-			String stateNameRegex, Class<? extends IFlowState> type) {
-		this(Pattern.compile(conditionExpressionRegex), Pattern.compile(stateNameRegex), type);
+			String stateNameRegex, 
+			String categoryNameRegex, 
+			Class<? extends IFlowState> type) {
+		this(Pattern.compile(conditionExpressionRegex), Pattern.compile(stateNameRegex), 
+				Pattern.compile(categoryNameRegex), type);
 	}
 
 	public FilteredStateConditionProcessor(Pattern conditionExpressionPattern,
-			Pattern stateNamePattern, Class<? extends IFlowState> type) {
+			Pattern stateNamePattern, Pattern categoryNamePattern, 
+			Class<? extends IFlowState> type) {
 		this.conditionExpressionPattern = conditionExpressionPattern;
+		this.categoryNamePattern = categoryNamePattern;
 		this.stateNamePattern = stateNamePattern;
 		this.type = type;
 	}
@@ -141,6 +148,7 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	@Override
 	protected void finalize() throws Throwable {
 		conditionExpressionPattern = null;
+		categoryNamePattern = null;
 		stateNamePattern = null;
 		type = null;
 		super.finalize();
@@ -154,6 +162,8 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 		sb.append(conditionExpressionPattern);
 		sb.append(", stateNamePattern=");
 		sb.append(stateNamePattern);
+		sb.append(", categoryNamePattern=");
+		sb.append(categoryNamePattern.toString());
 		sb.append(", type=");
 		sb.append(type);
 		return sb.toString();

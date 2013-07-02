@@ -80,6 +80,14 @@ public @interface FlowTransitionEvent {
 	 * @return regular expression transition name filter
 	 */
 	String transitionNameRegex() default "";
+
+	/**
+	 * The java regular expression the state category name must match.
+	 * The "" value means any category name
+	 * 
+	 * @return regular expression to match condition name
+	 */
+	String categoryNameRegex() default "";
 	
 	/**
 	 * The priority that this listener has.

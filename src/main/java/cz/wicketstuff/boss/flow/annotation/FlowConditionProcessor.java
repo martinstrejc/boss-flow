@@ -60,11 +60,21 @@ public @interface FlowConditionProcessor {
 	 * The java regular expression the state name must match.
 	 * The annotated method can be associated just with a set
 	 * of condition states.
-	 * The "" value means any state names
+	 * The "" value means any state name
 	 * 
 	 * @return regular expression to match state name
 	 */
 	String stateNameRegex() default "";
+	
+	/**
+	 * The java regular expression the state category name must match.
+	 * The annotated method can be associated just with a set
+	 * of condition states.
+	 * The "" value means any category name
+	 * 
+	 * @return regular expression to match condition name
+	 */
+	String categoryNameRegex() default "";
 	
 	/**
 	 * The class that a state has to implement

@@ -39,6 +39,8 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	
 	private Pattern stateNamePattern;
 	
+	private Pattern categoryNamePattern;
+	
 	private Class<? extends IFlowState> type;
 
 	private int priority;
@@ -48,14 +50,18 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 
 	
 	public FilteredStateValidationListener(ValidationEvent event, String stateNameRegex,
+			String categoryNameRegex, 
 			Class<? extends IFlowState> type, int priority) {
-		this(event, Pattern.compile(stateNameRegex), type, priority);
+		this(event, Pattern.compile(stateNameRegex), Pattern.compile(categoryNameRegex), 
+				type, priority);
 	}
 
 	public FilteredStateValidationListener(ValidationEvent event, Pattern stateNamePattern,
+			Pattern categoryNamePattern,
 			Class<? extends IFlowState> type, int priority) {
 		this.event = event;
 		this.stateNamePattern = stateNamePattern;
+		this.categoryNamePattern = categoryNamePattern;
 		this.type = type;
 		this.priority = priority;
 	}
@@ -132,6 +138,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	protected void finalize() throws Throwable {
 		event = null;
 		stateNamePattern = null;
+		categoryNamePattern = null;
 		type = null;
 		super.finalize();
 	}
@@ -174,6 +181,8 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 		sb.append(event);
 		sb.append(", stateNamePattern=");
 		sb.append(stateNamePattern.toString());
+		sb.append(", categoryNamePattern=");
+		sb.append(categoryNamePattern.toString());
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", priority=");

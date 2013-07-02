@@ -36,6 +36,8 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	
 	private Pattern stateNamePattern;
 	
+	private Pattern categoryNamePattern;
+	
 	private Class<? extends IFlowState> type;
 
 	public FilteredStateSwitchProcessor() {
@@ -43,13 +45,18 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 
 	
 	public FilteredStateSwitchProcessor(String switchExpressionRegex,
-			String stateNameRegex, Class<? extends IFlowState> type) {
-		this(Pattern.compile(switchExpressionRegex), Pattern.compile(stateNameRegex), type);
+			String stateNameRegex, 
+			String categoryNameRegex, 
+			Class<? extends IFlowState> type) {
+		this(Pattern.compile(switchExpressionRegex), Pattern.compile(stateNameRegex), 
+				Pattern.compile(categoryNameRegex), type);
 	}
 
 	public FilteredStateSwitchProcessor(Pattern switchExpressionPattern,
-			Pattern stateNamePattern, Class<? extends IFlowState> type) {
+			Pattern stateNamePattern, Pattern categoryNamePattern,
+			Class<? extends IFlowState> type) {
 		this.switchExpressionPattern = switchExpressionPattern;
+		this.categoryNamePattern = categoryNamePattern;
 		this.stateNamePattern = stateNamePattern;
 		this.type = type;
 	}
@@ -142,6 +149,7 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	protected void finalize() throws Throwable {
 		stateNamePattern = null;
 		switchExpressionPattern = null;
+		categoryNamePattern = null;
 		type = null;
 		super.finalize();
 	}
@@ -154,6 +162,8 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 		sb.append(switchExpressionPattern);
 		sb.append(", stateNamePattern=");
 		sb.append(stateNamePattern.toString());
+		sb.append(", categoryNamePattern=");
+		sb.append(categoryNamePattern.toString());
 		sb.append(", type=");
 		sb.append(type);
 		return sb.toString();

@@ -39,6 +39,8 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	
 	private Pattern stateNamePattern;
 	
+	private Pattern categoryNamePattern;
+	
 	private Class<? extends IFlowState> type;
 	
 	private int priority;
@@ -48,14 +50,17 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 
 	
 	public FilteredStateChangeListener(StateEvent event, String stateNameRegex,
-			Class<? extends IFlowState> type, int priority) {
-		this(event, Pattern.compile(stateNameRegex), type, priority);
+			String categoryNameRegex, 
+			Class<? extends IFlowState> type, 
+			int priority) {
+		this(event, Pattern.compile(stateNameRegex), Pattern.compile(categoryNameRegex), type, priority);
 	}
 
-	public FilteredStateChangeListener(StateEvent event, Pattern stateNamePattern,
+	public FilteredStateChangeListener(StateEvent event, Pattern stateNamePattern, Pattern categoryNamePattern,
 			Class<? extends IFlowState> type, int priority) {
 		this.event = event;
 		this.stateNamePattern = stateNamePattern;
+		this.categoryNamePattern = categoryNamePattern;
 		this.type = type;
 		this.priority = priority;
 	}
@@ -146,6 +151,7 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	protected void finalize() throws Throwable {
 		event = null;
 		stateNamePattern = null;
+		categoryNamePattern = null;
 		type = null;
 		super.finalize();
 	}
@@ -173,6 +179,8 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 		sb.append(event);
 		sb.append(", stateNamePattern=");
 		sb.append(stateNamePattern.toString());
+		sb.append(", categoryNamePattern=");
+		sb.append(categoryNamePattern.toString());
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", priority=");
