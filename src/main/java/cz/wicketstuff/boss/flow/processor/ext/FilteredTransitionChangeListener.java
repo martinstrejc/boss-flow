@@ -27,6 +27,8 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
+import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
+import cz.wicketstuff.boss.flow.util.FlowStringUtils;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 public abstract class FilteredTransitionChangeListener<T extends Serializable> implements IFlowTransitionChangeListener<T>, Serializable {
@@ -50,7 +52,9 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	public FilteredTransitionChangeListener(TransitionEvent event, String transitionNameRegex, 
 			String categoryNameRegex, 
 			int priority) {
-		this(event, Pattern.compile(transitionNameRegex), Pattern.compile(categoryNameRegex), 
+		this(event, 
+				FlowMatcherHelper.strigToPattern(transitionNameRegex), 
+				FlowMatcherHelper.strigToPattern(categoryNameRegex), 
 				priority);
 	}
 
@@ -104,11 +108,11 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 
 
 	public String getTransitionNameRegex() {
-		return transitionNamePattern.toString();
+		return FlowStringUtils.safeToString(transitionNamePattern);
 	}
 
 	public void setTransitionNameRegex(String transitionNameRegex) {
-		this.transitionNamePattern = Pattern.compile(transitionNameRegex);
+		this.transitionNamePattern = FlowMatcherHelper.strigToPattern(transitionNameRegex);
 	}
 
 	abstract protected void onTransitionStartFiltered(IFlowCarter<T> flow);
@@ -153,6 +157,22 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	}
 
 
+	/**
+	 * @return the categoryNamePattern
+	 */
+	public Pattern getCategoryNamePattern() {
+		return categoryNamePattern;
+	}
+
+
+	/**
+	 * @param categoryNamePattern the categoryNamePattern to set
+	 */
+	public void setCategoryNamePattern(Pattern categoryNamePattern) {
+		this.categoryNamePattern = categoryNamePattern;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -160,9 +180,9 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 		sb.append(": event=");
 		sb.append(event);
 		sb.append(", transitionNamePattern=");
-		sb.append(transitionNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(transitionNamePattern));
 		sb.append(", categoryNamePattern=");
-		sb.append(categoryNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(categoryNamePattern));
 		sb.append(", priority=");
 		sb.append(priority);
 		return sb.toString();

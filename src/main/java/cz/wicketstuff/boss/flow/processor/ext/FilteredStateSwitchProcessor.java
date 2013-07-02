@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowMatchedSwitchProcessor;
+import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
+import cz.wicketstuff.boss.flow.util.FlowStringUtils;
 
 public abstract class FilteredStateSwitchProcessor<T extends Serializable> implements IFlowMatchedSwitchProcessor<T>, Serializable {
 
@@ -48,8 +50,9 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 			String stateNameRegex, 
 			String categoryNameRegex, 
 			Class<? extends IFlowState> type) {
-		this(Pattern.compile(switchExpressionRegex), Pattern.compile(stateNameRegex), 
-				Pattern.compile(categoryNameRegex), type);
+		this(FlowMatcherHelper.strigToPattern(switchExpressionRegex), 
+				FlowMatcherHelper.strigToPattern(stateNameRegex), 
+				FlowMatcherHelper.strigToPattern(categoryNameRegex), type);
 	}
 
 	public FilteredStateSwitchProcessor(Pattern switchExpressionPattern,
@@ -90,19 +93,19 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	}
 
 	public String getSwitchExpressionRegex() {
-		return switchExpressionPattern.toString();
+		return FlowStringUtils.safeToString(switchExpressionPattern);
 	}
 
 	public void setSwitchExpressionRegex(String switchExpressionRegex) {
-		this.switchExpressionPattern = Pattern.compile(switchExpressionRegex);
+		this.switchExpressionPattern = FlowMatcherHelper.strigToPattern(switchExpressionRegex);
 	}
 
 	public String getStateNameRegex() {
-		return stateNamePattern.toString();
+		return FlowStringUtils.safeToString(stateNamePattern);
 	}
 
 	public void setStateNameRegex(String stateNameRegex) {
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this.stateNamePattern = FlowMatcherHelper.strigToPattern(stateNameRegex);
 	}
 
 	public Class<? extends IFlowState> getType() {
@@ -145,6 +148,22 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 	}
 
 
+	/**
+	 * @return the categoryNamePattern
+	 */
+	public Pattern getCategoryNamePattern() {
+		return categoryNamePattern;
+	}
+
+
+	/**
+	 * @param categoryNamePattern the categoryNamePattern to set
+	 */
+	public void setCategoryNamePattern(Pattern categoryNamePattern) {
+		this.categoryNamePattern = categoryNamePattern;
+	}
+
+
 	@Override
 	protected void finalize() throws Throwable {
 		stateNamePattern = null;
@@ -161,9 +180,9 @@ public abstract class FilteredStateSwitchProcessor<T extends Serializable> imple
 		sb.append(": switchExpressionPattern=");
 		sb.append(switchExpressionPattern);
 		sb.append(", stateNamePattern=");
-		sb.append(stateNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(stateNamePattern));
 		sb.append(", categoryNamePattern=");
-		sb.append(categoryNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(categoryNamePattern));
 		sb.append(", type=");
 		sb.append(type);
 		return sb.toString();

@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowMatchedConditionProcessor;
+import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
+import cz.wicketstuff.boss.flow.util.FlowStringUtils;
 
 public abstract class FilteredStateConditionProcessor<T extends Serializable> implements IFlowMatchedConditionProcessor<T>, Serializable {
 
@@ -48,8 +50,9 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 			String stateNameRegex, 
 			String categoryNameRegex, 
 			Class<? extends IFlowState> type) {
-		this(Pattern.compile(conditionExpressionRegex), Pattern.compile(stateNameRegex), 
-				Pattern.compile(categoryNameRegex), type);
+		this(FlowMatcherHelper.strigToPattern(conditionExpressionRegex), 
+				FlowMatcherHelper.strigToPattern(stateNameRegex), 
+				FlowMatcherHelper.strigToPattern(categoryNameRegex), type);
 	}
 
 	public FilteredStateConditionProcessor(Pattern conditionExpressionPattern,
@@ -98,19 +101,19 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 	}
 
 	public String getConditionExpressionRegex() {
-		return conditionExpressionPattern.toString();
+		return FlowStringUtils.safeToString(conditionExpressionPattern);
 	}
 
 	public void setConditionExpressionRegex(String conditionExpressionRegex) {
-		this.conditionExpressionPattern = Pattern.compile(conditionExpressionRegex);
+		this.conditionExpressionPattern = FlowMatcherHelper.strigToPattern(conditionExpressionRegex);
 	}
 
 	public String getStateNameRegex() {
-		return stateNamePattern.toString();
+		return FlowStringUtils.safeToString(stateNamePattern);
 	}
 
 	public void setStateNameRegex(String stateNameRegex) {
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this.stateNamePattern = FlowMatcherHelper.strigToPattern(stateNameRegex);
 	}
 
 	/**
@@ -144,6 +147,19 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 		this.stateNamePattern = stateNamePattern;
 	}
 
+	/**
+	 * @return the categoryNamePattern
+	 */
+	public Pattern getCategoryNamePattern() {
+		return categoryNamePattern;
+	}
+
+	/**
+	 * @param categoryNamePattern the categoryNamePattern to set
+	 */
+	public void setCategoryNamePattern(Pattern categoryNamePattern) {
+		this.categoryNamePattern = categoryNamePattern;
+	}
 
 	@Override
 	protected void finalize() throws Throwable {
@@ -161,9 +177,9 @@ public abstract class FilteredStateConditionProcessor<T extends Serializable> im
 		sb.append(": conditionExpressionPattern=");
 		sb.append(conditionExpressionPattern);
 		sb.append(", stateNamePattern=");
-		sb.append(stateNamePattern);
+		sb.append(FlowStringUtils.safeToString(stateNamePattern));
 		sb.append(", categoryNamePattern=");
-		sb.append(categoryNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(categoryNamePattern));
 		sb.append(", type=");
 		sb.append(type);
 		return sb.toString();

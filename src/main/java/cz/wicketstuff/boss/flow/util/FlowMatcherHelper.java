@@ -62,6 +62,10 @@ public final class FlowMatcherHelper {
 		}
 		return true;
 	}
+	
+	public static Pattern strigToPattern(String regex) {
+		return regex == null ? null : Pattern.compile(regex);
+	}
 
 	public static boolean matchesNone(IFlowCategorized categorized, Pattern pattern) {
 		if(pattern == null) {

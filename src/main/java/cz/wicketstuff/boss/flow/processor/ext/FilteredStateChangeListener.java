@@ -27,6 +27,8 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
+import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
+import cz.wicketstuff.boss.flow.util.FlowStringUtils;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 public abstract class FilteredStateChangeListener<T extends Serializable> implements IFlowStateChangeListener<T>, Serializable {
@@ -53,7 +55,11 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 			String categoryNameRegex, 
 			Class<? extends IFlowState> type, 
 			int priority) {
-		this(event, Pattern.compile(stateNameRegex), Pattern.compile(categoryNameRegex), type, priority);
+		this(event, 
+				FlowMatcherHelper.strigToPattern(stateNameRegex), 
+				FlowMatcherHelper.strigToPattern(categoryNameRegex), 
+				type, 
+				priority);
 	}
 
 	public FilteredStateChangeListener(StateEvent event, Pattern stateNamePattern, Pattern categoryNamePattern,
@@ -112,11 +118,11 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	}
 
 	public String getStateNameRegex() {
-		return stateNamePattern.toString();
+		return FlowStringUtils.safeToString(stateNamePattern);
 	}
 
 	public void setStateNameRegex(String stateNameRegex) {
-		this.stateNamePattern = Pattern.compile(stateNameRegex);
+		this.stateNamePattern = FlowMatcherHelper.strigToPattern(stateNameRegex);
 	}
 
 	public Class<? extends IFlowState> getType() {
@@ -169,6 +175,21 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+	
+	/**
+	 * @return the categoryNamePattern
+	 */
+	public Pattern getCategoryNamePattern() {
+		return categoryNamePattern;
+	}
+
+
+	/**
+	 * @param categoryNamePattern the categoryNamePattern to set
+	 */
+	public void setCategoryNamePattern(Pattern categoryNamePattern) {
+		this.categoryNamePattern = categoryNamePattern;
+	}
 
 
 	@Override
@@ -178,9 +199,9 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 		sb.append(": event=");
 		sb.append(event);
 		sb.append(", stateNamePattern=");
-		sb.append(stateNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(stateNamePattern));
 		sb.append(", categoryNamePattern=");
-		sb.append(categoryNamePattern.toString());
+		sb.append(FlowStringUtils.safeToString(categoryNamePattern));
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", priority=");
