@@ -120,6 +120,9 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 				onStateLeaving(flow);
 				onTransitionFinished(flow);
 				flow.shiftFlow();
+				if(flow.getCurrentState().isRequireStateData()) {
+					flow.setStateData(createStateData(flow.getCurrentState()));			
+				}				
 				onStateEntry(flow);
 				if(flow.getCurrentState().isPersistableState()) {
 					persistFlowState(flow);
