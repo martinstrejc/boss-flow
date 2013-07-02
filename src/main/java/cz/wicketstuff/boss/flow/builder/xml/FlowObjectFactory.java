@@ -16,6 +16,8 @@
  */
 package cz.wicketstuff.boss.flow.builder.xml;
 
+import java.util.List;
+
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.ConditionStateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.JoinStateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.RealStateType;
@@ -24,6 +26,7 @@ import cz.wicketstuff.boss.flow.builder.xml.jaxb.SwitchStateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.TransitionType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.ViewStateType;
 import cz.wicketstuff.boss.flow.builder.xml.jaxb.VirtualStateType;
+import cz.wicketstuff.boss.flow.model.IFlowCategory;
 import cz.wicketstuff.boss.flow.model.IFlowConditionState;
 import cz.wicketstuff.boss.flow.model.IFlowJoinState;
 import cz.wicketstuff.boss.flow.model.IFlowRealState;
@@ -32,6 +35,7 @@ import cz.wicketstuff.boss.flow.model.IFlowSwitchState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.model.IFlowViewState;
 import cz.wicketstuff.boss.flow.model.IFlowVirtualState;
+import cz.wicketstuff.boss.flow.model.basic.FlowCategory;
 import cz.wicketstuff.boss.flow.model.basic.FlowConditionState;
 import cz.wicketstuff.boss.flow.model.basic.FlowJoinState;
 import cz.wicketstuff.boss.flow.model.basic.FlowRealState;
@@ -92,6 +96,12 @@ public class FlowObjectFactory {
 		}		
 		FlowTransition ft = new FlowTransition(transition.getId(), transition.getName());
 		ft.setHitCountable(transition.isHitCountable());
+		List<String> categories = transition.getCategory();
+		if(categories != null) {
+			for(String c : categories) {
+				ft.addFlowCategory(createFlowCategory(c));
+			}
+		}
 		return ft;
 	}
 
@@ -133,6 +143,12 @@ public class FlowObjectFactory {
 		fs.setStateValidatable(state.isStateValidatable());
 		fs.setPersistableState(state.isPersistableState());
 		fs.setOrder(state.getOrder());
+		List<String> categories = state.getCategory();
+		if(categories != null) {
+			for(String c : categories) {
+				fs.addFlowCategory(createFlowCategory(c));
+			}
+		}		
 		return fs;
 	}
 
@@ -249,6 +265,10 @@ public class FlowObjectFactory {
 	 */
 	public int generateTransitionId() {
 		return --lastTransitionId;		
+	}
+	
+	public IFlowCategory createFlowCategory(String categoryName) {
+		return new FlowCategory(categoryName);
 	}
 	
 }
