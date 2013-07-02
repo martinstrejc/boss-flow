@@ -16,12 +16,17 @@
  */
 package cz.wicketstuff.boss.flow.model.basic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import cz.wicketstuff.boss.flow.model.IFlowCategory;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
 
 public class FlowState implements IFlowState {
 
@@ -36,6 +41,7 @@ public class FlowState implements IFlowState {
 	private boolean stateValidatable;
 	private boolean persistableState;
 	private Integer order;
+	private List<IFlowCategory> flowCategories;
 
 	public FlowState() {
 		this(null, null);
@@ -206,7 +212,58 @@ public class FlowState implements IFlowState {
 			transitionsMap.clear();
 			transitionsMap = null;
 		}
+		if(flowCategories != null) {
+			flowCategories.clear();
+			flowCategories = null;
+		}
 		super.finalize();
 	}
+
+	@Override
+	public List<IFlowCategory> getFlowCategories() {
+		return flowCategories;
+	}
+
+	@Override
+	public boolean matchesAny(String regex) {
+		return FlowMatcherHelper.matchesAny(this, regex);	
+	}
+
+	@Override
+	public boolean matchesAny(Pattern pattern) {
+		return FlowMatcherHelper.matchesAny(this, pattern);
+	}
+
+	@Override
+	public boolean matchesNone(String regex) {
+		return FlowMatcherHelper.matchesNone(this, regex);
+	}
+
+	@Override
+	public boolean matchesNone(Pattern pattern) {
+		return FlowMatcherHelper.matchesNone(this, pattern);
+	}
+
+	/**
+	 * @param flowCategories the flowCategories to set
+	 */
+	public void setFlowCategories(List<IFlowCategory> flowCategories) {
+		this.flowCategories = flowCategories;
+	}
+	
+	public void addFlowCategory(IFlowCategory flowCategory) {
+		checkFlowCategoryListPresent();
+		flowCategories.add(flowCategory);
+	}
+	
+	protected void checkFlowCategoryListPresent() {
+		if(flowCategories == null) {
+			flowCategories = newFlowCategoryList();
+		}		
+	}
+	
+	protected List<IFlowCategory> newFlowCategoryList() {
+		return new ArrayList<>();
+	} 
 
 }

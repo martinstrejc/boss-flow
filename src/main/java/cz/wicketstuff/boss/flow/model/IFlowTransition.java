@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @author Martin Strejc
  *
  */
-public interface IFlowTransition extends Serializable {
+public interface IFlowTransition extends IFlowCategorized, Serializable {
 
 	/**
 	 * Return the unique numeric identifier of this transition.

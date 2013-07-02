@@ -25,7 +25,7 @@ import java.util.Iterator;
  * @author Martin Strejc
  *
  */
-public interface IFlowState extends Serializable {
+public interface IFlowState extends IFlowCategorized, Serializable {
 
 	/**
 	 * Return the unique numeric identifier of this state.

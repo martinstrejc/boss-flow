@@ -16,8 +16,14 @@
  */
 package cz.wicketstuff.boss.flow.model.basic;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import cz.wicketstuff.boss.flow.model.IFlowCategory;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
 
 public class FlowTransition implements IFlowTransition {
 
@@ -27,6 +33,7 @@ public class FlowTransition implements IFlowTransition {
 	private String transitionName;
 	private IFlowState targetState;
 	private boolean hitCountable = true;
+	private List<IFlowCategory> flowCategories;
 	
 	public FlowTransition() {
 		this(null, null);
@@ -113,7 +120,58 @@ public class FlowTransition implements IFlowTransition {
 	@Override
 	protected void finalize() throws Throwable {
 		targetState = null;
+		if(flowCategories != null) {
+			flowCategories.clear();
+			flowCategories = null;
+		}
 		super.finalize();
+	}
+
+	@Override
+	public List<IFlowCategory> getFlowCategories() {
+		return flowCategories;
+	}
+
+	@Override
+	public boolean matchesAny(String regex) {
+		return FlowMatcherHelper.matchesAny(this, regex);
+	}
+
+	@Override
+	public boolean matchesAny(Pattern pattern) {
+		return FlowMatcherHelper.matchesAny(this, pattern);
+	}
+
+	@Override
+	public boolean matchesNone(String regex) {
+		return FlowMatcherHelper.matchesNone(this, regex);
+	}
+
+	@Override
+	public boolean matchesNone(Pattern pattern) {
+		return FlowMatcherHelper.matchesNone(this, pattern);
+	}
+
+	/**
+	 * @param flowCategories the flowCategories to set
+	 */
+	public void setFlowCategories(List<IFlowCategory> flowCategories) {
+		this.flowCategories = flowCategories;
+	}
+
+	public void addFlowCategory(IFlowCategory flowCategory) {
+		checkFlowCategoryListPresent();
+		flowCategories.add(flowCategory);
+	}
+	
+	protected void checkFlowCategoryListPresent() {
+		if(flowCategories == null) {
+			flowCategories = newFlowCategoryList();
+		}		
+	}
+	
+	protected List<IFlowCategory> newFlowCategoryList() {
+		return new ArrayList<>();
 	}
 	
 }
