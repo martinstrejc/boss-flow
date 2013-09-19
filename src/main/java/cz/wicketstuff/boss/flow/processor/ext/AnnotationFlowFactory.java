@@ -328,8 +328,13 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		}
 		return processorCollection;
 	}
-	
+
+	@Deprecated
 	public List<Method> findMethodCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
+		return findMethodFlowCandidates(bean, annotation);
+	}
+	
+	public List<Method> findMethodFlowCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
 		List<Method> list = new ArrayList<Method>();
 		for(final Method method : bean.getClass().getMethods()) {
 			if(method.isAnnotationPresent(annotation)) {
