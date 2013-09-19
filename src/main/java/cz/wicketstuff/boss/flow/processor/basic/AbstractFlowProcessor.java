@@ -71,7 +71,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 		if(initialState.isRequireStateData()) {
 			flow.setStateData(createStateData(initialState));			
 		}
-		onStateEntry(flow);
+		onStateEntry(flow, flow.getCurrentState());
 		log.trace("State " + flow.getCurrentState().getStateName() + " persistable " + flow.getCurrentState().isPersistableState());
 		if(flow.getCurrentState().isPersistableState()) {
 			persistFlowState(flow);
@@ -116,14 +116,14 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 						return false;
 					}
 				}
-				onTransitionStart(flow);
-				onStateLeaving(flow);
-				onTransitionFinished(flow);
+				onTransitionStart(flow, flow.getNextTransition());
+				onStateLeaving(flow, flow.getCurrentState());
+				onTransitionFinished(flow, flow.getNextTransition());
 				flow.shiftFlow();
 				if(flow.getCurrentState().isRequireStateData()) {
 					flow.setStateData(createStateData(flow.getCurrentState()));			
 				}				
-				onStateEntry(flow);
+				onStateEntry(flow, flow.getCurrentState());
 				if(flow.getCurrentState().isPersistableState()) {
 					persistFlowState(flow);
 				}

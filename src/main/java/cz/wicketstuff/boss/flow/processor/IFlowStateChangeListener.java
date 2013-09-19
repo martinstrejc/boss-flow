@@ -19,6 +19,7 @@ package cz.wicketstuff.boss.flow.processor;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 /**
@@ -35,17 +36,19 @@ public interface IFlowStateChangeListener<T extends Serializable> extends Compar
 	 * See the flow implementation lifecycle to understand 
 	 * order of event's orders.
 	 * 
-	 * @param flow
+	 * @param flow processed flow carter
+	 * @param flowState flow to be left
 	 */
-	void onStateEntry(IFlowCarter<T> flow);
+	void onStateEntry(IFlowCarter<T> flow, IFlowState flowState);
 
 	/**
 	 * Listen on leaving the state.
 	 * See the flow implementation lifecycle to understand 
 	 * order of event's orders.
 	 * 
-	 * @param flow
+	 * @param flow processed flow carter
+	 * @param flowState flow to be entered
 	 */
-	void onStateLeaving(IFlowCarter<T> flow);
+	void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState);
 
 }

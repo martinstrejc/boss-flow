@@ -159,27 +159,27 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public void onTransitionStart(IFlowCarter<T> flow) {
+	public void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) {
 		if(transitionChangeListener != null)
-			transitionChangeListener.onTransitionStart(flow);
+			transitionChangeListener.onTransitionStart(flow, flowTransition);
 	}
 
 	@Override
-	public void onTransitionFinished(IFlowCarter<T> flow) {
+	public void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) {
 		if(transitionChangeListener != null)
-			transitionChangeListener.onTransitionFinished(flow);
+			transitionChangeListener.onTransitionFinished(flow, flowTransition);
 	}
 
 	@Override
-	public void onStateEntry(IFlowCarter<T> flow) {
+	public void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) {
 		if(stateChangeListener != null)
-			stateChangeListener.onStateEntry(flow);
+			stateChangeListener.onStateEntry(flow, flowState);
 	}
 
 	@Override
-	public void onStateLeaving(IFlowCarter<T> flow) {
+	public void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) {
 		if(stateChangeListener != null)
-			stateChangeListener.onStateLeaving(flow);
+			stateChangeListener.onStateLeaving(flow, flowState);
 	}
 
 	@Override

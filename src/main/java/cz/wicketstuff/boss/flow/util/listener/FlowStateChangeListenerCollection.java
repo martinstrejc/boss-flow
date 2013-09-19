@@ -19,6 +19,7 @@ package cz.wicketstuff.boss.flow.util.listener;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowListenerCollection;
@@ -41,21 +42,21 @@ public class FlowStateChangeListenerCollection<T extends Serializable> extends
 	}
 
 	@Override
-	public void onStateEntry(final IFlowCarter<T> flow) {
+	public void onStateEntry(final IFlowCarter<T> flow, final IFlowState flowState) {
 		notify(new INotifier<IFlowStateChangeListener<T>>() {
 			@Override
 			public void notify(IFlowStateChangeListener<T> listener) {
-				listener.onStateEntry(flow);
+				listener.onStateEntry(flow, flowState);
 			}
 		});
 	}
 
 	@Override
-	public void onStateLeaving(final IFlowCarter<T> flow) {
+	public void onStateLeaving(final IFlowCarter<T> flow, final IFlowState flowState) {
 		notify(new INotifier<IFlowStateChangeListener<T>>() {
 			@Override
 			public void notify(IFlowStateChangeListener<T> listener) {
-				listener.onStateLeaving(flow);
+				listener.onStateLeaving(flow, flowState);
 			}
 		});
 	}

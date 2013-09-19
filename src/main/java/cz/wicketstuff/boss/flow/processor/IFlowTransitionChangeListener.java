@@ -19,6 +19,7 @@ package cz.wicketstuff.boss.flow.processor;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 /**
@@ -35,17 +36,19 @@ public interface IFlowTransitionChangeListener<T extends Serializable> extends C
 	 * See the flow implementation lifecycle to understand 
 	 * order of event's orders.
 	 * 
-	 * @param flow
+	 * @param flow processed flow carter
+	 * @param flowTransition starting transition
 	 */
-	void onTransitionStart(IFlowCarter<T> flow);
+	void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition);
 
 	/**
 	 * Listen on finishing the transition.
 	 * See the flow implementation lifecycle to understand 
 	 * order of event's orders.
 	 * 
-	 * @param flow
+	 * @param flow processed flow carter
+	 * @param flowTransition finishing transition
 	 */
-	void onTransitionFinished(IFlowCarter<T> flow);
+	void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition);
 	
 }

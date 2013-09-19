@@ -38,6 +38,8 @@ import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent.TransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowState;
+import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.model.basic.FlowCarter;
 import cz.wicketstuff.boss.flow.model.basic.FlowState;
 import cz.wicketstuff.boss.flow.model.basic.FlowTransition;
@@ -215,7 +217,7 @@ public class AnnotationFlowFactoryTest {
 			}
 			
 		});
-		listener.onStateEntry(flowCarter);
+		listener.onStateEntry(flowCarter, flowCarter.getCurrentState());
 		assertFalse("Listener is not annotated.", notify1);
 		clearResults();
 
@@ -224,21 +226,21 @@ public class AnnotationFlowFactoryTest {
 			private static final long serialVersionUID = 1L;
 		
 			@FlowStateEvent(event=StateEvent.onStateEntry)
-			public void notifier1(IFlowCarter<String> carter) {
+			public void notifier1(IFlowCarter<String> carter, IFlowState flowState) {
 				notify1 = true;
 			}
 
 			@FlowStateEvent(event=StateEvent.onStateLeaving)
-			public void notifier2(IFlowCarter<String> carter) {
+			public void notifier2(IFlowCarter<String> carter, IFlowState flowState) {
 				notify2 = true;
 			}
 			
 		});
-		listener.onStateEntry(flowCarter);
+		listener.onStateEntry(flowCarter, flowCarter.getCurrentState());
 		assertTrue("Expected onStateEntry.", notify1);
 		assertFalse("UNExpected onStateLeaving.", notify2);
 		clearResults();
-		listener.onStateLeaving(flowCarter);
+		listener.onStateLeaving(flowCarter, flowCarter.getCurrentState());
 		assertFalse("UNExpected onStateEntry.", notify1);
 		assertTrue("Expected onStateLeaving.", notify2);
 		clearResults();
@@ -248,16 +250,16 @@ public class AnnotationFlowFactoryTest {
 			private static final long serialVersionUID = 1L;
 		
 			@FlowStateEvent(event=StateEvent.all)
-			public void notifier1(IFlowCarter<String> carter) {
+			public void notifier1(IFlowCarter<String> carter, IFlowState flowState) {
 				notify1 = true;
 			}
 
 		});
-		listener.onStateEntry(flowCarter);
+		listener.onStateEntry(flowCarter, flowCarter.getCurrentState());
 		assertTrue("Expected onStateEntry.", notify1);
 		assertTrue("Expected onStateLeaving.", notify2);
 		clearResults();
-		listener.onStateLeaving(flowCarter);
+		listener.onStateLeaving(flowCarter, flowCarter.getCurrentState());
 		assertTrue("Expected onStateEntry.", notify1);
 		assertTrue("Expected onStateLeaving.", notify2);
 
@@ -376,12 +378,12 @@ public class AnnotationFlowFactoryTest {
 			private static final long serialVersionUID = 1L;
 		
 			@SuppressWarnings("unused")
-			public void notifier1(IFlowCarter<String> carter) {
+			public void notifier1(IFlowCarter<String> carter, IFlowState flowState) {
 				notify1 = true;
 			}
 			
 		});
-		listener.onTransitionStart(flowCarter);
+		listener.onTransitionStart(flowCarter, flowCarter.getNextTransition());
 		assertFalse("Listener is not annotated.", notify1);
 		clearResults();
 
@@ -390,21 +392,21 @@ public class AnnotationFlowFactoryTest {
 			private static final long serialVersionUID = 1L;
 		
 			@FlowTransitionEvent(event=TransitionEvent.onTransitionStart)
-			public void notifier1(IFlowCarter<String> carter) {
+			public void notifier1(IFlowCarter<String> carter, IFlowTransition flowTransition) {
 				notify1 = true;
 			}
 
 			@FlowTransitionEvent(event=TransitionEvent.onTransitionFinished)
-			public void notifier2(IFlowCarter<String> carter) {
+			public void notifier2(IFlowCarter<String> carter, IFlowTransition flowTransition) {
 				notify2 = true;
 			}
 			
 		});
-		listener.onTransitionStart(flowCarter);
+		listener.onTransitionStart(flowCarter, flowCarter.getNextTransition());
 		assertTrue("Expected onTransitionStart.", notify1);
 		assertFalse("UNExpected onTransitionFinished.", notify2);
 		clearResults();
-		listener.onTransitionFinished(flowCarter);
+		listener.onTransitionFinished(flowCarter, flowCarter.getNextTransition());
 		assertFalse("UNExpected onTransitionStart.", notify1);
 		assertTrue("Expected onTransitionFinished.", notify2);
 		clearResults();
@@ -414,16 +416,16 @@ public class AnnotationFlowFactoryTest {
 			private static final long serialVersionUID = 1L;
 		
 			@FlowTransitionEvent(event=TransitionEvent.all)
-			public void notifier1(IFlowCarter<String> carter) {
+			public void notifier1(IFlowCarter<String> carter, IFlowTransition flowTransition) {
 				notify1 = true;
 			}
 
 		});
-		listener.onTransitionStart(flowCarter);
+		listener.onTransitionStart(flowCarter, flowCarter.getNextTransition());
 		assertTrue("Expected onTransitionStart.", notify1);
 		assertTrue("Expected onTransitionFinished.", notify2);
 		clearResults();
-		listener.onTransitionFinished(flowCarter);
+		listener.onTransitionFinished(flowCarter, flowCarter.getNextTransition());
 		assertTrue("Expected onTransitionStart.", notify1);
 		assertTrue("Expected onTransitionFinished.", notify2);
 	}

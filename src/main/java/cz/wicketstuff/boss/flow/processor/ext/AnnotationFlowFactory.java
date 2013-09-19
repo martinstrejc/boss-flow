@@ -34,6 +34,8 @@ import cz.wicketstuff.boss.flow.annotation.FlowStateValidation;
 import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.model.IFlowState;
+import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
 import cz.wicketstuff.boss.flow.util.listener.FlowListenersCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateChangeListenerCollection;
@@ -58,7 +60,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	}
 
 	public FlowListenersCollection<T> getFlowListeners(final Object bean, FlowListenersCollection<T> listeners) throws FlowAnnotationException {
-		for(final Method method : findMethodCandidates(bean, FlowEvents.class)) {
+		for(final Method method : findMethodFlowCandidates(bean, FlowEvents.class)) {
 			FlowEvents eventAnnotation = method.getAnnotation(FlowEvents.class);
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowEvents method '" + method.getName() + "' of bean '" + bean + "'");
@@ -107,7 +109,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	}
 
 	public FlowStateChangeListenerCollection<T> getStateChangeListeners(final Object bean, FlowStateChangeListenerCollection<T> listeners) throws FlowAnnotationException {
-		for(final Method method : findMethodCandidates(bean, FlowStateEvent.class)) {
+		for(final Method method : findMethodFlowStateCandidates(bean, FlowStateEvent.class)) {
 			FlowStateEvent eventAnnotation = method.getAnnotation(FlowStateEvent.class);
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowStateEvent method '" + method.getName() + "' of bean '" + bean + "'");
@@ -121,9 +123,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				protected void onStateEntryFiltered(IFlowCarter<T> flow) {
+				protected void onStateEntryFiltered(IFlowCarter<T> flow, IFlowState flowState) {
 					try {
-						method.invoke(bean, flow);
+						method.invoke(bean, flow, flowState);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException
 							| InvocationTargetException e) {
@@ -133,9 +135,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				}
 
 				@Override
-				protected void onStateLeavingFiltered(IFlowCarter<T> flow) {
+				protected void onStateLeavingFiltered(IFlowCarter<T> flow, IFlowState flowState) {
 					try {
-						method.invoke(bean, flow);
+						method.invoke(bean, flow, flowState);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException
 							| InvocationTargetException e) {
@@ -158,7 +160,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	}
 
 	public FlowStateValidationListenerCollection<T> getStateValidationListeners(final Object bean, FlowStateValidationListenerCollection<T> listeners) throws FlowAnnotationException {
-		for(final Method method : findMethodCandidates(bean, FlowStateValidation.class)) {
+		for(final Method method : findMethodFlowCandidates(bean, FlowStateValidation.class)) {
 			FlowStateValidation eventAnnotation = method.getAnnotation(FlowStateValidation.class);
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowStateValidation method '" + method.getName() + "' of bean '" + bean + "'");
@@ -208,7 +210,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	}
 
 	public FlowTransitionChangeListenerCollection<T> getTransitionChangeListeners(final Object bean, FlowTransitionChangeListenerCollection<T> listeners) throws FlowAnnotationException {
-		for(final Method method : findMethodCandidates(bean, FlowTransitionEvent.class)) {
+		for(final Method method : findMethodFlowTransitionCandidates(bean, FlowTransitionEvent.class)) {
 			FlowTransitionEvent eventAnnotation = method.getAnnotation(FlowTransitionEvent.class);
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowTransitionEvent change listener method '" + method.getName() + "' of bean '" + bean + "'");
@@ -221,9 +223,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				protected void onTransitionStartFiltered(IFlowCarter<T> flow) {
+				protected void onTransitionStartFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) {
 					try {
-						method.invoke(bean, flow);
+						method.invoke(bean, flow, flowTransition);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException
 							| InvocationTargetException e) {
@@ -232,9 +234,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				}
 
 				@Override
-				protected void onTransitionFinishedFiltered(IFlowCarter<T> flow) {
+				protected void onTransitionFinishedFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) {
 					try {
-						method.invoke(bean, flow);
+						method.invoke(bean, flow, flowTransition);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException
 							| InvocationTargetException e) {
@@ -329,16 +331,33 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		return processorCollection;
 	}
 
-	@Deprecated
-	public List<Method> findMethodCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
-		return findMethodFlowCandidates(bean, annotation);
-	}
-	
 	public List<Method> findMethodFlowCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
 		List<Method> list = new ArrayList<Method>();
 		for(final Method method : bean.getClass().getMethods()) {
 			if(method.isAnnotationPresent(annotation)) {
 				checkFlowMethod(method, bean);
+				list.add(method);
+			}
+		}
+		return list;
+	}
+
+	public List<Method> findMethodFlowTransitionCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
+		List<Method> list = new ArrayList<Method>();
+		for(final Method method : bean.getClass().getMethods()) {
+			if(method.isAnnotationPresent(annotation)) {
+				checkFlowMethodTransition(method, bean);
+				list.add(method);
+			}
+		}
+		return list;
+	}
+
+	public List<Method> findMethodFlowStateCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
+		List<Method> list = new ArrayList<Method>();
+		for(final Method method : bean.getClass().getMethods()) {
+			if(method.isAnnotationPresent(annotation)) {
+				checkFlowMethodState(method, bean);
 				list.add(method);
 			}
 		}
@@ -384,6 +403,47 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		}
 	}
 
+	public void checkFlowMethodTransition(Method method, Object bean) throws FlowAnnotationException {
+		Class<?>[] parameters = method.getParameterTypes();
+		if(parameters.length != 2) {
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters, not more, not less!");
+		}
+		try {
+			if(parameters[0].asSubclass(IFlowCarter.class) == null) {
+				throw new FlowAnnotationException("The first paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!");
+			}					
+			if(parameters[1].asSubclass(IFlowTransition.class) == null) {
+				throw new FlowAnnotationException("The second paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowTransition!");
+			}					
+		} catch (ClassCastException e) {					
+			throw new FlowAnnotationException("The paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!", e);
+		}
+		if(!Modifier.isPublic(method.getModifiers())) {
+			throw new FlowAnnotationException("The paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not public!");					
+		}
+	}
+
+	public void checkFlowMethodState(Method method, Object bean) throws FlowAnnotationException {
+		Class<?>[] parameters = method.getParameterTypes();
+		if(parameters.length != 2) {
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters, not more, not less!");
+		}
+		try {
+			if(parameters[0].asSubclass(IFlowCarter.class) == null) {
+				throw new FlowAnnotationException("The first paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!");
+			}					
+			if(parameters[1].asSubclass(IFlowState.class) == null) {
+				throw new FlowAnnotationException("The second paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowState!");
+			}					
+		} catch (ClassCastException e) {					
+			throw new FlowAnnotationException("The paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!", e);
+		}
+		if(!Modifier.isPublic(method.getModifiers())) {
+			throw new FlowAnnotationException("The paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not public!");					
+		}
+	}
+	
+	
 	public void checkConditionMethod(Method method, Object bean) throws FlowAnnotationException {
 		Class<?>[] parameters = method.getParameterTypes();
 		if(parameters.length != 2) {

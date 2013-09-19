@@ -67,7 +67,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	}
 
 	@Override
-	public void onTransitionStart(IFlowCarter<T> flow) {
+	public void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) {
 		if((TransitionEvent.all.equals(event) || TransitionEvent.onTransitionStart.equals(event)) && matchTransition(flow.getNextTransition())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onTransitionStart: " + toString());
@@ -75,13 +75,14 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 			if(log.isTraceEnabled()) {
 				log.trace(flow.toString());
 			}
-			onTransitionStartFiltered(flow);
+			onTransitionStartFiltered(flow, flowTransition);
 		} 
 		
 	}
 
 	@Override
-	public void onTransitionFinished(IFlowCarter<T> flow) {
+	public void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) {
+		// FIXME getPrevious is wrong!!!
 		if((TransitionEvent.all.equals(event) || TransitionEvent.onTransitionFinished.equals(event)) && matchTransition(flow.getPreviousTransition())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onTransitionFinished: " + toString());
@@ -89,7 +90,7 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 			if(log.isTraceEnabled()) {
 				log.trace(flow.toString());
 			}
-			onTransitionFinishedFiltered(flow);
+			onTransitionFinishedFiltered(flow, flowTransition);
 		} 		
 	}
 
@@ -115,9 +116,9 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 		this.transitionNamePattern = FlowMatcherHelper.strigToPattern(transitionNameRegex);
 	}
 
-	abstract protected void onTransitionStartFiltered(IFlowCarter<T> flow);
+	abstract protected void onTransitionStartFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition);
 
-	abstract protected void onTransitionFinishedFiltered(IFlowCarter<T> flow);
+	abstract protected void onTransitionFinishedFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition);
 
 	@Override
 	protected void finalize() throws Throwable {

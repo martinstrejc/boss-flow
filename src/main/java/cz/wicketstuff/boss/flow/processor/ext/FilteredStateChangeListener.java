@@ -72,7 +72,7 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	}
 
 	@Override
-	public void onStateEntry(IFlowCarter<T> flow) {
+	public void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) {
 		if((StateEvent.all.equals(event) || StateEvent.onStateEntry.equals(event)) && matchState(flow.getCurrentState())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onStateEntry: " + toString());
@@ -80,12 +80,12 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 			if(log.isTraceEnabled()) {
 				log.trace(flow.toString());
 			}
-			onStateEntryFiltered(flow);
+			onStateEntryFiltered(flow, flowState);
 		} 
 	}
 
 	@Override
-	public void onStateLeaving(IFlowCarter<T> flow) {
+	public void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) {
 		if((StateEvent.all.equals(event) || StateEvent.onStateLeaving.equals(event)) && matchState(flow.getCurrentState())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onStateLeaving: " + toString());
@@ -93,7 +93,7 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 			if(log.isTraceEnabled()) {
 				log.trace(flow.toString());
 			}
-			onStateLeavingFiltered(flow);
+			onStateLeavingFiltered(flow, flowState);
 		} 
 	}
 	
@@ -149,9 +149,9 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	}
 
 
-	abstract protected void onStateEntryFiltered(IFlowCarter<T> flow);
+	abstract protected void onStateEntryFiltered(IFlowCarter<T> flow, IFlowState flowState);
 
-	abstract protected void onStateLeavingFiltered(IFlowCarter<T> flow);
+	abstract protected void onStateLeavingFiltered(IFlowCarter<T> flow, IFlowState flowState);
 
 	@Override
 	protected void finalize() throws Throwable {
