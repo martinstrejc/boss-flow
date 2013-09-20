@@ -10,11 +10,11 @@
 	<flowName>test-flow-complete</flowName>
 	<flowDescription>Complete test of all flow components</flowDescription>
 
-	<realState defaultInitialState="true" name="S0initialState">
+	<realState defaultInitialState="true" name="S0initialState" requireStateData="true">
 		<transition refName="t01" />
 	</realState>
 	
-	<realState name="S1realState" order="10">
+	<realState name="S1realState" order="10" requireStateData="true">
 		<category>Cat1</category>
 		<transition refName="t12" defaultNext="true" />
 		<transition refName="t15" />

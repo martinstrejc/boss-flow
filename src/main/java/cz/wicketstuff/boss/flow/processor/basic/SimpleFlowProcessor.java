@@ -262,6 +262,9 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	@Override
 	public Serializable createStateData(IFlowState flowState)
 			throws NoSuchStateException, StateDataException {
+		if(stateDataFactory == null) {
+			throw new NullPointerException("Cannot create stateData, because factory is NULL");
+		}
 		return stateDataFactory.createStateData(flowState);
 	}
 

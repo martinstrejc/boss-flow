@@ -19,15 +19,21 @@ package cz.wicketstuff.boss.flow.builder.xml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
+import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
+import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
+import cz.wicketstuff.boss.flow.processor.StateDataException;
 import cz.wicketstuff.boss.flow.processor.ext.DefaultFlowProcessor;
 import cz.wicketstuff.boss.flow.test.AbstractFlowStepTest;
 import cz.wicketstuff.boss.flow.test.FlowFileResource;
@@ -40,6 +46,8 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 
 	private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
+	private final String STATE_DATA = "test state data";
+	
 	public DefaultFlowProcessorTest() {
 		super();
 		log.trace("Test complete flow builded by JAXB.");
@@ -56,11 +64,20 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 			public IFlowStateProcessor<String> defaultFlowStateProcessor(IFlowTree flowTree) {
 				return createFlowStateProcessor();
 			}
-	
+			
 		};
 		FlowFileResource resourceHelper = new FlowFileResource();
 		processor.setFlowInputStream(resourceHelper.getCompleteFlowFileStream());
 		processor.setDefaultInitialStateName(S0initialState);
+		processor.setStateDataFactory(new IFlowStateDataFactory() {
+			
+			@Override
+			public Serializable createStateData(IFlowState flowState)
+					throws NoSuchStateException, StateDataException {
+				log.trace("Creating data for " + flowState.getStateName());
+				return STATE_DATA;
+			}
+		});
 		// not applicable here
 		// processor.scanAnnotedBeans(this, this, this, this);
 		return processor.initializeProcessor();
@@ -80,6 +97,16 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 
 	}
 	
+	@Test
+	public void testCreateStateData() throws FlowException {
+		DefaultFlowProcessor<String> p = (DefaultFlowProcessor<String>)processor;
+		IFlowCarter<String> flow = processor.initFlow(1L);
+		assertEquals(STATE_DATA, flow.getStateData());
+		p.invokeTransition(flow, "t01");
+		assertEquals(STATE_DATA, flow.getStateData());
+		p.invokeTransition(flow, "t12");
+		assertEquals(null, flow.getStateData());
+	}
 
 
 }
