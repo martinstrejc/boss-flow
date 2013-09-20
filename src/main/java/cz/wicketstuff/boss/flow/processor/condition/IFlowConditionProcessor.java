@@ -35,8 +35,8 @@ public interface IFlowConditionProcessor<T extends Serializable> {
 	 * @param conditionExpression
 	 * @param flow
 	 * @return result of evaluating boolean expression
-	 * @throws CannotProcessConditionException
+	 * @throws FlowIfConditionException
 	 */
-	public boolean ifCondition(String conditionExpression, IFlowCarter<T> flow) throws CannotProcessConditionException;
+	public boolean ifCondition(String conditionExpression, IFlowCarter<T> flow) throws FlowIfConditionException;
 
 }

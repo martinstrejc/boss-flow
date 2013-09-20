@@ -19,12 +19,13 @@ package cz.wicketstuff.boss.flow.util.listener;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowListenerCollection;
 
 public class FlowStateValidationListenerCollection<T extends Serializable> extends
-		FlowListenerCollection<IFlowStateValidationListener<T>> implements
+		FlowListenerCollection<IFlowStateValidationListener<T>, FlowValidationListenerException> implements
 		IFlowStateValidationListener<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -41,20 +42,20 @@ public class FlowStateValidationListenerCollection<T extends Serializable> exten
 	}
 
 	@Override
-	public void onStateValid(final IFlowCarter<T> flow) {
-		notify(new INotifier<IFlowStateValidationListener<T>>() {
+	public void onStateValid(final IFlowCarter<T> flow) throws FlowValidationListenerException {
+		notify(new INotifier<IFlowStateValidationListener<T>, FlowValidationListenerException>() {
 			@Override
-			public void notify(IFlowStateValidationListener<T> listener) {
+			public void notify(IFlowStateValidationListener<T> listener) throws FlowValidationListenerException {
 				listener.onStateValid(flow);
 			}
 		});
 	}
 
 	@Override
-	public void onStateInvalid(final IFlowCarter<T> flow) {
-		notify(new INotifier<IFlowStateValidationListener<T>>() {
+	public void onStateInvalid(final IFlowCarter<T> flow) throws FlowValidationListenerException {
+		notify(new INotifier<IFlowStateValidationListener<T>, FlowValidationListenerException>() {
 			@Override
-			public void notify(IFlowStateValidationListener<T> listener) {
+			public void notify(IFlowStateValidationListener<T> listener) throws FlowValidationListenerException {
 				listener.onStateInvalid(flow);
 			}
 		});

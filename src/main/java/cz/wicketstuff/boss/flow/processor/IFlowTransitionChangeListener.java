@@ -38,8 +38,9 @@ public interface IFlowTransitionChangeListener<T extends Serializable> extends C
 	 * 
 	 * @param flow processed flow carter
 	 * @param flowTransition starting transition
+	 * @throws FlowTransitionListenerException
 	 */
-	void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition);
+	void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException;
 
 	/**
 	 * Listen on finishing the transition.
@@ -48,7 +49,8 @@ public interface IFlowTransitionChangeListener<T extends Serializable> extends C
 	 * 
 	 * @param flow processed flow carter
 	 * @param flowTransition finishing transition
+	 * @throws FlowTransitionListenerException
 	 */
-	void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition);
+	void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException;
 	
 }

@@ -28,7 +28,7 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.basic.SimpleFlowStateProcessor;
-import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
+import cz.wicketstuff.boss.flow.processor.condition.FlowIfConditionException;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowConditionProcessor;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowSwitchProcessor;
 
@@ -116,7 +116,7 @@ public abstract class AbstractFlowTest implements ICompleteFlowTest {
 			
 			@Override
 			public boolean ifCondition(String conditionExpression,
-					IFlowCarter<String> flow) throws CannotProcessConditionException {
+					IFlowCarter<String> flow) throws FlowIfConditionException {
 				return isIfExpressionResult();
 			}
 		});

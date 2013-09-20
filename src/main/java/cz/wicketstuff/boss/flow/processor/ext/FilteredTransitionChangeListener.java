@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent.TransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
@@ -67,8 +68,8 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	}
 
 	@Override
-	public void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) {
-		if((TransitionEvent.all.equals(event) || TransitionEvent.onTransitionStart.equals(event)) && matchTransition(flow.getNextTransition())) {
+	public void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException {
+		if((TransitionEvent.all.equals(event) || TransitionEvent.onTransitionStart.equals(event)) && matchTransition(flowTransition)) {
 			if(log.isDebugEnabled()) {
 				log.debug("onTransitionStart: " + toString());
 			}
@@ -81,9 +82,8 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 	}
 
 	@Override
-	public void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) {
-		// FIXME getPrevious is wrong!!!
-		if((TransitionEvent.all.equals(event) || TransitionEvent.onTransitionFinished.equals(event)) && matchTransition(flow.getPreviousTransition())) {
+	public void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException {
+		if((TransitionEvent.all.equals(event) || TransitionEvent.onTransitionFinished.equals(event)) && matchTransition(flowTransition)) {
 			if(log.isDebugEnabled()) {
 				log.debug("onTransitionFinished: " + toString());
 			}
@@ -116,9 +116,9 @@ public abstract class FilteredTransitionChangeListener<T extends Serializable> i
 		this.transitionNamePattern = FlowMatcherHelper.strigToPattern(transitionNameRegex);
 	}
 
-	abstract protected void onTransitionStartFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition);
+	abstract protected void onTransitionStartFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException;
 
-	abstract protected void onTransitionFinishedFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition);
+	abstract protected void onTransitionFinishedFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException;
 
 	@Override
 	protected void finalize() throws Throwable {

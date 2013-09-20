@@ -38,8 +38,9 @@ public interface IFlowStateChangeListener<T extends Serializable> extends Compar
 	 * 
 	 * @param flow processed flow carter
 	 * @param flowState flow to be left
+	 * @throws FlowStateListenerException
 	 */
-	void onStateEntry(IFlowCarter<T> flow, IFlowState flowState);
+	void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException;
 
 	/**
 	 * Listen on leaving the state.
@@ -48,7 +49,8 @@ public interface IFlowStateChangeListener<T extends Serializable> extends Compar
 	 * 
 	 * @param flow processed flow carter
 	 * @param flowState flow to be entered
+	 * @throws FlowStateListenerException
 	 */
-	void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState);
+	void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException;
 
 }

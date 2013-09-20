@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
+import cz.wicketstuff.boss.flow.processor.condition.FlowIfConditionException;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowConditionProcessor;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowMatchedConditionProcessor;
 
@@ -49,7 +49,7 @@ public class FlowConditionStateProcessorCollection<T extends Serializable>
 	
 	@Override
 	public boolean ifCondition(String conditionExpression, IFlowCarter<T> flow)
-			throws CannotProcessConditionException {
+			throws FlowIfConditionException {
 		if(log.isDebugEnabled()) {
 			log.debug("ifCondition conditionExpression: " + conditionExpression);
 		}
@@ -61,7 +61,7 @@ public class FlowConditionStateProcessorCollection<T extends Serializable>
 				return processor.ifCondition(conditionExpression, flow);
 			}
 		}
-		throw new CannotProcessConditionException("Condition hasn't been matched and processed. Probably it is an uknown expression.");
+		throw new FlowIfConditionException("Condition hasn't been matched and processed. Probably it is an uknown expression.");
 	}
 	
 	public List<IFlowMatchedConditionProcessor<T>> createList(List<IFlowMatchedConditionProcessor<T>> processors) {

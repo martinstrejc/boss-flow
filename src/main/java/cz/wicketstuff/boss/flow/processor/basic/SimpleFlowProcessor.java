@@ -23,7 +23,11 @@ import cz.wicketstuff.boss.flow.FlowException;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.processor.FlowListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
+import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
@@ -132,52 +136,52 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public void onStateValid(IFlowCarter<T> flow) {
+	public void onStateValid(IFlowCarter<T> flow) throws FlowValidationListenerException {
 		if(stateValidationListener != null)
 			stateValidationListener.onStateValid(flow);
 	}
 
 	@Override
-	public void onStateInvalid(IFlowCarter<T> flow) {
+	public void onStateInvalid(IFlowCarter<T> flow) throws FlowValidationListenerException {
 		if(stateValidationListener != null)
 			stateValidationListener.onStateInvalid(flow);
 		
 	}
 	
 	@Override
-	public void onFlowInitialized(IFlowCarter<T> flow) {
+	public void onFlowInitialized(IFlowCarter<T> flow) throws FlowListenerException {
 		if(flowListener != null) {
 			flowListener.onFlowInitialized(flow);
 		}
 	}
 
 	@Override
-	public void onFlowFinished(IFlowCarter<T> flow) {
+	public void onFlowFinished(IFlowCarter<T> flow) throws FlowListenerException {
 		if(flowListener != null) {
 			flowListener.onFlowFinished(flow);
 		}
 	}
 
 	@Override
-	public void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) {
+	public void onTransitionStart(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException {
 		if(transitionChangeListener != null)
 			transitionChangeListener.onTransitionStart(flow, flowTransition);
 	}
 
 	@Override
-	public void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) {
+	public void onTransitionFinished(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException {
 		if(transitionChangeListener != null)
 			transitionChangeListener.onTransitionFinished(flow, flowTransition);
 	}
 
 	@Override
-	public void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) {
+	public void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException {
 		if(stateChangeListener != null)
 			stateChangeListener.onStateEntry(flow, flowState);
 	}
 
 	@Override
-	public void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) {
+	public void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException {
 		if(stateChangeListener != null)
 			stateChangeListener.onStateLeaving(flow, flowState);
 	}

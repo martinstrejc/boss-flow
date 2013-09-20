@@ -36,8 +36,9 @@ public interface IFlowListener<T extends Serializable> extends Comparable<IPrior
 	 * order of event's orders.
 	 * 
 	 * @param flow
+	 * @throws FlowListenerException
 	 */
-	void onFlowInitialized(IFlowCarter<T> flow);
+	void onFlowInitialized(IFlowCarter<T> flow) throws FlowListenerException;
 
 	/**
 	 * Listen on finishing the flow. It means to reach the final state.
@@ -45,7 +46,8 @@ public interface IFlowListener<T extends Serializable> extends Comparable<IPrior
 	 * order of event's orders.
 	 * 
 	 * @param flow
+	 * @throws FlowListenerException
 	 */
-	void onFlowFinished(IFlowCarter<T> flow);
+	void onFlowFinished(IFlowCarter<T> flow) throws FlowListenerException;
 
 }

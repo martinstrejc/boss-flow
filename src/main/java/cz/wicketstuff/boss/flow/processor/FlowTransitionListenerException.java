@@ -14,38 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cz.wicketstuff.boss.flow.processor.condition;
+package cz.wicketstuff.boss.flow.processor;
 
 import cz.wicketstuff.boss.flow.FlowException;
 
 /**
- * Exception is thrown when a 'Condition State' cannot be processed. 
- * It usually means that no condition is attached to the state.
+ * Exception is thrown in a flow transition listener method
  * 
  * @author Martin Strejc
  *
  */
-public class CannotProcessConditionException extends FlowException {
+public class FlowTransitionListenerException extends FlowException {
 
 	private static final long serialVersionUID = 1L;
 
-	public CannotProcessConditionException() {
+	public FlowTransitionListenerException() {
 	}
 
-	public CannotProcessConditionException(String message, Throwable cause,
+	public FlowTransitionListenerException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
-	public CannotProcessConditionException(String message, Throwable cause) {
+	public FlowTransitionListenerException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public CannotProcessConditionException(String message) {
+	public FlowTransitionListenerException(String message) {
 		super(message);
 	}
 
-	public CannotProcessConditionException(Throwable cause) {
+	public FlowTransitionListenerException(Throwable cause) {
 		super(cause);
 	}
 

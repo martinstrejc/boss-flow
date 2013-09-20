@@ -36,7 +36,12 @@ import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
-import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
+import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowSwitchException;
+import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
+import cz.wicketstuff.boss.flow.processor.condition.FlowIfConditionException;
 import cz.wicketstuff.boss.flow.util.listener.FlowListenersCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateChangeListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateValidationListenerCollection;
@@ -67,30 +72,38 @@ public class AnnotationFlowFactory<T extends Serializable> {
 			}
 			listeners.add(new FilteredFlowListener<T>(eventAnnotation.event(), eventAnnotation.priority()) {
 
-				
-				
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				protected void onFlowInitializedFiltered(IFlowCarter<T> flow) {
+				protected void onFlowInitializedFiltered(IFlowCarter<T> flow) throws FlowListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowListenerException) {
+							throw (FlowListenerException)t;
+						}
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 					
 				}
 
 				@Override
-				protected void onFlowFinishedFiltered(IFlowCarter<T> flow) {
+				protected void onFlowFinishedFiltered(IFlowCarter<T> flow) throws FlowListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowListenerException("Cannot invoke annoted method of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowListenerException) {
+							throw (FlowListenerException)t;
+						}
+						throw new FlowListenerException("Cannot invoke annoted method of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				
@@ -123,25 +136,35 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				protected void onStateEntryFiltered(IFlowCarter<T> flow, IFlowState flowState) {
+				protected void onStateEntryFiltered(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException {
 					try {
 						method.invoke(bean, flow, flowState);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowStateListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowStateListenerException) {
+							throw (FlowStateListenerException)t;
+						}
+						throw new FlowStateListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 					
 				}
 
 				@Override
-				protected void onStateLeavingFiltered(IFlowCarter<T> flow, IFlowState flowState) {
+				protected void onStateLeavingFiltered(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException {
 					try {
 						method.invoke(bean, flow, flowState);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowStateListenerException("Cannot invoke annoted method of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowStateListenerException) {
+							throw (FlowStateListenerException)t;
+						}						
+						throw new FlowStateListenerException("Cannot invoke annoted method of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				
@@ -174,24 +197,34 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				protected void onStateValidFiltered(IFlowCarter<T> flow) {
+				protected void onStateValidFiltered(IFlowCarter<T> flow) throws FlowValidationListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowValidationListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowValidationListenerException) {
+							throw (FlowValidationListenerException)t;
+						}												
+						throw new FlowValidationListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}					
 				}
 
 				@Override
-				protected void onStateInvalidFiltered(IFlowCarter<T> flow) {
+				protected void onStateInvalidFiltered(IFlowCarter<T> flow) throws FlowValidationListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowValidationListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowValidationListenerException) {
+							throw (FlowValidationListenerException)t;
+						}												
+						throw new FlowValidationListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				
@@ -223,24 +256,34 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				protected void onTransitionStartFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) {
+				protected void onTransitionStartFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException {
 					try {
 						method.invoke(bean, flow, flowTransition);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowTransitionListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowTransitionListenerException) {
+							throw (FlowTransitionListenerException)t;
+						}												
+						throw new FlowTransitionListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 
 				@Override
-				protected void onTransitionFinishedFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) {
+				protected void onTransitionFinishedFiltered(IFlowCarter<T> flow, IFlowTransition flowTransition) throws FlowTransitionListenerException {
 					try {
 						method.invoke(bean, flow, flowTransition);
 					} catch ( IllegalAccessException
-							| IllegalArgumentException
-							| InvocationTargetException e) {
-						throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+							| IllegalArgumentException e) {
+						throw new FlowTransitionListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowTransitionListenerException) {
+							throw (FlowTransitionListenerException)t;
+						}												
+						throw new FlowTransitionListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				
@@ -277,13 +320,18 @@ public class AnnotationFlowFactory<T extends Serializable> {
 						@Override
 						public boolean ifCondition(String conditionExpression,
 								IFlowCarter<T> flow)
-								throws CannotProcessConditionException {
+								throws FlowIfConditionException {
 							try {
 								return (boolean) method.invoke(bean, conditionExpression, flow);
 							} catch ( IllegalAccessException
-									| IllegalArgumentException
-									| InvocationTargetException e) {
-								throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "', condition '" + conditionExpression + ", of bean " + bean + "' because: " + e.getMessage(), e);
+									| IllegalArgumentException e) {
+								throw new FlowIfConditionException("Cannot invoke annoted method '" + method.getName() + "', condition '" + conditionExpression + ", of bean " + bean + "' because: " + e.getMessage(), e);
+							} catch ( InvocationTargetException e) {
+								Throwable t = getUnderlayingException(e);
+								if(t instanceof FlowIfConditionException) {
+									throw (FlowIfConditionException)t;
+								}
+								throw new FlowIfConditionException("Cannot invoke annoted method '" + method.getName() + "', condition '" + conditionExpression + ", of bean " + bean + "' because: " + t.getMessage(), t);
 							}
 						}
 			});
@@ -316,13 +364,18 @@ public class AnnotationFlowFactory<T extends Serializable> {
 
 						@Override
 						public String resolveSwitchExpression(
-								IFlowCarter<T> flow, String switchExpression) {
+								IFlowCarter<T> flow, String switchExpression) throws FlowSwitchException {
 							try {
 								return (String) method.invoke(bean, switchExpression, flow);
 							} catch ( IllegalAccessException
-									| IllegalArgumentException
-									| InvocationTargetException e) {
-								throw new IllegalStateException("Cannot invoke annoted method '" + method.getName() + "', condition '" + switchExpression + ", of bean '" + bean + "' because: " + e.getMessage(), e);
+									| IllegalArgumentException e) {
+								throw new FlowSwitchException("Cannot invoke annoted method '" + method.getName() + "', condition '" + switchExpression + ", of bean '" + bean + "' because: " + e.getMessage(), e);								
+							} catch (InvocationTargetException e) {
+								Throwable t = getUnderlayingException(e);
+								if(t instanceof FlowSwitchException) {
+									throw (FlowSwitchException)t;
+								}
+								throw new FlowSwitchException("Cannot invoke annoted method '" + method.getName() + "', condition '" + switchExpression + ", of bean '" + bean + "' because: " + t.getMessage(), t);
 							}
 						}
 
@@ -509,6 +562,14 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	
 	protected String emptyStringConversion(String object) {
 		return "".equals(object) ? null : object;
+	}
+	
+	private Throwable getUnderlayingException(InvocationTargetException ite) {
+		Throwable c = ite.getCause();
+		if(c == null) {
+			return ite;
+		}
+		return c;
 	}
 
 

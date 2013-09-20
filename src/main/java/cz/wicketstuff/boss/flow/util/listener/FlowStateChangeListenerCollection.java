@@ -20,12 +20,13 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
+import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowListenerCollection;
 
 public class FlowStateChangeListenerCollection<T extends Serializable> extends
-		FlowListenerCollection<IFlowStateChangeListener<T>> implements
+		FlowListenerCollection<IFlowStateChangeListener<T>, FlowStateListenerException> implements
 		IFlowStateChangeListener<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -42,20 +43,20 @@ public class FlowStateChangeListenerCollection<T extends Serializable> extends
 	}
 
 	@Override
-	public void onStateEntry(final IFlowCarter<T> flow, final IFlowState flowState) {
-		notify(new INotifier<IFlowStateChangeListener<T>>() {
+	public void onStateEntry(final IFlowCarter<T> flow, final IFlowState flowState) throws FlowStateListenerException {
+		notify(new INotifier<IFlowStateChangeListener<T>, FlowStateListenerException>() {
 			@Override
-			public void notify(IFlowStateChangeListener<T> listener) {
+			public void notify(IFlowStateChangeListener<T> listener) throws FlowStateListenerException {
 				listener.onStateEntry(flow, flowState);
 			}
 		});
 	}
 
 	@Override
-	public void onStateLeaving(final IFlowCarter<T> flow, final IFlowState flowState) {
-		notify(new INotifier<IFlowStateChangeListener<T>>() {
+	public void onStateLeaving(final IFlowCarter<T> flow, final IFlowState flowState) throws FlowStateListenerException {
+		notify(new INotifier<IFlowStateChangeListener<T>, FlowStateListenerException>() {
 			@Override
-			public void notify(IFlowStateChangeListener<T> listener) {
+			public void notify(IFlowStateChangeListener<T> listener) throws FlowStateListenerException {
 				listener.onStateLeaving(flow, flowState);
 			}
 		});

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation.ValidationEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
+import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
@@ -71,7 +72,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 	}
 
 	@Override
-	public void onStateValid(IFlowCarter<T> flow) {
+	public void onStateValid(IFlowCarter<T> flow) throws FlowValidationListenerException {
 		if((ValidationEvent.all.equals(event) || ValidationEvent.valid.equals(event)) && matchState(flow.getCurrentState())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onStateValid: " + toString());
@@ -85,7 +86,7 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 
 
 	@Override
-	public void onStateInvalid(IFlowCarter<T> flow) {
+	public void onStateInvalid(IFlowCarter<T> flow) throws FlowValidationListenerException {
 		if((ValidationEvent.all.equals(event) || ValidationEvent.invalid.equals(event)) && matchState(flow.getCurrentState())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onStateInvalid: " + toString());
@@ -134,9 +135,9 @@ public abstract class FilteredStateValidationListener<T extends Serializable> im
 		this.type = type;
 	}
 
-	abstract protected void onStateValidFiltered(IFlowCarter<T> flow);
+	abstract protected void onStateValidFiltered(IFlowCarter<T> flow) throws FlowValidationListenerException;
 
-	abstract protected void onStateInvalidFiltered(IFlowCarter<T> flow);
+	abstract protected void onStateInvalidFiltered(IFlowCarter<T> flow) throws FlowValidationListenerException;
 
 	@Override
 	protected void finalize() throws Throwable {

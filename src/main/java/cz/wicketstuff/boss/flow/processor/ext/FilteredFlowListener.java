@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.annotation.FlowEvents.FlowEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.processor.FlowListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
@@ -48,7 +49,7 @@ public abstract class FilteredFlowListener<T extends Serializable> implements IF
 
 
 	@Override
-	public void onFlowInitialized(IFlowCarter<T> flow) {
+	public void onFlowInitialized(IFlowCarter<T> flow) throws FlowListenerException {
 		if(FlowEvent.all.equals(event) || FlowEvent.onFlowInitialized.equals(event)) {
 			if(log.isDebugEnabled()) {
 				log.debug("onFlowInitialized: " + toString());
@@ -61,7 +62,7 @@ public abstract class FilteredFlowListener<T extends Serializable> implements IF
 	}
 
 	@Override
-	public void onFlowFinished(IFlowCarter<T> flow) {
+	public void onFlowFinished(IFlowCarter<T> flow) throws FlowListenerException {
 		if(FlowEvent.all.equals(event) || FlowEvent.onFlowFinished.equals(event)) {
 			if(log.isDebugEnabled()) {
 				log.debug("onFlowFinished: " + toString());
@@ -81,9 +82,9 @@ public abstract class FilteredFlowListener<T extends Serializable> implements IF
 		this.event = event;
 	}
 
-	abstract protected void onFlowInitializedFiltered(IFlowCarter<T> flow);
+	abstract protected void onFlowInitializedFiltered(IFlowCarter<T> flow) throws FlowListenerException;
 
-	abstract protected void onFlowFinishedFiltered(IFlowCarter<T> flow);
+	abstract protected void onFlowFinishedFiltered(IFlowCarter<T> flow) throws FlowListenerException;
 
 	@Override
 	protected void finalize() throws Throwable {

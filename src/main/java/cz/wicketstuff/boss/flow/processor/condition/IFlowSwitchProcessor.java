@@ -19,6 +19,7 @@ package cz.wicketstuff.boss.flow.processor.condition;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.processor.FlowSwitchException;
 
 /**
  * Processor of Switch State
@@ -36,7 +37,8 @@ public interface IFlowSwitchProcessor<T extends Serializable> {
 	 * @param flow
 	 * @param switchExpression
 	 * @return
+	 * @throws FlowSwitchException
 	 */
-	public String resolveSwitchExpression(IFlowCarter<T> flow, String switchExpression);
+	public String resolveSwitchExpression(IFlowCarter<T> flow, String switchExpression) throws FlowSwitchException;
 
 }

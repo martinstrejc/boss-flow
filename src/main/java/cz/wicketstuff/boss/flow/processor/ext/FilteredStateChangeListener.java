@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import cz.wicketstuff.boss.flow.annotation.FlowStateEvent.StateEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
+import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowMatcherHelper;
@@ -72,7 +73,7 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	}
 
 	@Override
-	public void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) {
+	public void onStateEntry(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException {
 		if((StateEvent.all.equals(event) || StateEvent.onStateEntry.equals(event)) && matchState(flow.getCurrentState())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onStateEntry: " + toString());
@@ -85,7 +86,7 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	}
 
 	@Override
-	public void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) {
+	public void onStateLeaving(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException {
 		if((StateEvent.all.equals(event) || StateEvent.onStateLeaving.equals(event)) && matchState(flow.getCurrentState())) {
 			if(log.isDebugEnabled()) {
 				log.debug("onStateLeaving: " + toString());
@@ -149,9 +150,9 @@ public abstract class FilteredStateChangeListener<T extends Serializable> implem
 	}
 
 
-	abstract protected void onStateEntryFiltered(IFlowCarter<T> flow, IFlowState flowState);
+	abstract protected void onStateEntryFiltered(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException;
 
-	abstract protected void onStateLeavingFiltered(IFlowCarter<T> flow, IFlowState flowState);
+	abstract protected void onStateLeavingFiltered(IFlowCarter<T> flow, IFlowState flowState) throws FlowStateListenerException;
 
 	@Override
 	protected void finalize() throws Throwable {

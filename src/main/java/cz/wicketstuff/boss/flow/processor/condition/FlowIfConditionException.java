@@ -14,36 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cz.wicketstuff.boss.flow.processor;
+package cz.wicketstuff.boss.flow.processor.condition;
 
-import java.io.Serializable;
-
-import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.util.listener.IPriority;
+import cz.wicketstuff.boss.flow.FlowException;
 
 /**
- * Listeners of flow state validation lifecycle events.
+ * Exception is thrown when a 'Condition State' cannot be processed. 
+ * It usually means that no condition is attached to the state.
  * 
  * @author Martin Strejc
  *
- * @param <T> type of flow payload
  */
-public interface IFlowStateValidationListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
-	
-	/**
-	 * Listen on state that is valid it is going to be shifted.
-	 * 
-	 * @param flow
-	 * @throws FlowValidationListenerException
-	 */
-	void onStateValid(IFlowCarter<T> flow) throws FlowValidationListenerException;
-	
-	/**
-	 * Listen on state that is not valid it is going to stay in the current state.
-	 * 
-	 * @param flow
-	 * @throws FlowValidationListenerException
-	 */
-	void onStateInvalid(IFlowCarter<T> flow) throws FlowValidationListenerException;
-	
+public class FlowIfConditionException extends FlowException {
+
+	private static final long serialVersionUID = 1L;
+
+	public FlowIfConditionException() {
+	}
+
+	public FlowIfConditionException(String message, Throwable cause,
+			boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+	public FlowIfConditionException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public FlowIfConditionException(String message) {
+		super(message);
+	}
+
+	public FlowIfConditionException(Throwable cause) {
+		super(cause);
+	}
+
 }

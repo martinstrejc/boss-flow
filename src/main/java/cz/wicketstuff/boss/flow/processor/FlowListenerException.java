@@ -16,34 +16,36 @@
  */
 package cz.wicketstuff.boss.flow.processor;
 
-import java.io.Serializable;
-
-import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.util.listener.IPriority;
+import cz.wicketstuff.boss.flow.FlowException;
 
 /**
- * Listeners of flow state validation lifecycle events.
+ * Exception is thrown in a flow listener method
  * 
  * @author Martin Strejc
  *
- * @param <T> type of flow payload
  */
-public interface IFlowStateValidationListener<T extends Serializable> extends Comparable<IPriority>, IPriority {
-	
-	/**
-	 * Listen on state that is valid it is going to be shifted.
-	 * 
-	 * @param flow
-	 * @throws FlowValidationListenerException
-	 */
-	void onStateValid(IFlowCarter<T> flow) throws FlowValidationListenerException;
-	
-	/**
-	 * Listen on state that is not valid it is going to stay in the current state.
-	 * 
-	 * @param flow
-	 * @throws FlowValidationListenerException
-	 */
-	void onStateInvalid(IFlowCarter<T> flow) throws FlowValidationListenerException;
-	
+public class FlowListenerException extends FlowException {
+
+	private static final long serialVersionUID = 1L;
+
+	public FlowListenerException() {
+	}
+
+	public FlowListenerException(String message, Throwable cause,
+			boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+	public FlowListenerException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public FlowListenerException(String message) {
+		super(message);
+	}
+
+	public FlowListenerException(Throwable cause) {
+		super(cause);
+	}
+
 }

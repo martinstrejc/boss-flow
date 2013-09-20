@@ -19,12 +19,13 @@ package cz.wicketstuff.boss.flow.util.listener;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.processor.FlowListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowListenerCollection;
 
 public class FlowListenersCollection<T extends Serializable> extends
-		FlowListenerCollection<IFlowListener<T>> implements
+		FlowListenerCollection<IFlowListener<T>, FlowListenerException> implements
 		IFlowListener<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -41,20 +42,20 @@ public class FlowListenersCollection<T extends Serializable> extends
 	}
 
 	@Override
-	public void onFlowInitialized(final IFlowCarter<T> flow) {
-		notify(new INotifier<IFlowListener<T>>() {
+	public void onFlowInitialized(final IFlowCarter<T> flow) throws FlowListenerException, FlowListenerException {
+		notify(new INotifier<IFlowListener<T>, FlowListenerException>() {
 			@Override
-			public void notify(IFlowListener<T> listener) {
+			public void notify(IFlowListener<T> listener) throws FlowListenerException {
 				listener.onFlowInitialized(flow);
 			}
 		});
 	}
 
 	@Override
-	public void onFlowFinished(final IFlowCarter<T> flow) {
-		notify(new INotifier<IFlowListener<T>>() {
+	public void onFlowFinished(final IFlowCarter<T> flow) throws FlowListenerException {
+		notify(new INotifier<IFlowListener<T>, FlowListenerException>() {
 			@Override
-			public void notify(IFlowListener<T> listener) {
+			public void notify(IFlowListener<T> listener) throws FlowListenerException {
 				listener.onFlowFinished(flow);
 			}
 		});

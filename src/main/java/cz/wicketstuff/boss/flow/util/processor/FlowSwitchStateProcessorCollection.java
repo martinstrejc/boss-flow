@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
+import cz.wicketstuff.boss.flow.processor.FlowSwitchException;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowMatchedSwitchProcessor;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowSwitchProcessor;
 
@@ -48,7 +49,7 @@ public class FlowSwitchStateProcessorCollection<T extends Serializable>
 	
 	@Override
 	public String resolveSwitchExpression(IFlowCarter<T> flow,
-			String switchExpression) {
+			String switchExpression) throws FlowSwitchException {
 		if(log.isDebugEnabled()) {
 			log.debug("resolveSwitchExpression: " + switchExpression);
 		}

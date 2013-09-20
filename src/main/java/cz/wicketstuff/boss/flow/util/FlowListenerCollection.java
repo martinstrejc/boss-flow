@@ -56,7 +56,7 @@ import cz.wicketstuff.boss.flow.util.listener.IPriority;
  * @param <T>
  *            type of listeners
  */
-public abstract class FlowListenerCollection<T extends IPriority> implements Serializable, Iterable<T>
+public abstract class FlowListenerCollection<T extends IPriority, E extends Throwable> implements Serializable, Iterable<T>
 {
 	private static final long serialVersionUID = 1L;
 
@@ -91,8 +91,9 @@ public abstract class FlowListenerCollection<T extends IPriority> implements Ser
 	 * 
 	 * @param notifier
 	 *            notifier used to notify each listener
+	 * @throws E 
 	 */
-	protected void notify(final INotifier<T> notifier)
+	protected void notify(final INotifier<T, E> notifier) throws E
 	{
 		for (T listener : listeners)
 		{
@@ -105,8 +106,9 @@ public abstract class FlowListenerCollection<T extends IPriority> implements Ser
 	 * 
 	 * @param notifier
 	 *            notifier used to notify each listener
+	 * @throws E 
 	 */
-	protected void notifyIgnoringExceptions(final INotifier<T> notifier)
+	protected void notifyIgnoringExceptions(final INotifier<T, E> notifier) throws E
 	{
 		for (T listener : listeners)
 		{
@@ -126,13 +128,14 @@ public abstract class FlowListenerCollection<T extends IPriority> implements Ser
 	 * 
 	 * @param notifier
 	 *            notifier used to notify each listener
+	 * @throws E 
 	 */
-	protected void reversedNotifyIgnoringExceptions(final INotifier<T> notifier)
+	protected void reversedNotifyIgnoringExceptions(final INotifier<T, E> notifier) throws E
 	{
-		reversedNotify(new INotifier<T>()
+		reversedNotify(new INotifier<T, E>()
 		{
 			@Override
-			public void notify(T listener)
+			public void notify(T listener) throws E
 			{
 				try
 				{
@@ -153,8 +156,9 @@ public abstract class FlowListenerCollection<T extends IPriority> implements Ser
 	 * 
 	 * @param notifier
 	 *            notifier used to notify each listener
+	 * @throws E 
 	 */
-	protected void reversedNotify(final INotifier<T> notifier)
+	protected void reversedNotify(final INotifier<T, E> notifier) throws E
 	{
 		Iterator<T> it = new ReverseListIterator<T>(listeners);
 		while (it.hasNext())
@@ -202,9 +206,9 @@ public abstract class FlowListenerCollection<T extends IPriority> implements Ser
 	 * @author ivaynberg (Igor Vaynberg)
 	 * @param <T>
 	 */
-	protected static interface INotifier<T>
+	protected static interface INotifier<T, E extends Throwable>
 	{
-		void notify(T listener);
+		void notify(T listener) throws E;
 	}
 
 	/**

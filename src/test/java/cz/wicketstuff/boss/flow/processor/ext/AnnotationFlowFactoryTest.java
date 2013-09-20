@@ -43,11 +43,16 @@ import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.model.basic.FlowCarter;
 import cz.wicketstuff.boss.flow.model.basic.FlowState;
 import cz.wicketstuff.boss.flow.model.basic.FlowTransition;
+import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowSwitchException;
+import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateValidationListener;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
-import cz.wicketstuff.boss.flow.processor.condition.CannotProcessConditionException;
+import cz.wicketstuff.boss.flow.processor.condition.FlowIfConditionException;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowConditionProcessor;
 import cz.wicketstuff.boss.flow.processor.condition.IFlowSwitchProcessor;
 
@@ -114,7 +119,7 @@ public class AnnotationFlowFactoryTest {
 	}		
 
 	@Test
-	public void testGetFlowListenersObject() throws FlowAnnotationException {		
+	public void testGetFlowListenersObject() throws FlowAnnotationException, FlowListenerException {		
 		IFlowListener<String> listener;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		listener = annotationFactory.getFlowListeners(new Serializable() {
@@ -204,7 +209,7 @@ public class AnnotationFlowFactoryTest {
 	}
 
 	@Test
-	public void testGetStateChangeListenersObject() throws FlowAnnotationException {
+	public void testGetStateChangeListenersObject() throws FlowAnnotationException, FlowStateListenerException {
 		IFlowStateChangeListener<String> listener;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		listener = annotationFactory.getStateChangeListeners(new Serializable() {
@@ -280,7 +285,7 @@ public class AnnotationFlowFactoryTest {
 	}
 	
 	@Test
-	public void testGetStateValidationListenersObject() throws FlowAnnotationException {
+	public void testGetStateValidationListenersObject() throws FlowAnnotationException, FlowValidationListenerException {
 		IFlowStateValidationListener<String> listener;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		listener = annotationFactory.getStateValidationListeners(new Serializable() {
@@ -370,7 +375,7 @@ public class AnnotationFlowFactoryTest {
 	}
 
 	@Test
-	public void testGetTransitionChangeListenersObject() throws FlowAnnotationException {
+	public void testGetTransitionChangeListenersObject() throws FlowAnnotationException, FlowTransitionListenerException {
 		IFlowTransitionChangeListener<String> listener;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		listener = annotationFactory.getTransitionChangeListeners(new Serializable() {
@@ -444,7 +449,7 @@ public class AnnotationFlowFactoryTest {
 		});
 	}
 
-	public void testGetFlowConditionProcessorsObject1() throws FlowAnnotationException, CannotProcessConditionException {
+	public void testGetFlowConditionProcessorsObject1() throws FlowAnnotationException, FlowIfConditionException {
 		IFlowConditionProcessor<String> processor;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		notify1 = true;
@@ -461,8 +466,8 @@ public class AnnotationFlowFactoryTest {
 		assertTrue(processor.ifCondition("expression1", flowCarter));
 	}
 
-	@Test(expected=CannotProcessConditionException.class)
-	public void testGetFlowConditionProcessorsObject2() throws FlowAnnotationException, CannotProcessConditionException {
+	@Test(expected=FlowIfConditionException.class)
+	public void testGetFlowConditionProcessorsObject2() throws FlowAnnotationException, FlowIfConditionException {
 		IFlowConditionProcessor<String> processor;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		notify1 = true;
@@ -494,7 +499,7 @@ public class AnnotationFlowFactoryTest {
 	}
 
 	@Test
-	public void testGetFlowSwitchProcessorsObject() throws FlowAnnotationException {
+	public void testGetFlowSwitchProcessorsObject() throws FlowAnnotationException, FlowSwitchException {
 		IFlowSwitchProcessor<String> processor;
 		IFlowCarter<String> flowCarter = createFlowCarter();
 		notify1 = true;

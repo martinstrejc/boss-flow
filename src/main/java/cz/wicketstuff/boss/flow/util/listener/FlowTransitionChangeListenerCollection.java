@@ -20,12 +20,13 @@ import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowTransitionChangeListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowListenerCollection;
 
 public class FlowTransitionChangeListenerCollection<T extends Serializable> extends
-		FlowListenerCollection<IFlowTransitionChangeListener<T>> implements
+		FlowListenerCollection<IFlowTransitionChangeListener<T>, FlowTransitionListenerException> implements
 		IFlowTransitionChangeListener<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -42,20 +43,20 @@ public class FlowTransitionChangeListenerCollection<T extends Serializable> exte
 	}
 
 	@Override
-	public void onTransitionStart(final IFlowCarter<T> flow, final IFlowTransition flowTransition) {
-		notify(new INotifier<IFlowTransitionChangeListener<T>>() {
+	public void onTransitionStart(final IFlowCarter<T> flow, final IFlowTransition flowTransition) throws FlowTransitionListenerException {
+		notify(new INotifier<IFlowTransitionChangeListener<T>, FlowTransitionListenerException>() {
 			@Override
-			public void notify(IFlowTransitionChangeListener<T> listener) {
+			public void notify(IFlowTransitionChangeListener<T> listener) throws FlowTransitionListenerException {
 				listener.onTransitionStart(flow, flowTransition);
 			}
 		});
 	}
 
 	@Override
-	public void onTransitionFinished(final IFlowCarter<T> flow, final IFlowTransition flowTransition) {
-		notify(new INotifier<IFlowTransitionChangeListener<T>>() {
+	public void onTransitionFinished(final IFlowCarter<T> flow, final IFlowTransition flowTransition) throws FlowTransitionListenerException {
+		notify(new INotifier<IFlowTransitionChangeListener<T>, FlowTransitionListenerException>() {
 			@Override
-			public void notify(IFlowTransitionChangeListener<T> listener) {
+			public void notify(IFlowTransitionChangeListener<T> listener) throws FlowTransitionListenerException {
 				listener.onTransitionFinished(flow, flowTransition);
 			}
 		});
