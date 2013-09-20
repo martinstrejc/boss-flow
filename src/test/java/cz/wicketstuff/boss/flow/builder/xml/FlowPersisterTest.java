@@ -18,6 +18,7 @@ package cz.wicketstuff.boss.flow.builder.xml;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
+import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
+import cz.wicketstuff.boss.flow.processor.StateDataException;
 import cz.wicketstuff.boss.flow.processor.ext.DefaultFlowProcessor;
 import cz.wicketstuff.boss.flow.test.AbstractFlowTest;
 import cz.wicketstuff.boss.flow.test.FlowFileResource;
@@ -71,6 +74,12 @@ public class FlowPersisterTest extends AbstractFlowTest implements IFlowStatePer
 			@Override
 			public IFlowStatePersister<String> defaultFlowStatePersister() {
 				return FlowPersisterTest.this;
+			}
+			
+			@Override
+			public Serializable createStateData(IFlowState flowState)
+					throws NoSuchStateException, StateDataException {
+				return null;
 			}
 
 		};
