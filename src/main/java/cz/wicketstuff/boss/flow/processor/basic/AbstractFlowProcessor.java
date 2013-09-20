@@ -137,7 +137,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 			if(flow.getCurrentState().isFinalState()) {
 				onFlowFinished(flow);
 			}
-			return flow.getStateHit() == stateHit;
+			return flow.getStateHit() != stateHit;
 		} catch (Exception e) {
 			flow.setFlowProcessed(false);
 			throw e;

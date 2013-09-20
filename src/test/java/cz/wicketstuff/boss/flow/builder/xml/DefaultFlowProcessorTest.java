@@ -108,5 +108,12 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 		assertEquals(null, flow.getStateData());
 	}
 
+	@Test
+	public void testShiftFlow() throws FlowException {
+		DefaultFlowProcessor<String> p = (DefaultFlowProcessor<String>)processor;
+		IFlowCarter<String> flow = processor.initFlow(1L);
+		assertTrue(p.invokeTransition(flow, "t01"));
+		// TODO add validation test
+	}
 
 }
