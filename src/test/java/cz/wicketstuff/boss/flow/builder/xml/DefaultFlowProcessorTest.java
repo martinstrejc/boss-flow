@@ -113,6 +113,7 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 		DefaultFlowProcessor<String> p = (DefaultFlowProcessor<String>)processor;
 		IFlowCarter<String> flow = processor.initFlow(1L);
 		assertTrue(p.invokeTransition(flow, "t01"));
+		assertTrue(p.invokeDefaultNextTransition(flow));
 		// TODO add validation test
 	}
 
