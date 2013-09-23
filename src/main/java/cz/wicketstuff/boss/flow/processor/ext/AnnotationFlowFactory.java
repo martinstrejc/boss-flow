@@ -40,6 +40,7 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowPersisterListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowSwitchException;
 import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
@@ -138,18 +139,18 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				
 				@Override
 				protected void onFlowBeforePersistedFiltered(IFlowCarter<T> flow)
-						throws FlowListenerException {
+						throws FlowPersisterListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException e) {
-						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+						throw new FlowPersisterListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
 					} catch ( InvocationTargetException e) {
 						Throwable t = getUnderlayingException(e);
-						if(t instanceof FlowListenerException) {
-							throw (FlowListenerException)t;
+						if(t instanceof FlowPersisterListenerException) {
+							throw (FlowPersisterListenerException)t;
 						}
-						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+						throw new FlowPersisterListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				
@@ -165,18 +166,18 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				
 				@Override
 				protected void onFlowPersistedFiltered(IFlowCarter<T> flow)
-						throws FlowListenerException {
+						throws FlowPersisterListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException e) {
-						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+						throw new FlowPersisterListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
 					} catch ( InvocationTargetException e) {
 						Throwable t = getUnderlayingException(e);
-						if(t instanceof FlowListenerException) {
-							throw (FlowListenerException)t;
+						if(t instanceof FlowPersisterListenerException) {
+							throw (FlowPersisterListenerException)t;
 						}
-						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+						throw new FlowPersisterListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				
@@ -192,18 +193,18 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				
 				@Override
 				protected void onFlowRestoredFiltered(IFlowCarter<T> flow)
-						throws FlowListenerException {
+						throws FlowPersisterListenerException {
 					try {
 						method.invoke(bean, flow);
 					} catch ( IllegalAccessException
 							| IllegalArgumentException e) {
-						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+						throw new FlowPersisterListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
 					} catch ( InvocationTargetException e) {
 						Throwable t = getUnderlayingException(e);
-						if(t instanceof FlowListenerException) {
-							throw (FlowListenerException)t;
+						if(t instanceof FlowPersisterListenerException) {
+							throw (FlowPersisterListenerException)t;
 						}
-						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+						throw new FlowPersisterListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
 					}
 				}
 				

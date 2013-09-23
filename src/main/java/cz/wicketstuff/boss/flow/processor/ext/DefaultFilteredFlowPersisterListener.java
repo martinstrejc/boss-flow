@@ -6,7 +6,7 @@ package cz.wicketstuff.boss.flow.processor.ext;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowPersisterListenerException;
 
 /**
  * Default dummy implementation that do nothing
@@ -37,17 +37,17 @@ public class DefaultFilteredFlowPersisterListener<T extends Serializable> extend
 
 	@Override
 	protected void onFlowBeforePersistedFiltered(IFlowCarter<T> flow)
-			throws FlowListenerException {
+			throws FlowPersisterListenerException {
 	}
 
 	@Override
 	protected void onFlowPersistedFiltered(IFlowCarter<T> flow)
-			throws FlowListenerException {
+			throws FlowPersisterListenerException {
 	}
 
 	@Override
 	protected void onFlowRestoredFiltered(IFlowCarter<T> flow)
-			throws FlowListenerException {
+			throws FlowPersisterListenerException {
 	}
 
 }

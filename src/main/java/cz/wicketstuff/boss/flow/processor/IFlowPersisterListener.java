@@ -36,9 +36,9 @@ public interface IFlowPersisterListener<T extends Serializable> extends Comparab
 	 * order of event's orders.
 	 * 
 	 * @param flow
-	 * @throws FlowListenerException
+	 * @throws FlowPersisterListenerException
 	 */
-	void onFlowBeforePersisted(IFlowCarter<T> flow) throws FlowListenerException;
+	void onFlowBeforePersisted(IFlowCarter<T> flow) throws FlowPersisterListenerException;
 
 	/**
 	 * Listen on persisting the flow when flow has been successfully persisted.
@@ -46,9 +46,9 @@ public interface IFlowPersisterListener<T extends Serializable> extends Comparab
 	 * order of event's orders.
 	 * 
 	 * @param flow
-	 * @throws FlowListenerException
+	 * @throws FlowPersisterListenerException
 	 */
-	void onFlowPersisted(IFlowCarter<T> flow) throws FlowListenerException;
+	void onFlowPersisted(IFlowCarter<T> flow) throws FlowPersisterListenerException;
 
 	/**
 	 * Listen on restoring the flow.
@@ -56,8 +56,8 @@ public interface IFlowPersisterListener<T extends Serializable> extends Comparab
 	 * order of event's orders.
 	 * 
 	 * @param flow
-	 * @throws FlowListenerException
+	 * @throws FlowPersisterListenerException
 	 */
-	void onFlowRestored(IFlowCarter<T> flow) throws FlowListenerException;
+	void onFlowRestored(IFlowCarter<T> flow) throws FlowPersisterListenerException;
 
 }

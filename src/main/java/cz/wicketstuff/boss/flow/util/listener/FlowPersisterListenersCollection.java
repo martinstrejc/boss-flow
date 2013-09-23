@@ -19,13 +19,13 @@ package cz.wicketstuff.boss.flow.util.listener;
 import java.io.Serializable;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowPersisterListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowPersisterListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.FlowListenerCollection;
 
 public class FlowPersisterListenersCollection<T extends Serializable> extends
-		FlowListenerCollection<IFlowPersisterListener<T>, FlowListenerException> implements
+		FlowListenerCollection<IFlowPersisterListener<T>, FlowPersisterListenerException> implements
 		IFlowPersisterListener<T> {
 
 	private static final long serialVersionUID = 1L;
@@ -43,10 +43,10 @@ public class FlowPersisterListenersCollection<T extends Serializable> extends
 
 	@Override
 	public void onFlowBeforePersisted(final IFlowCarter<T> flow)
-			throws FlowListenerException {
-		notify(new INotifier<IFlowPersisterListener<T>, FlowListenerException>() {
+			throws FlowPersisterListenerException {
+		notify(new INotifier<IFlowPersisterListener<T>, FlowPersisterListenerException>() {
 			@Override
-			public void notify(IFlowPersisterListener<T> listener) throws FlowListenerException {
+			public void notify(IFlowPersisterListener<T> listener) throws FlowPersisterListenerException {
 				listener.onFlowBeforePersisted(flow);
 			}
 		});
@@ -54,10 +54,10 @@ public class FlowPersisterListenersCollection<T extends Serializable> extends
 
 	@Override
 	public void onFlowPersisted(final IFlowCarter<T> flow)
-			throws FlowListenerException {
-		notify(new INotifier<IFlowPersisterListener<T>, FlowListenerException>() {
+			throws FlowPersisterListenerException {
+		notify(new INotifier<IFlowPersisterListener<T>, FlowPersisterListenerException>() {
 			@Override
-			public void notify(IFlowPersisterListener<T> listener) throws FlowListenerException {
+			public void notify(IFlowPersisterListener<T> listener) throws FlowPersisterListenerException {
 				listener.onFlowPersisted(flow);
 			}
 		});
@@ -65,10 +65,10 @@ public class FlowPersisterListenersCollection<T extends Serializable> extends
 
 	@Override
 	public void onFlowRestored(final IFlowCarter<T> flow)
-			throws FlowListenerException {
-		notify(new INotifier<IFlowPersisterListener<T>, FlowListenerException>() {
+			throws FlowPersisterListenerException {
+		notify(new INotifier<IFlowPersisterListener<T>, FlowPersisterListenerException>() {
 			@Override
-			public void notify(IFlowPersisterListener<T> listener) throws FlowListenerException {
+			public void notify(IFlowPersisterListener<T> listener) throws FlowPersisterListenerException {
 				listener.onFlowRestored(flow);
 			}
 		});

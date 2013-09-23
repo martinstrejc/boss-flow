@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
-import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowPersisterListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowPersisterListener;
 import cz.wicketstuff.boss.flow.util.Comparators;
 import cz.wicketstuff.boss.flow.util.listener.IPriority;
@@ -46,7 +46,7 @@ public abstract class FilteredFlowPersisterListener<T extends Serializable> impl
 
 	@Override
 	public void onFlowBeforePersisted(IFlowCarter<T> flow)
-			throws FlowListenerException {
+			throws FlowPersisterListenerException {
 		if(log.isDebugEnabled()) {
 			log.debug("onFlowBeforePersisted: " + toString());
 		}
@@ -59,7 +59,7 @@ public abstract class FilteredFlowPersisterListener<T extends Serializable> impl
 
 	@Override
 	public void onFlowPersisted(IFlowCarter<T> flow)
-			throws FlowListenerException {
+			throws FlowPersisterListenerException {
 		if(log.isDebugEnabled()) {
 			log.debug("onFlowPersisted: " + toString());
 		}
@@ -72,7 +72,7 @@ public abstract class FilteredFlowPersisterListener<T extends Serializable> impl
 
 	@Override
 	public void onFlowRestored(IFlowCarter<T> flow)
-			throws FlowListenerException {
+			throws FlowPersisterListenerException {
 		if(log.isDebugEnabled()) {
 			log.debug("onFlowRestored: " + toString());
 		}
@@ -84,15 +84,15 @@ public abstract class FilteredFlowPersisterListener<T extends Serializable> impl
 	}
 		
 	abstract protected void onFlowBeforePersistedFiltered(IFlowCarter<T> flow)
-			throws FlowListenerException;
+			throws FlowPersisterListenerException;
 
 
 	abstract protected void onFlowPersistedFiltered(IFlowCarter<T> flow)
-			throws FlowListenerException;
+			throws FlowPersisterListenerException;
 
 
 	abstract protected void onFlowRestoredFiltered(IFlowCarter<T> flow)
-			throws FlowListenerException;
+			throws FlowPersisterListenerException;
 	
 	
 	@Override
