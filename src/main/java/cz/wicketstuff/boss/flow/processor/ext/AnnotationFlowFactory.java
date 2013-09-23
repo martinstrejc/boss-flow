@@ -29,6 +29,9 @@ import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.annotation.FlowConditionProcessor;
 import cz.wicketstuff.boss.flow.annotation.FlowEvents;
+import cz.wicketstuff.boss.flow.annotation.FlowPersisterBeforePersistEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowPersisterPersistEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowPersisterRestoreEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowStateEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation;
 import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
@@ -43,6 +46,7 @@ import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
 import cz.wicketstuff.boss.flow.processor.condition.FlowIfConditionException;
 import cz.wicketstuff.boss.flow.util.listener.FlowListenersCollection;
+import cz.wicketstuff.boss.flow.util.listener.FlowPersisterListenersCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateChangeListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateValidationListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowTransitionChangeListenerCollection;
@@ -108,6 +112,104 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				}
 				
 			});
+		}
+		listeners.sort();
+		return listeners;
+	}
+
+	
+	public FlowPersisterListenersCollection<T> newFlowPersisterListenersCollection() {
+		return new FlowPersisterListenersCollection<T>();
+	}  
+	
+	public FlowPersisterListenersCollection<T> getPersisterListeners(Object bean) throws FlowAnnotationException {
+		return getPersisterListeners(bean, newFlowPersisterListenersCollection());
+	}
+
+	public FlowPersisterListenersCollection<T> getPersisterListeners(final Object bean, FlowPersisterListenersCollection<T> listeners) throws FlowAnnotationException {
+		for(final Method method : findMethodFlowCandidates(bean, FlowPersisterPersistEvent.class)) {
+			FlowPersisterBeforePersistEvent beforePersistAnnotation = method.getAnnotation(FlowPersisterBeforePersistEvent.class);
+			if(logger.isDebugEnabled()) {
+				logger.debug("Adding annoted FlowPersisterPersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
+			}
+			listeners.add(new DefaultFilteredFlowPersisterListener<T>(beforePersistAnnotation.priority()) {
+
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				protected void onFlowBeforePersistedFiltered(IFlowCarter<T> flow)
+						throws FlowListenerException {
+					try {
+						method.invoke(bean, flow);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException e) {
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowListenerException) {
+							throw (FlowListenerException)t;
+						}
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+					}
+				}
+				
+			});
+
+			FlowPersisterPersistEvent persistAnnotation = method.getAnnotation(FlowPersisterPersistEvent.class);
+			if(logger.isDebugEnabled()) {
+				logger.debug("Adding annoted FlowPersisterPersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
+			}
+			listeners.add(new DefaultFilteredFlowPersisterListener<T>(persistAnnotation.priority()) {
+
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				protected void onFlowPersistedFiltered(IFlowCarter<T> flow)
+						throws FlowListenerException {
+					try {
+						method.invoke(bean, flow);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException e) {
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowListenerException) {
+							throw (FlowListenerException)t;
+						}
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+					}
+				}
+				
+			});
+			
+			FlowPersisterRestoreEvent restoreAnnotation = method.getAnnotation(FlowPersisterRestoreEvent.class);
+			if(logger.isDebugEnabled()) {
+				logger.debug("Adding annoted FlowPersisterPersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
+			}
+			listeners.add(new DefaultFilteredFlowPersisterListener<T>(restoreAnnotation.priority()) {
+
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				protected void onFlowRestoredFiltered(IFlowCarter<T> flow)
+						throws FlowListenerException {
+					try {
+						method.invoke(bean, flow);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException e) {
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowListenerException) {
+							throw (FlowListenerException)t;
+						}
+						throw new FlowListenerException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+					}
+				}
+				
+			});
+
+			
 		}
 		listeners.sort();
 		return listeners;

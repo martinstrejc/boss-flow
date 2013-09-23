@@ -31,6 +31,7 @@ import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
 import cz.wicketstuff.boss.flow.processor.IFlowCarterFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowListener;
+import cz.wicketstuff.boss.flow.processor.IFlowPersisterListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
 import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
@@ -63,6 +64,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	private IFlowStateValidator<T> stateValidator;
 	
 	private IFlowListener<T> flowListener;
+	private IFlowPersisterListener<T> persisterListener;
 	private IFlowStateChangeListener<T> stateChangeListener;
 	private IFlowTransitionChangeListener<T> transitionChangeListener;
 	private IFlowStateValidationListener<T> stateValidationListener;
@@ -330,6 +332,20 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	public void setFlowListener(IFlowListener<T> flowListener) {
 		this.flowListener = flowListener;
 	}
+	
+	/**
+	 * @return the persisterListener
+	 */
+	public IFlowPersisterListener<T> getPersisterListener() {
+		return persisterListener;
+	}
+
+	/**
+	 * @param persisterListener the persisterListener to set
+	 */
+	public void setPersisterListener(IFlowPersisterListener<T> persisterListener) {
+		this.persisterListener = persisterListener;
+	}
 
 	@Override
 	public Comparator<IFlowState> getStateOrdinalComparator() {
@@ -365,6 +381,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		stateValidator = null;
 		transitionChangeListener = null;
 		transitionResolver = null;
+		persisterListener = null;
 		flowListener = null;
 		super.finalize();
 	}
