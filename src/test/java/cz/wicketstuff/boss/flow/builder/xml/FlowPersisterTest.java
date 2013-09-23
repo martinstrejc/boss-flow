@@ -31,6 +31,7 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
 import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
+import cz.wicketstuff.boss.flow.processor.FlowRestoringException;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
@@ -111,12 +112,12 @@ public class FlowPersisterTest extends AbstractFlowTest implements IFlowStatePer
 	}
 
 	@Override
-	public void persistFlowState(IFlowCarter<String> flow)
+	public boolean persistFlowState(IFlowCarter<String> flow)
 			throws FlowPersistingException {
 		log.trace("Persisting: " + flow.getCurrentState().getStateName());
 		getPersistedList().add(flow.getCurrentState());
 		getPersistedNameList().add(flow.getCurrentState().getStateName());
-		
+		return true;
 	}
 
 	@Test
@@ -144,6 +145,12 @@ public class FlowPersisterTest extends AbstractFlowTest implements IFlowStatePer
 		// stateThrough.add(S8joinState);
 		stateThrough.add(S9finalState);
 		assertArrayEquals("Persisted list doesn't match", stateThrough.toArray(), persistedNameList.toArray());
+	}
+
+	@Override
+	public IFlowCarter<String> restoreFlowState() throws FlowRestoringException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

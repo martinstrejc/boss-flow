@@ -25,6 +25,7 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.FlowListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
+import cz.wicketstuff.boss.flow.processor.FlowRestoringException;
 import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowValidationListenerException;
@@ -388,10 +389,19 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public void persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException {
-		if(flowStatePersister != null) {
-			flowStatePersister.persistFlowState(flow);
+	public boolean persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException {
+		if(flowStatePersister == null) {
+			return false;
 		}		
+		return flowStatePersister.persistFlowState(flow);
+	}
+	
+	@Override
+	public IFlowCarter<T> restoreFlowState() throws FlowRestoringException {
+		if(flowStatePersister == null) {
+			throw new NullPointerException("Cannot restore flow because flowStatePersister is NULL");
+		}		
+		return flowStatePersister.restoreFlowState();
 	}
 
 	@Override

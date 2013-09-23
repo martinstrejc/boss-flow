@@ -31,11 +31,22 @@ import cz.wicketstuff.boss.flow.util.listener.IPriority;
 public interface IFlowStatePersister<T extends Serializable> extends Comparable<IPriority>, IPriority {
 	
 	/**
-	 * Persist flow. See the flow lifecycle to understand when flow persists.
+	 * Persist flow. See the flow lifecycle to understand when flow persists. Returns true if flow has been successfully persisted.
+	 * It is also possible that there is no need to persist this state and flow is not persisted.
 	 * 
 	 * @param flow
+	 * @return true if persisted
 	 * @throws FlowPersistingException
 	 */
-	void persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException;
+	public boolean persistFlowState(IFlowCarter<T> flow) throws FlowPersistingException;
+	
+	/**
+	 * Restore flow a persistant storage.
+	 * 
+	 * @return restored flow
+	 * @throws FlowRestoringException
+	 */
+	public IFlowCarter<T> restoreFlowState() throws FlowRestoringException;
+	
 
 }
