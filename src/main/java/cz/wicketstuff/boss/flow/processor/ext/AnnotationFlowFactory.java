@@ -442,7 +442,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	public void checkFlowMethod(Method method, Object bean) throws FlowAnnotationException {
 		Class<?>[] parameters = method.getParameterTypes();
 		if(parameters.length != 1) {
-			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just one parameter, not more, not less!");
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just one parameter: IFlowCarter<T extends Serializable>");
 		}
 		try {
 			if(parameters[0].asSubclass(IFlowCarter.class) == null) {
@@ -459,7 +459,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	public void checkFlowMethodTransition(Method method, Object bean) throws FlowAnnotationException {
 		Class<?>[] parameters = method.getParameterTypes();
 		if(parameters.length != 2) {
-			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters, not more, not less!");
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters: IFlowCarter<T extends Serializable>, IFlowTransition!");
 		}
 		try {
 			if(parameters[0].asSubclass(IFlowCarter.class) == null) {
@@ -479,7 +479,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	public void checkFlowMethodState(Method method, Object bean) throws FlowAnnotationException {
 		Class<?>[] parameters = method.getParameterTypes();
 		if(parameters.length != 2) {
-			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters, not more, not less!");
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters: IFlowCarter<T extends Serializable>, IFlowState!");
 		}
 		try {
 			if(parameters[0].asSubclass(IFlowCarter.class) == null) {
@@ -500,7 +500,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	public void checkConditionMethod(Method method, Object bean) throws FlowAnnotationException {
 		Class<?>[] parameters = method.getParameterTypes();
 		if(parameters.length != 2) {
-			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just one parameter, not more, not less! Correct parameters are String, IFlowCarter<T extends Serializable>");
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters: String, IFlowCarter<T extends Serializable>");
 		}
 		try {
 			if(method.getReturnType().asSubclass(boolean.class) == null) {
@@ -532,7 +532,7 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	public void checkSwitchMethod(Method method, Object bean) throws FlowAnnotationException {
 		Class<?>[] parameters = method.getParameterTypes();
 		if(parameters.length != 2) {
-			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just one parameter, not more, not less! Correct parameters are String, IFlowCarter<T extends Serializable>");
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just two parameters: String, IFlowCarter<T extends Serializable>");
 		}
 		try {
 			if(method.getReturnType().asSubclass(String.class) == null) {
