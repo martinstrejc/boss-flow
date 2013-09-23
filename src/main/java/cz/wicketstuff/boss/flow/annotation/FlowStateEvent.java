@@ -36,7 +36,7 @@ import cz.wicketstuff.boss.flow.processor.IFlowStateChangeListener;
  * In the following example the listener method is called to notify state change.
  * 
  *	&#64;FlowStateEvent(event=StateEvent.onStateEntry, priority=2)
- *	public void onStepEntry(IFlowCarter&lt;?&gt;> flowCarter) {
+ *	public void onStepEntry(IFlowCarter&lt;?&gt;> flowCarter, IFlowState state) {
  *		... do something ...
  *	}
  *
