@@ -53,6 +53,16 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 	public IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException {
 		return initFlow(flowProcessId, payload, getDefaultInitialState());
 	}
+	
+	private void persistFlowStateInternal(IFlowCarter<T> flow) throws FlowException {
+		log.trace("State " + flow.getCurrentState().getStateName() + " persistable " + flow.getCurrentState().isPersistableState());
+		if(flow.getCurrentState().isPersistableState()) {
+			onFlowBeforePersisted(flow);
+			if(persistFlowState(flow)) {
+				onFlowPersisted(flow);
+			}
+		}		
+	} 
 
 	@Override
 	public IFlowCarter<T> initFlow(Long flowProcessId, T payload, IFlowState initialState) throws FlowException {
@@ -72,10 +82,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 			flow.setStateData(createStateData(initialState));			
 		}
 		onStateEntry(flow, flow.getCurrentState());
-		log.trace("State " + flow.getCurrentState().getStateName() + " persistable " + flow.getCurrentState().isPersistableState());
-		if(flow.getCurrentState().isPersistableState()) {
-			persistFlowState(flow);
-		}
+		persistFlowStateInternal(flow);
 		processState(flow);
 		IFlowTransition nextTransition = flow.getNextTransition(); 
 		if(nextTransition != null) {
@@ -125,9 +132,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 					flow.setStateData(createStateData(flow.getCurrentState()));			
 				}				
 				onStateEntry(flow, flow.getCurrentState());
-				if(flow.getCurrentState().isPersistableState()) {
-					persistFlowState(flow);
-				}
+				persistFlowStateInternal(flow);
 				if(isMaxHitsReached(flow)) {
 					throw new FlowMaxHitsReachedException(getMaxFlowHits(), flow.getStateHit());
 				}

@@ -47,6 +47,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	IFlowTransitionChecker<T>,
 	IFlowStateResolver<T>,
 	IFlowStatePersister<T>,
+	IFlowPersisterListener<T>,
 	IFlowStateOrdinalComparator {	
 
 	/**

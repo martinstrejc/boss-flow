@@ -16,7 +16,6 @@
  */
 package cz.wicketstuff.boss.flow.processor;
 
-import cz.wicketstuff.boss.flow.FlowException;
 
 /**
  * Exception is thrown in a flow persister listener method
@@ -24,7 +23,7 @@ import cz.wicketstuff.boss.flow.FlowException;
  * @author Martin Strejc
  *
  */
-public class FlowPersisterListenerException extends FlowException {
+public class FlowPersisterListenerException extends FlowRestoringException {
 
 	private static final long serialVersionUID = 1L;
 

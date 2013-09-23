@@ -24,6 +24,7 @@ import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.FlowListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowPersisterListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
 import cz.wicketstuff.boss.flow.processor.FlowRestoringException;
 import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
@@ -162,6 +163,30 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	public void onFlowFinished(IFlowCarter<T> flow) throws FlowListenerException {
 		if(flowListener != null) {
 			flowListener.onFlowFinished(flow);
+		}
+	}
+	
+	@Override
+	public void onFlowBeforePersisted(IFlowCarter<T> flow)
+			throws FlowPersisterListenerException {
+		if(persisterListener != null) {
+			persisterListener.onFlowBeforePersisted(flow);
+		}
+	}
+
+	@Override
+	public void onFlowPersisted(IFlowCarter<T> flow)
+			throws FlowPersisterListenerException {
+		if(persisterListener != null) {
+			persisterListener.onFlowPersisted(flow);
+		}
+	}
+
+	@Override
+	public void onFlowRestored(IFlowCarter<T> flow)
+			throws FlowPersisterListenerException {
+		if(persisterListener != null) {
+			persisterListener.onFlowRestored(flow);
 		}
 	}
 
@@ -418,7 +443,9 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 		if(flowStatePersister == null) {
 			throw new NullPointerException("Cannot restore flow because flowStatePersister is NULL");
 		}		
-		return flowStatePersister.restoreFlowState();
+		IFlowCarter<T> flow = flowStatePersister.restoreFlowState();
+		onFlowRestored(flow);
+		return flow;
 	}
 
 	@Override
