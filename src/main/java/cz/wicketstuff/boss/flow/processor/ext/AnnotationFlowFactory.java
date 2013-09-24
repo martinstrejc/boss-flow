@@ -29,9 +29,11 @@ import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.annotation.FlowConditionProcessor;
 import cz.wicketstuff.boss.flow.annotation.FlowEvents;
+import cz.wicketstuff.boss.flow.annotation.FlowPersister;
 import cz.wicketstuff.boss.flow.annotation.FlowPersisterBeforePersistEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowPersisterPersistEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowPersisterRestoreEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowRestore;
 import cz.wicketstuff.boss.flow.annotation.FlowStateEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowStateValidation;
 import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
@@ -39,8 +41,11 @@ import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTransition;
+import cz.wicketstuff.boss.flow.processor.DefaultFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.FlowListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowPersisterListenerException;
+import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
+import cz.wicketstuff.boss.flow.processor.FlowRestoringException;
 import cz.wicketstuff.boss.flow.processor.FlowStateListenerException;
 import cz.wicketstuff.boss.flow.processor.FlowSwitchException;
 import cz.wicketstuff.boss.flow.processor.FlowTransitionListenerException;
@@ -52,6 +57,7 @@ import cz.wicketstuff.boss.flow.util.listener.FlowStateChangeListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowStateValidationListenerCollection;
 import cz.wicketstuff.boss.flow.util.listener.FlowTransitionChangeListenerCollection;
 import cz.wicketstuff.boss.flow.util.processor.FlowConditionStateProcessorCollection;
+import cz.wicketstuff.boss.flow.util.processor.FlowStatePersisterCollection;
 import cz.wicketstuff.boss.flow.util.processor.FlowSwitchStateProcessorCollection;
 
 public class AnnotationFlowFactory<T extends Serializable> {
@@ -118,6 +124,80 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		return listeners;
 	}
 
+
+	public FlowStatePersisterCollection<T> newFlowStatePersisterCollection() {
+		return new FlowStatePersisterCollection<T>();
+	}  
+	
+	public FlowStatePersisterCollection<T> getStatePersisters(Object bean) throws FlowAnnotationException {
+		return getStatePersisters(bean, newFlowStatePersisterCollection());
+	}
+
+	public FlowStatePersisterCollection<T> getStatePersisters(final Object bean, FlowStatePersisterCollection<T> persisters) throws FlowAnnotationException {
+		for(final Method method : findMethodPersisterCandidates(bean, FlowPersister.class)) {
+			FlowPersister persistAnnotation = method.getAnnotation(FlowPersister.class);
+			if(logger.isDebugEnabled()) {
+				logger.debug("Adding annoted FlowPersister method '" + method.getName() + "' of bean '" + bean + "'");
+			}
+			
+			persisters.add(new DefaultFilteredStatePersister<T>(persistAnnotation.stateNameRegex(), persistAnnotation.categoryNameRegex(), persistAnnotation.type(), persistAnnotation.priority()) {
+
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				public boolean persistFlowStateFiltered(IFlowCarter<T> flow)
+						throws FlowPersistingException {
+					try {
+						return (boolean)method.invoke(bean, flow);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException e) {
+						throw new FlowPersistingException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowPersistingException) {
+							throw (FlowPersistingException)t;
+						}
+						throw new FlowPersistingException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+					}
+				}
+				
+			});
+		}
+
+		for(final Method method : findMethodRestorerCandidates(bean, FlowRestore.class)) {
+			FlowRestore restoreAnnotation = method.getAnnotation(FlowRestore.class);
+			if(logger.isDebugEnabled()) {
+				logger.debug("Adding annoted FlowRestore method '" + method.getName() + "' of bean '" + bean + "'");
+			}
+			persisters.add(new DefaultFlowStatePersister<T>(restoreAnnotation.priority()) {
+
+				private static final long serialVersionUID = 1L;
+				
+				@SuppressWarnings("unchecked")
+				@Override
+				public IFlowCarter<T> restoreFlowState(long flowProcessId)
+						throws FlowRestoringException {
+					try {
+						return (IFlowCarter<T>)method.invoke(bean, flowProcessId);
+					} catch ( IllegalAccessException
+							| IllegalArgumentException e) {
+						throw new FlowRestoringException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + e.getMessage(), e);
+					} catch ( InvocationTargetException e) {
+						Throwable t = getUnderlayingException(e);
+						if(t instanceof FlowRestoringException) {
+							throw (FlowRestoringException)t;
+						}
+						throw new FlowRestoringException("Cannot invoke annoted method '" + method.getName() + "' of bean '" + bean + "' because: " + t.getMessage(), t);
+					}
+				}
+				
+			});
+			
+		}
+		persisters.sort();
+		return persisters;
+	}
+	
 	
 	public FlowPersisterListenersCollection<T> newFlowPersisterListenersCollection() {
 		return new FlowPersisterListenersCollection<T>();
@@ -128,10 +208,10 @@ public class AnnotationFlowFactory<T extends Serializable> {
 	}
 
 	public FlowPersisterListenersCollection<T> getPersisterListeners(final Object bean, FlowPersisterListenersCollection<T> listeners) throws FlowAnnotationException {
-		for(final Method method : findMethodFlowCandidates(bean, FlowPersisterPersistEvent.class)) {
+		for(final Method method : findMethodFlowCandidates(bean, FlowPersisterBeforePersistEvent.class)) {
 			FlowPersisterBeforePersistEvent beforePersistAnnotation = method.getAnnotation(FlowPersisterBeforePersistEvent.class);
 			if(logger.isDebugEnabled()) {
-				logger.debug("Adding annoted FlowPersisterPersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
+				logger.debug("Adding annoted FlowPersisterBeforePersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
 			}
 			listeners.add(new DefaultFilteredFlowPersisterListener<T>(beforePersistAnnotation.priority()) {
 
@@ -155,7 +235,9 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				}
 				
 			});
-
+		}
+		
+		for(final Method method : findMethodFlowCandidates(bean, FlowPersisterPersistEvent.class)) {
 			FlowPersisterPersistEvent persistAnnotation = method.getAnnotation(FlowPersisterPersistEvent.class);
 			if(logger.isDebugEnabled()) {
 				logger.debug("Adding annoted FlowPersisterPersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
@@ -182,10 +264,12 @@ public class AnnotationFlowFactory<T extends Serializable> {
 				}
 				
 			});
-			
+		}
+		
+		for(final Method method : findMethodFlowCandidates(bean, FlowPersisterRestoreEvent.class)) {
 			FlowPersisterRestoreEvent restoreAnnotation = method.getAnnotation(FlowPersisterRestoreEvent.class);
 			if(logger.isDebugEnabled()) {
-				logger.debug("Adding annoted FlowPersisterPersistEvent method '" + method.getName() + "' of bean '" + bean + "'");
+				logger.debug("Adding annoted FlowPersisterRestoreEvent method '" + method.getName() + "' of bean '" + bean + "'");
 			}
 			listeners.add(new DefaultFilteredFlowPersisterListener<T>(restoreAnnotation.priority()) {
 
@@ -497,6 +581,28 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		}
 		return list;
 	}
+	
+	public List<Method> findMethodPersisterCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
+		List<Method> list = new ArrayList<Method>();
+		for(final Method method : bean.getClass().getMethods()) {
+			if(method.isAnnotationPresent(annotation)) {
+				checkPersisterMethod(method, bean);
+				list.add(method);
+			}
+		}
+		return list;
+	}
+
+	public List<Method> findMethodRestorerCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
+		List<Method> list = new ArrayList<Method>();
+		for(final Method method : bean.getClass().getMethods()) {
+			if(method.isAnnotationPresent(annotation)) {
+				checkRestorerMethod(method, bean);
+				list.add(method);
+			}
+		}
+		return list;
+	}
 
 	public List<Method> findMethodFlowTransitionCandidates(Object bean, Class<? extends Annotation> annotation) throws FlowAnnotationException {
 		List<Method> list = new ArrayList<Method>();
@@ -663,6 +769,54 @@ public class AnnotationFlowFactory<T extends Serializable> {
 		}
 	}
 	
+	public void checkPersisterMethod(Method method, Object bean) throws FlowAnnotationException {
+		Class<?>[] parameters = method.getParameterTypes();
+		if(parameters.length != 1) {
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just one parameter: IFlowCarter<T extends Serializable>");
+		}
+		try {
+			if(method.getReturnType().asSubclass(boolean.class) == null) {
+				throw new FlowAnnotationException("The return type of method '" + method.getName() + "' of bean '" + bean + "' is not a type of boolean!");
+			}					
+		} catch (ClassCastException e) {					
+			throw new FlowAnnotationException("The return type method '" + method.getName() + "' of bean '" + bean + "' is not a type of boolean!", e);
+		}
+		try {
+			if(parameters[0].asSubclass(IFlowCarter.class) == null) {
+				throw new FlowAnnotationException("The first paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!");
+			}					
+		} catch (ClassCastException e) {					
+			throw new FlowAnnotationException("The first paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!", e);
+		}
+		if(!Modifier.isPublic(method.getModifiers())) {
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' is not public!");					
+		}
+	}
+
+	public void checkRestorerMethod(Method method, Object bean) throws FlowAnnotationException {
+		Class<?>[] parameters = method.getParameterTypes();
+		if(parameters.length != 1) {
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' has to have just one parameter: long");
+		}
+		try {
+			if(method.getReturnType().asSubclass(IFlowCarter.class) == null) {
+				throw new FlowAnnotationException("The return type of method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!");
+			}					
+		} catch (ClassCastException e) {					
+			throw new FlowAnnotationException("The return type method '" + method.getName() + "' of bean '" + bean + "' is not a type of IFlowCarter<T extends Serializable>!", e);
+		}
+		try {
+			if(parameters[0].asSubclass(long.class) == null) {
+				throw new FlowAnnotationException("The first paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of long!");
+			}					
+		} catch (ClassCastException e) {					
+			throw new FlowAnnotationException("The first paremeter of method '" + method.getName() + "' of bean '" + bean + "' is not a type of long!", e);
+		}
+		if(!Modifier.isPublic(method.getModifiers())) {
+			throw new FlowAnnotationException("The method '" + method.getName() + "' of bean '" + bean + "' is not public!");					
+		}
+	}
+
 	protected String emptyStringConversion(String object) {
 		return "".equals(object) ? null : object;
 	}

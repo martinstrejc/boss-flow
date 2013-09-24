@@ -17,6 +17,9 @@
 package cz.wicketstuff.boss.flow.util.processor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -123,6 +126,20 @@ public class FlowStatePersisterCollection<T extends Serializable>
 	 */
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+	
+	public void sort() {
+		List<IFlowStatePersister<T>> list = new ArrayList<IFlowStatePersister<T>>(processors);
+		Collections.sort(list);
+		processors.clear();
+		processors.addAll((List<IFlowStatePersister<T>>)list);
+	}	
+	
+	public void sort(Comparator<IFlowStatePersister<T>> comparator) {
+		ArrayList<IFlowStatePersister<T>> list = new ArrayList<IFlowStatePersister<T>>(processors);
+		Collections.sort(list, comparator);
+		processors.clear();
+		processors.addAll(list);
 	}
 
 }
