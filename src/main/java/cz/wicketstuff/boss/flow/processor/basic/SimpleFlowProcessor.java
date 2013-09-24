@@ -439,11 +439,11 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 	
 	@Override
-	public IFlowCarter<T> restoreFlowState() throws FlowRestoringException {
+	public IFlowCarter<T> restoreFlowState(long flowProcessId) throws FlowRestoringException {
 		if(flowStatePersister == null) {
 			throw new NullPointerException("Cannot restore flow because flowStatePersister is NULL");
 		}		
-		IFlowCarter<T> flow = flowStatePersister.restoreFlowState();
+		IFlowCarter<T> flow = flowStatePersister.restoreFlowState(flowProcessId);
 		onFlowRestored(flow);
 		return flow;
 	}

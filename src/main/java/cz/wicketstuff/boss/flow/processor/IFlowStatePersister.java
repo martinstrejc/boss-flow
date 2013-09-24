@@ -43,10 +43,11 @@ public interface IFlowStatePersister<T extends Serializable> extends Comparable<
 	/**
 	 * Restore flow a persistant storage.
 	 * 
+	 * getFlowProcessId
 	 * @return restored flow
 	 * @throws FlowRestoringException
 	 */
-	public IFlowCarter<T> restoreFlowState() throws FlowRestoringException;
+	public IFlowCarter<T> restoreFlowState(long flowProcessId) throws FlowRestoringException;
 	
 
 }

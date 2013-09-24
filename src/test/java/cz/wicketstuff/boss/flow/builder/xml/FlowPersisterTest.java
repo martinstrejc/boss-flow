@@ -148,7 +148,7 @@ public class FlowPersisterTest extends AbstractFlowTest implements IFlowStatePer
 	}
 
 	@Override
-	public IFlowCarter<String> restoreFlowState() throws FlowRestoringException {
+	public IFlowCarter<String> restoreFlowState(long flowProcessId) throws FlowRestoringException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -69,6 +69,16 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * Initialize a new flow in a default initial state. 
 	 * Exception is thrown when none initial state exists. 
 	 * 
+	 * 
+	 * @return
+	 * @throws FlowException
+	 */
+	public IFlowCarter<T> initFlow() throws FlowException;
+
+	/**
+	 * Initialize a new flow in a default initial state. 
+	 * Exception is thrown when none initial state exists. 
+	 * 
 	 * @param flowProcessId
 	 * @return
 	 * @throws FlowException
@@ -85,6 +95,27 @@ public interface IFlowProcessor<T extends Serializable> extends
 	 * @throws FlowException
 	 */
 	public IFlowCarter<T> initFlow(Long flowProcessId, T payload) throws FlowException;
+
+	/**
+	 * Initialize a new flow in a default initial state. 
+	 * Exception is thrown when none initial state exists. 
+	 * 
+	 * @param payload
+	 * @return
+	 * @throws FlowException
+	 */
+	public IFlowCarter<T> initFlow(T payload) throws FlowException;
+
+	/**
+	 * Initialize a new flow and start it in an initial state. 
+	 * Exception is thrown when the required initial state is not marked as initial.
+	 * 
+	 * @param payload
+	 * @param initialState
+	 * @return
+	 * @throws FlowException
+	 */
+	public IFlowCarter<T> initFlow(T payload, IFlowState initialState) throws FlowException;
 
 	/**
 	 * Initialize a new flow and start it in an initial state. 
