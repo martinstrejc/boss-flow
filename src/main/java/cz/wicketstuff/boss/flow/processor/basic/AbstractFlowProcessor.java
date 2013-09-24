@@ -44,6 +44,26 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 	public AbstractFlowProcessor() {
 	}
 
+	
+	@Override
+	public IFlowCarter<T> initFlow() throws FlowException {
+		return initFlow((Long)null, null);
+	}
+
+
+	@Override
+	public IFlowCarter<T> initFlow(T payload) throws FlowException {
+		return initFlow(null, payload);
+	}
+
+
+	@Override
+	public IFlowCarter<T> initFlow(T payload, IFlowState initialState)
+			throws FlowException {
+		return initFlow(null, payload, initialState);
+	}
+
+
 	@Override
 	public IFlowCarter<T> initFlow(Long flowProcessId) throws FlowException {
 		return initFlow(flowProcessId, null);
