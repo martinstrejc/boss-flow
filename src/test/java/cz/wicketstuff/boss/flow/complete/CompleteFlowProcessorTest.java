@@ -26,17 +26,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.annotation.FlowConditionProcessor;
+import cz.wicketstuff.boss.flow.annotation.FlowEvents;
+import cz.wicketstuff.boss.flow.annotation.FlowEvents.FlowEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowStateEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowStateEvent.StateEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowSwitchProcessorExpression;
+import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
+import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent.TransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.model.IFlowTree;
+import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
+import cz.wicketstuff.boss.flow.processor.FlowRestoringException;
 import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
+import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
 import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.processor.StateDataException;
 import cz.wicketstuff.boss.flow.processor.ext.DefaultFlowProcessor;
 import cz.wicketstuff.boss.flow.test.AbstractFlowStepTest;
 import cz.wicketstuff.boss.flow.test.FlowFileResource;
+import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 /**
  * Complete test of all flow functionality
@@ -60,10 +72,6 @@ public class CompleteFlowProcessorTest {
 	public static final String ST_SuccessfulPaymentCondition = "SuccessfulPaymentCondition";
 	public static final String ST_SwitchPaymentType = "SwitchPaymentType";
 	public static final String ST_JoinFinishedPayment = "JoinFinishedPayment";
-	
-	public static final String SW_CASH = "CASH";
-	public static final String SW_PAYPAL = "PAYPAL";
-	public static final String SW_CARD = "CARD";
 	
 	public static final String TR_toShowBasket = "toShowBasket";
 	public static final String TR_toChoosePayment = "toChoosePayment";
@@ -107,6 +115,10 @@ public class CompleteFlowProcessorTest {
 
 	
 	private void testCompleteFlow() throws FlowException {
+		testCompleteFlowSimpleWay();
+	}
+
+	private void testCompleteFlowSimpleWay() throws FlowException {
 		flow = processor.initFlow(new TestPayload());
 		checkCurrentState(ST_ShowBasket);
 		checkCurrentStateInitial();
@@ -123,13 +135,18 @@ public class CompleteFlowProcessorTest {
 		checkCurrentState(ST_Cancelled);
 		checkCurrentStateFinal();
 	}
-	
-	
-	private static class TestPayload implements Serializable {
 
-		private static final long serialVersionUID = 1L;
-	
+	private void testCompleteFlowBank() throws FlowException {
+		flow = processor.initFlow(new TestPayload());
+		checkCurrentState(ST_ShowBasket);
+		checkCurrentStateInitial();
+		processor.invokeDefaultNextTransition(flow);
+		checkCurrentState(ST_ChoosePayment);
+		processor.invokeDefaultNextTransition(flow);
 		
+		processor.invokeTransition(flow, TR_toCancelled);
+		checkCurrentState(ST_Overview);
+		checkCurrentStateFinal();
 	}
 	
 	private void checkCurrentState(String stateName) {
@@ -143,4 +160,179 @@ public class CompleteFlowProcessorTest {
 	private void checkCurrentStateFinal() {
 		assertEquals("State is not final", true, flow.getCurrentState().isFinalState());
 	}
+
+	public static enum TestPaymentType {
+		CASH,
+		PAYPAL,
+		CARD;
+	} 
+	
+
+	public static class TestPayload implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+		
+		private boolean paid;
+		
+		private TestPaymentType paymentType;
+
+		/**
+		 * @return the paid
+		 */
+		public boolean isPaid() {
+			return paid;
+		}
+
+		/**
+		 * @param paid the paid to set
+		 */
+		public void setPaid(boolean paid) {
+			this.paid = paid;
+		}
+
+		/**
+		 * @return the paymentType
+		 */
+		public TestPaymentType getPaymentType() {
+			return paymentType;
+		}
+
+		/**
+		 * @param paymentType the paymentType to set
+		 */
+		public void setPaymentType(TestPaymentType paymentType) {
+			this.paymentType = paymentType;
+		}
+		
+	}
+	
+	
+	
+	public static class BossFlowControllerServiceImpl extends DefaultFlowProcessor<TestPayload> {
+
+		private static final long serialVersionUID = 1L;
+		
+		private static final Logger log = LoggerFactory.getLogger(BossFlowControllerServiceImpl.class);
+
+		public BossFlowControllerServiceImpl() {
+		}
+
+		
+		@FlowEvents(event=FlowEvent.onFlowInitialized)
+		public void onFlowInit(IFlowCarter<TestPayload> carter) {
+			log.trace("Flow initialized, setting default payload");
+			if(carter.getPayload() == null) {
+				carter.setPayload(new TestPayload());	
+			}
+		}
+
+		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, priority=0)
+		public void onTransitionBeforeStart(IFlowCarter<TestPayload> carter) {
+			log.trace("Before transition start");
+		}
+
+		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, priority=10000)
+		public void onTransitionAfterStart(IFlowCarter<TestPayload> carter) {
+			log.trace("After transition start");
+		}
+
+		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, categoryNameRegex="flow.*", priority=10000)
+		public void onTransitionAfterStartWithCategory(IFlowCarter<TestPayload> carter) {
+			log.trace("After transition start");
+		}
+
+		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, priority=100)
+		public void onTransition(IFlowCarter<TestPayload> carter) {
+			log.trace("DO SOMETHING");
+			Object o = carter.getStateData();
+			if(o != null) {
+				log.debug("State data: {}", o.toString());
+			}
+		}
+		
+		@FlowStateEvent(priority=1)
+		public void onState(IFlowCarter<TestPayload> carter) {
+			log.trace("State started or finished");
+		}
+
+		@FlowStateEvent(event=StateEvent.onStateEntry, stateNameRegex="ChooseP.*")
+		public void onChoosePayment(IFlowCarter<TestPayload> carter) {
+			log.trace("Entry ChoosePayment");
+			carter.getPayload().setPaid(false);
+		}
+		
+		/**
+		 * Annotated switch expression. It return a String that is compared
+		 * to defined caseValues.
+		 *  
+		 * @param condition
+		 * @param flowCarter
+		 * @return
+		 */
+		@FlowSwitchProcessorExpression(switchExpressionRegex="paymentDecision")
+		public String paymentDecision(String condition, IFlowCarter<TestPayload> flowCarter) {
+			TestPaymentType paymentType = flowCarter.getPayload().getPaymentType();
+			return paymentType == null ? null :paymentType.name();
+		}
+
+		/**
+		 * Annotated condition method. Returns true if flow object is marked as a successful payment.
+		 * 
+		 * @param condition
+		 * @param flowCarter
+		 * @return
+		 */
+		@FlowConditionProcessor(conditionExpressionRegex="isPaymentSuccessful")
+		public boolean isPaymentSuccessful(String condition, IFlowCarter<TestPayload> flowCarter) {
+			return flowCarter.getPayload().isPaid();
+		}
+		
+		// TEMPORARY DATA
+		
+		@Override
+		public Serializable createStateData(IFlowState flowState)
+				throws NoSuchStateException, StateDataException {
+			log.trace("createStateData");
+			if(flowState == null) {
+				return null;
+			}
+			if("CardPayment".equals(flowState.getStateName())) {
+				log.trace("create CardPayment state data");
+				return "";
+			}
+			return super.createStateData(flowState);
+		}
+		
+		
+		// INVOKE SCANNING ANNOTATED PROCESSORS AND LISTENERS
+		
+		@Override
+		public Object defaultFlowListenerBean() {
+			return this;
+		}
+		
+
+		@Override
+		public Object defaultConditionBean() {
+			return this;
+		}
+
+		@Override
+		public Object defaultSwitchBean() {
+			return this;
+		}
+
+		@Override
+		public Object defaultStateListenerBean() {
+			return this;
+		}
+
+		@Override
+		public Object defaultTransitionListenerBean() {
+			return this;
+		}
+		
+		
+	}
+
 }
