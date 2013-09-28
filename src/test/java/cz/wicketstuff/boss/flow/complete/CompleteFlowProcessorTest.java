@@ -17,7 +17,6 @@
 package cz.wicketstuff.boss.flow.complete;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 
@@ -36,19 +35,10 @@ import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent;
 import cz.wicketstuff.boss.flow.annotation.FlowTransitionEvent.TransitionEvent;
 import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
-import cz.wicketstuff.boss.flow.model.IFlowTree;
-import cz.wicketstuff.boss.flow.processor.FlowPersistingException;
-import cz.wicketstuff.boss.flow.processor.FlowRestoringException;
-import cz.wicketstuff.boss.flow.processor.IFlowProcessor;
-import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
-import cz.wicketstuff.boss.flow.processor.IFlowStatePersister;
-import cz.wicketstuff.boss.flow.processor.IFlowStateProcessor;
+import cz.wicketstuff.boss.flow.model.IFlowTransition;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.processor.StateDataException;
 import cz.wicketstuff.boss.flow.processor.ext.DefaultFlowProcessor;
-import cz.wicketstuff.boss.flow.test.AbstractFlowStepTest;
-import cz.wicketstuff.boss.flow.test.FlowFileResource;
-import cz.wicketstuff.boss.flow.util.listener.IPriority;
 
 /**
  * Complete test of all flow functionality
@@ -103,19 +93,17 @@ public class CompleteFlowProcessorTest {
 	}
 
 	private void prepareProcessor() throws FlowException {
-		log.trace("Prepare processor");
-		processor = new DefaultFlowProcessor<TestPayload>();
-		processor.setFlowInputStream(getClass().getClassLoader().getResourceAsStream(FLOW_XML_FILE));
+		processor = new Processor1();
 	}
 	
 	private void initProcessor() throws FlowException {
-		log.trace("Initialize processor");
 		processor.initializeProcessor();
 	}
 
 	
 	private void testCompleteFlow() throws FlowException {
 		testCompleteFlowSimpleWay();
+		testCompleteFlowBank();
 	}
 
 	private void testCompleteFlowSimpleWay() throws FlowException {
@@ -142,9 +130,10 @@ public class CompleteFlowProcessorTest {
 		checkCurrentStateInitial();
 		processor.invokeDefaultNextTransition(flow);
 		checkCurrentState(ST_ChoosePayment);
+		getPayload().setPaymentType(TestPaymentType.CASH);
 		processor.invokeDefaultNextTransition(flow);
-		
-		processor.invokeTransition(flow, TR_toCancelled);
+		checkCurrentState(ST_CashPayment);
+		processor.invokeDefaultNextTransition(flow);
 		checkCurrentState(ST_Overview);
 		checkCurrentStateFinal();
 	}
@@ -159,6 +148,10 @@ public class CompleteFlowProcessorTest {
 
 	private void checkCurrentStateFinal() {
 		assertEquals("State is not final", true, flow.getCurrentState().isFinalState());
+	}
+
+	private TestPayload getPayload() {
+		return flow.getPayload();
 	}
 
 	public static enum TestPaymentType {
@@ -208,13 +201,15 @@ public class CompleteFlowProcessorTest {
 	
 	
 	
-	public static class BossFlowControllerServiceImpl extends DefaultFlowProcessor<TestPayload> {
+	public static class Processor1 extends DefaultFlowProcessor<TestPayload> {
 
 		private static final long serialVersionUID = 1L;
 		
-		private static final Logger log = LoggerFactory.getLogger(BossFlowControllerServiceImpl.class);
+		private static final Logger log = LoggerFactory.getLogger(Processor1.class);
 
-		public BossFlowControllerServiceImpl() {
+		public Processor1() {
+			super();
+			setFlowInputStream(getClass().getClassLoader().getResourceAsStream(FLOW_XML_FILE));
 		}
 
 		
@@ -227,22 +222,22 @@ public class CompleteFlowProcessorTest {
 		}
 
 		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, priority=0)
-		public void onTransitionBeforeStart(IFlowCarter<TestPayload> carter) {
+		public void onTransitionBeforeStart(IFlowCarter<TestPayload> carter, IFlowTransition transition) {
 			log.trace("Before transition start");
 		}
 
 		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, priority=10000)
-		public void onTransitionAfterStart(IFlowCarter<TestPayload> carter) {
+		public void onTransitionAfterStart(IFlowCarter<TestPayload> carter, IFlowTransition transition) {
 			log.trace("After transition start");
 		}
 
 		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, categoryNameRegex="flow.*", priority=10000)
-		public void onTransitionAfterStartWithCategory(IFlowCarter<TestPayload> carter) {
+		public void onTransitionAfterStartWithCategory(IFlowCarter<TestPayload> carter, IFlowTransition transition) {
 			log.trace("After transition start");
 		}
 
 		@FlowTransitionEvent(event=TransitionEvent.onTransitionStart, priority=100)
-		public void onTransition(IFlowCarter<TestPayload> carter) {
+		public void onTransition(IFlowCarter<TestPayload> carter, IFlowTransition transition) {
 			log.trace("DO SOMETHING");
 			Object o = carter.getStateData();
 			if(o != null) {
@@ -251,37 +246,26 @@ public class CompleteFlowProcessorTest {
 		}
 		
 		@FlowStateEvent(priority=1)
-		public void onState(IFlowCarter<TestPayload> carter) {
+		public void onState(IFlowCarter<TestPayload> carter, IFlowState state) {
 			log.trace("State started or finished");
 		}
 
-		@FlowStateEvent(event=StateEvent.onStateEntry, stateNameRegex="ChooseP.*")
-		public void onChoosePayment(IFlowCarter<TestPayload> carter) {
-			log.trace("Entry ChoosePayment");
+		@FlowStateEvent(event=StateEvent.onStateEntry, stateNameRegex="ChooseP.*", priority=1)
+		public void onChoosePayment(IFlowCarter<TestPayload> carter, IFlowState state) {
 			carter.getPayload().setPaid(false);
 		}
-		
-		/**
-		 * Annotated switch expression. It return a String that is compared
-		 * to defined caseValues.
-		 *  
-		 * @param condition
-		 * @param flowCarter
-		 * @return
-		 */
+
+		@FlowStateEvent(event=StateEvent.onStateLeaving, stateNameRegex="ChooseP.*", priority=10)
+		public void onCashPayment(IFlowCarter<TestPayload> carter, IFlowState state) {
+			carter.getPayload().setPaid(true);
+		}
+
 		@FlowSwitchProcessorExpression(switchExpressionRegex="paymentDecision")
 		public String paymentDecision(String condition, IFlowCarter<TestPayload> flowCarter) {
 			TestPaymentType paymentType = flowCarter.getPayload().getPaymentType();
 			return paymentType == null ? null :paymentType.name();
 		}
 
-		/**
-		 * Annotated condition method. Returns true if flow object is marked as a successful payment.
-		 * 
-		 * @param condition
-		 * @param flowCarter
-		 * @return
-		 */
 		@FlowConditionProcessor(conditionExpressionRegex="isPaymentSuccessful")
 		public boolean isPaymentSuccessful(String condition, IFlowCarter<TestPayload> flowCarter) {
 			return flowCarter.getPayload().isPaid();
