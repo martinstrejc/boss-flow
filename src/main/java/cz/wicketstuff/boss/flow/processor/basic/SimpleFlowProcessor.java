@@ -59,7 +59,7 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	private IFlowState defaultInitialState;
 	
 	private IFlowCarterFactory<T> carterFactory;
-	private IFlowStateDataFactory stateDataFactory;
+	private IFlowStateDataFactory<T> stateDataFactory;
 	
 	private IFlowStateProcessor<T> stateProcessor;
 	private IFlowStateValidator<T> stateValidator;
@@ -288,19 +288,19 @@ public class SimpleFlowProcessor<T extends Serializable> extends AbstractFlowPro
 	}
 
 	@Override
-	public Serializable createStateData(IFlowState flowState)
+	public Serializable createStateData(IFlowCarter<T> flowCarter, IFlowState flowState)
 			throws NoSuchStateException, StateDataException {
 		if(stateDataFactory == null) {
 			throw new NullPointerException("Cannot create stateData, because factory is NULL");
 		}
-		return stateDataFactory.createStateData(flowState);
+		return stateDataFactory.createStateData(flowCarter, flowState);
 	}
 
-	public IFlowStateDataFactory getStateDataFactory() {
+	public IFlowStateDataFactory<T> getStateDataFactory() {
 		return stateDataFactory;
 	}
 
-	public void setStateDataFactory(IFlowStateDataFactory stateDataFactory) {
+	public void setStateDataFactory(IFlowStateDataFactory<T> stateDataFactory) {
 		this.stateDataFactory = stateDataFactory;
 	}
 

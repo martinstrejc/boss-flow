@@ -20,13 +20,14 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 import cz.wicketstuff.boss.flow.processor.IFlowStateDataFactory;
 import cz.wicketstuff.boss.flow.processor.NoSuchStateException;
 import cz.wicketstuff.boss.flow.processor.StateDataException;
 
 
-public class NamedFlowStateDataFactory implements IFlowStateDataFactory, Serializable {
+public class NamedFlowStateDataFactory<T extends Serializable> implements IFlowStateDataFactory<T>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -50,7 +51,7 @@ public class NamedFlowStateDataFactory implements IFlowStateDataFactory, Seriali
 	}
 
 	@Override
-	public Serializable createStateData(IFlowState flowState) throws NoSuchStateException, StateDataException {
+	public Serializable createStateData(IFlowCarter<T> flowCarter, IFlowState flowState) throws NoSuchStateException, StateDataException {
 		Class<Serializable> c = getStateDataMap().get(flowState.getStateName());
 		if(c == null) {
 			if(exceptionIfStateNotExist) {

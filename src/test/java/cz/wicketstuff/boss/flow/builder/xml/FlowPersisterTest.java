@@ -78,7 +78,7 @@ public class FlowPersisterTest extends AbstractFlowTest implements IFlowStatePer
 			}
 			
 			@Override
-			public Serializable createStateData(IFlowState flowState)
+			public Serializable createStateData(IFlowCarter<String> flowCarter, IFlowState flowState)
 					throws NoSuchStateException, StateDataException {
 				return null;
 			}

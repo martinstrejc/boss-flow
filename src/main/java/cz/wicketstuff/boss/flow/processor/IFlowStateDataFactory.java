@@ -18,6 +18,7 @@ package cz.wicketstuff.boss.flow.processor;
 
 import java.io.Serializable;
 
+import cz.wicketstuff.boss.flow.model.IFlowCarter;
 import cz.wicketstuff.boss.flow.model.IFlowState;
 
 
@@ -27,17 +28,18 @@ import cz.wicketstuff.boss.flow.model.IFlowState;
  * @author Martin Strejc
  *
  */
-public interface IFlowStateDataFactory {
+public interface IFlowStateDataFactory<T extends Serializable> {
 
 	/**
 	 * Create state specific data object. There is only one condition of state specific data. 
 	 * The object must be serializable.
 	 *  
+	 * @param flowCarter
 	 * @param flowState
 	 * @return
 	 * @throws NoSuchStateException
 	 * @throws StateDataException
 	 */
-	Serializable createStateData(IFlowState flowState) throws NoSuchStateException, StateDataException;
+	Serializable createStateData(IFlowCarter<T> flowCarter, IFlowState flowState) throws NoSuchStateException, StateDataException;
 
 }

@@ -42,7 +42,7 @@ public interface IFlowProcessor<T extends Serializable> extends
 	IFlowStateValidator<T>,
 	IFlowStateProcessor<T>,
 	IFlowCarterFactory<T>,
-	IFlowStateDataFactory,
+	IFlowStateDataFactory<T>,
 	IFlowTransitionResolver<T>,
 	IFlowTransitionChecker<T>,
 	IFlowStateResolver<T>,

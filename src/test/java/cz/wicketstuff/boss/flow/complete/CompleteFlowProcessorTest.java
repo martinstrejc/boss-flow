@@ -274,7 +274,7 @@ public class CompleteFlowProcessorTest {
 		// TEMPORARY DATA
 		
 		@Override
-		public Serializable createStateData(IFlowState flowState)
+		public Serializable createStateData(IFlowCarter<TestPayload> flowCarter, IFlowState flowState)
 				throws NoSuchStateException, StateDataException {
 			log.trace("createStateData");
 			if(flowState == null) {
@@ -284,7 +284,7 @@ public class CompleteFlowProcessorTest {
 				log.trace("create CardPayment state data");
 				return "";
 			}
-			return super.createStateData(flowState);
+			return super.createStateData(flowCarter, flowState);
 		}
 		
 		

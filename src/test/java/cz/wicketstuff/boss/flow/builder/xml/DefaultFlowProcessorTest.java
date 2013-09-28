@@ -69,10 +69,10 @@ public class DefaultFlowProcessorTest extends AbstractFlowStepTest {
 		FlowFileResource resourceHelper = new FlowFileResource();
 		processor.setFlowInputStream(resourceHelper.getCompleteFlowFileStream());
 		processor.setDefaultInitialStateName(S0initialState);
-		processor.setStateDataFactory(new IFlowStateDataFactory() {
+		processor.setStateDataFactory(new IFlowStateDataFactory<String>() {
 			
 			@Override
-			public Serializable createStateData(IFlowState flowState)
+			public Serializable createStateData(IFlowCarter<String> flowCarter, IFlowState flowState)
 					throws NoSuchStateException, StateDataException {
 				log.trace("Creating data for " + flowState.getStateName());
 				return STATE_DATA;

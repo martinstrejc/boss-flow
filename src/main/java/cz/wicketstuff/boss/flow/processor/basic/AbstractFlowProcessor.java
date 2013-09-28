@@ -99,7 +99,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 		flow.setPayload(payload);
 		onFlowInitialized(flow);
 		if(initialState.isRequireStateData()) {
-			flow.setStateData(createStateData(initialState));			
+			flow.setStateData(createStateData(flow, initialState));			
 		}
 		onStateEntry(flow, flow.getCurrentState());
 		persistFlowStateInternal(flow);
@@ -149,7 +149,7 @@ public abstract class AbstractFlowProcessor<T extends Serializable> implements I
 				flow.shiftFlow();
 				flow.setStateData(null);
 				if(flow.getCurrentState().isRequireStateData()) {
-					flow.setStateData(createStateData(flow.getCurrentState()));			
+					flow.setStateData(createStateData(flow, flow.getCurrentState()));			
 				}				
 				onStateEntry(flow, flow.getCurrentState());
 				persistFlowStateInternal(flow);
