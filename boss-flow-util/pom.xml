@@ -9,7 +9,7 @@
 	</parent>
 	
 	<groupId>cz.wicketstuff.boss</groupId>
-	<artifactId>boss-flow-core</artifactId>
+	<artifactId>boss-flow-util</artifactId>
 	<name>BOSS Flow Framework</name>
 	<description>Workflow control and configuration java framework</description>
 
