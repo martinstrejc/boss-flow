@@ -2,10 +2,12 @@ package cz.wicketstuff.boss.flow.maven.flowxml2java;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -32,11 +34,12 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 	}
 	
 	@Parameter
-	FlowXml flowXmls[];
+	@Component(role=FlowXml.class)
+	List<FlowXml> flowXmls;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		if(flowXmls == null || flowXmls.length == 0) {
+		if(flowXmls == null || flowXmls.size() == 0) {
 			getLog().warn("There is no XML defined in flowXmls, nothing to do.");
 		} else {
 			for(FlowXml flowXml : flowXmls) {

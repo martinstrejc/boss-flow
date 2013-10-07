@@ -85,6 +85,7 @@
 		            	</goals>
 		            	<inherited>false</inherited>
 			            <configuration>
+			            	<flowXmls></flowXmls>	
 			            </configuration>
           			</execution>
 				</executions>
