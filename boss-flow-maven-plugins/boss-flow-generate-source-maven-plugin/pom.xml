@@ -13,11 +13,6 @@
 	<packaging>maven-plugin</packaging>
 
 
-	<properties>
-		<cxf.manifest.location />
-	</properties>
-
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>

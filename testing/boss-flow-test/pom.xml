@@ -84,9 +84,9 @@
 		        	      <goal>bossFlowXml2java</goal>
 		            	</goals>
 		            	<inherited>false</inherited>
-			            <configuration>
-			            	<flowXmls></flowXmls>	
-			            </configuration>
+		            	<configuration>
+		            		<xmlFile>${basedir}/src/test/test-full-flow.xml</xmlFile>
+		            	</configuration>
           			</execution>
 				</executions>
 			</plugin>

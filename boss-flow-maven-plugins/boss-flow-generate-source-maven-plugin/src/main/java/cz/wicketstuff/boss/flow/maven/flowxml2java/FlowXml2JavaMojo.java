@@ -2,12 +2,10 @@ package cz.wicketstuff.boss.flow.maven.flowxml2java;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -22,7 +20,7 @@ import com.sun.codemodel.JPackage;
  * @author Martin Strejc
  *
  */
-@Mojo(name = "bossFlowXml2java", defaultPhase=LifecyclePhase.GENERATE_SOURCES)
+@Mojo(name="bossFlowXml2java", defaultPhase=LifecyclePhase.GENERATE_SOURCES)
 @Execute(phase=LifecyclePhase.GENERATE_SOURCES)
 public class FlowXml2JavaMojo extends AbstractMojo {
 
@@ -34,19 +32,27 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 	}
 	
 	@Parameter
-	@Component(role=FlowXml.class)
-	List<FlowXml> flowXmls;
+	String id;
+
+	@Parameter(required=true)
+	File xmlFile;
+
+	@Parameter
+	String packageName;
+	
+	@Parameter
+	String transitionEnumName;
+	
+	@Parameter
+	String stateEnumName;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		if(flowXmls == null || flowXmls.size() == 0) {
-			getLog().warn("There is no XML defined in flowXmls, nothing to do.");
-		} else {
-			for(FlowXml flowXml : flowXmls) {
-				generate(flowXml);
-			}
-			getLog().debug("All flows classes have been generated.");
-		}
+		FlowXml flowXml = new FlowXml();
+		flowXml.setPackageName(packageName);
+		flowXml.setStateEnumName(stateEnumName);
+		flowXml.setTransitionEnumName(transitionEnumName);
+		flowXml.setXmlFile(xmlFile);
 	}
 	
 	protected void generate(FlowXml flowXml) throws MojoExecutionException, MojoFailureException {
@@ -93,5 +99,6 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 	protected void error(String message) {
 		getLog().error(message);
 	}
+
 
 }
