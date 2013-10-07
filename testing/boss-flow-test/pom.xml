@@ -8,7 +8,6 @@
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	
-	<groupId>cz.wicketstuff.boss</groupId>
 	<artifactId>boss-flow-test</artifactId>
 	<name>BOSS Flow Framework</name>
 	<description>Workflow control and configuration java framework</description>

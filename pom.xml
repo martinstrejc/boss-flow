@@ -24,6 +24,7 @@
 		<module>boss-flow</module>
 		<module>boss-flow-core</module>
 		<module>boss-flow-util</module>
+		<module>boss-flow-maven-plugins</module>
 		<module>testing/boss-flow-test</module>
 	</modules>
 
