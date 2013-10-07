@@ -15,7 +15,6 @@
 		<cxf.manifest.location />
 	</properties>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -38,4 +37,15 @@
 
 	</dependencies>
 
+ 	<build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <configuration>
+                    <goalPrefix>flow</goalPrefix>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>
