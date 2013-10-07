@@ -3,17 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cz.wicketstuff.boss</groupId>
-		<artifactId>boss-flow-maven-plugins</artifactId>
+		<artifactId>boss-flow-parent</artifactId>
 		<version>1.3.2-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
-	<artifactId>boss-flow-genenerate-source-plugin</artifactId>
+	<artifactId>boss-flow-generate-source-maven-plugin</artifactId>
 	<name>BOSS Flow maven generator plugin</name>
 	<description>Generate source codes from configuration XML</description>
 	<packaging>maven-plugin</packaging>
 
+
 	<properties>
 		<cxf.manifest.location />
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -37,15 +40,28 @@
 
 	</dependencies>
 
- 	<build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <configuration>
-                    <goalPrefix>flow</goalPrefix>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<!-- see http://jira.codehaus.org/browse/MNG-5346 -->
+					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.2</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
 </project>

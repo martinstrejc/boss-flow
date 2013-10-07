@@ -20,7 +20,7 @@ import com.sun.codemodel.JPackage;
  * @author Martin Strejc
  *
  */
-@Mojo(name = "bossFlowXml2java")
+@Mojo(name = "bossFlowXml2java", defaultPhase=LifecyclePhase.GENERATE_SOURCES)
 @Execute(phase=LifecyclePhase.GENERATE_SOURCES)
 public class FlowXml2JavaMojo extends AbstractMojo {
 
