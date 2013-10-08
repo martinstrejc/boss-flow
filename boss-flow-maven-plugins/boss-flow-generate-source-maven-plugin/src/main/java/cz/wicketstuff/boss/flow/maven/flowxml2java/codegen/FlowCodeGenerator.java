@@ -75,14 +75,14 @@ public class FlowCodeGenerator {
 			if(stored == null) {
 				e.setName(name);
 			} else {
-				Integer i = stored.getOrderId();
-				if(i == null) {
-					i = 1;
-					stored.setName(appendNameSuffix(name, i));
+				Integer orderId = stored.getOrderId();
+				if(orderId == null) {
+					orderId = 1;
+					stored.setName(appendNameSuffix(name, orderId));
 				}
-				i++;	
-				e.setName(appendNameSuffix(name, i));
-				e.setOrderId(i);
+				orderId++;	
+				e.setName(appendNameSuffix(name, orderId));
+				e.setOrderId(orderId);
 			}
 		}
 	}
