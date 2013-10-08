@@ -47,12 +47,30 @@ public class FlowCodeGeneratorTest {
 		list.add(new EnumDescriptor("myName 1"));
 		list.add(new EnumDescriptor("xxName 1"));
 		list.add(new EnumDescriptor("MyName 1"));
+		list.add(new EnumDescriptor("MyNAME 1"));
+		list.add(new EnumDescriptor("test_01"));
 		list.add(new EnumDescriptor("MYNAME_1_01"));
+		list.add(new EnumDescriptor("test_01"));
 		generator.javaStyleNames(list);
 		assertEquals("MYNAME_1_01", list.get(0).getName());
 		assertEquals("XXNAME_1", list.get(1).getName());
 		assertEquals("MYNAME_1_02", list.get(2).getName());
-		assertEquals("MYNAME_1_01", list.get(3).getName());
+		assertEquals("MYNAME_1_03", list.get(3).getName());
+		assertEquals("TEST_01", list.get(4).getName());
+		assertEquals("MYNAME_1_04", list.get(5).getName());
+		assertEquals("TEST_02", list.get(6).getName());
+	}
+
+	/**
+	 * Test method for {@link cz.wicketstuff.boss.flow.maven.flowxml2java.codegen.FlowCodeGenerator#stripSuffix(String)}.
+	 */
+	@Test
+	public void testStripSuffix() {
+		FlowCodeGenerator generator = new FlowCodeGenerator();
+		assertEquals("VALUE_1", generator.stripSuffix("VALUE_1"));
+		assertEquals("VALUE", generator.stripSuffix("VALUE_01"));
+		assertEquals("VALUE_101", generator.stripSuffix("VALUE_101"));
+		assertEquals("1_VALUE_X", generator.stripSuffix("1_VALUE_X_10"));
 	}
 	
 	/**

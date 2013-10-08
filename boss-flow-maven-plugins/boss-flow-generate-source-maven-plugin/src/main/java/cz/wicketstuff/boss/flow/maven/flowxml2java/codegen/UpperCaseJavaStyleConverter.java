@@ -10,19 +10,19 @@ import java.util.regex.Pattern;
  */
 public class UpperCaseJavaStyleConverter implements IJavaStyleConverter {
 
-	private Pattern pattern = Pattern.compile("[^\\w^\\d^]+");
+	private Pattern PATTERN = Pattern.compile("[^\\w^\\d^]+");
 	
 	public UpperCaseJavaStyleConverter() {
 	}
 
 	@Override
 	public String createJavaStyleName(String name) {
-		return pattern.matcher(name).replaceAll("_").toUpperCase();
+		return PATTERN.matcher(name).replaceAll("_").toUpperCase();
 	}
 	
 	@Override
 	protected void finalize() throws Throwable {
-		pattern = null;
+		PATTERN = null;
 		super.finalize();
 	}
 

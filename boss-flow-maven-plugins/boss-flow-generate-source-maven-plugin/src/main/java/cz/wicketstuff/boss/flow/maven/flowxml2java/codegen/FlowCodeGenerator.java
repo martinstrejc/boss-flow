@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JCodeModel;
@@ -69,22 +70,33 @@ public class FlowCodeGenerator {
 		IJavaStyleConverter converter = new UpperCaseJavaStyleConverter();
 		Map<String, EnumDescriptor> names = new HashMap<String, EnumDescriptor>(list.size());
 		for(EnumDescriptor e : list) {
-			String name = converter.createJavaStyleName(e.getName());
-			Integer i = null;
+			String name = stripSuffix(converter.createJavaStyleName(e.getName()));
 			EnumDescriptor stored = names.put(name, e);
 			if(stored == null) {
 				e.setName(name);
 			} else {
-				i = stored.getOrderId();
+				Integer i = stored.getOrderId();
 				if(i == null) {
 					i = 1;
 					stored.setName(appendNameSuffix(name, i));
 				}
-				i++;
-				String fixedName = appendNameSuffix(name, i);					
-				e.setName(fixedName);
+				i++;	
+				e.setName(appendNameSuffix(name, i));
+				e.setOrderId(i);
 			}
 		}
+	}
+	
+	private static final Pattern SUFFIX_PATTERN = Pattern.compile("^(.*)(_[\\d]{2})$");
+	
+	/**
+	 * String suffix stripSuffix("VALUE_01") produces "VALUE"
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public String stripSuffix(String name) {
+		return SUFFIX_PATTERN.matcher(name).replaceAll("$1");
 	}
 	
 	/**
@@ -94,7 +106,7 @@ public class FlowCodeGenerator {
 	 * @param suffix can be <code>null</code>, returns name
 	 * @return
 	 */
-	protected String appendNameSuffix(String name, Integer suffix) {
+	public String appendNameSuffix(String name, Integer suffix) {
 		if(suffix == null) {
 			return name;
 		}
