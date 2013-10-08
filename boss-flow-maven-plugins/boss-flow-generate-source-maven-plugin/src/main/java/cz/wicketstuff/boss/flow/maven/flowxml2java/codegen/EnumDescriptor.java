@@ -8,6 +8,7 @@ public class EnumDescriptor implements Comparable<EnumDescriptor> {
 
 	private String originalName;
 	private String name;
+	private Integer orderId;
 	
 	
 	/**
@@ -62,9 +63,25 @@ public class EnumDescriptor implements Comparable<EnumDescriptor> {
 		this.name = name;
 	}
 
+	/**
+	 * @return the orderId
+	 */
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * @param orderId the orderId to set
+	 */
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
 	@Override
 	public int compareTo(EnumDescriptor o) {
 		return name.compareTo(o.name);
 	}
+	
+	
 	
 }

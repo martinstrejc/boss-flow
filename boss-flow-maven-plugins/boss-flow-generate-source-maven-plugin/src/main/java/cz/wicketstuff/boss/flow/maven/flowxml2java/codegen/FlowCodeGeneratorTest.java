@@ -47,10 +47,12 @@ public class FlowCodeGeneratorTest {
 		list.add(new EnumDescriptor("myName 1"));
 		list.add(new EnumDescriptor("xxName 1"));
 		list.add(new EnumDescriptor("MyName 1"));
+		list.add(new EnumDescriptor("MYNAME_1_01"));
 		generator.javaStyleNames(list);
-		assertEquals("MYNAME_1", list.get(0).getName());
+		assertEquals("MYNAME_1_01", list.get(0).getName());
 		assertEquals("XXNAME_1", list.get(1).getName());
-		assertEquals("MYNAME_1_01", list.get(2).getName());
+		assertEquals("MYNAME_1_02", list.get(2).getName());
+		assertEquals("MYNAME_1_01", list.get(3).getName());
 	}
 	
 	/**

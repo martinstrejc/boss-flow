@@ -67,23 +67,28 @@ public class FlowCodeGenerator {
 
 	protected void javaStyleNames(List<EnumDescriptor> list) {
 		IJavaStyleConverter converter = new UpperCaseJavaStyleConverter();
-		Map<String, Integer> names = new HashMap<String, Integer>(list.size());
-//		Set<String> finalNames = new HashSet<String>(list.size());
-		for(EnumDescriptor el : list) {
-			String name = converter.createJavaStyleName(el.getName());
-			Integer i = names.put(name, 0);
-			if(i == null) {
-				el.setName(name);				
+		Map<String, EnumDescriptor> names = new HashMap<String, EnumDescriptor>(list.size());
+		for(EnumDescriptor e : list) {
+			String name = converter.createJavaStyleName(e.getName());
+			Integer i = null;
+			EnumDescriptor stored = names.put(name, e);
+			if(stored == null) {
+				e.setName(name);
 			} else {
+				i = stored.getOrderId();
+				if(i == null) {
+					i = 1;
+					stored.setName(appendNameSuffix(name, i));
+				}
 				i++;
 				String fixedName = appendNameSuffix(name, i);					
-				el.setName(fixedName);
+				e.setName(fixedName);
 			}
 		}
 	}
 	
 	/**
-	 * Create numbered suffix eg. appendNameSuffix("VALUE, 1") produces "VALUE_01"
+	 * Create numbered suffix e.g. appendNameSuffix("VALUE, 1") produces "VALUE_01"
 	 * 
 	 * @param name
 	 * @param suffix can be <code>null</code>, returns name
