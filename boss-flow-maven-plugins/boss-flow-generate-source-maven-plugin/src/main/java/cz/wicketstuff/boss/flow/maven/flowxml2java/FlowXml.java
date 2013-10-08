@@ -8,21 +8,35 @@ import java.io.File;
  */
 public class FlowXml {
 
-	String id;
+	private String id;
 
-	File xmlFile;
+	private File xmlFile;
 
-	String packageName;
+	private String packageName;
 	
-	String transitionEnumName;
+	private String transitionEnumName;
 	
-	String stateEnumName;
+	private String stateEnumName;
 	
 	/**
 	 * Default constructor 
 	 */
 	public FlowXml() {
 		super();
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**

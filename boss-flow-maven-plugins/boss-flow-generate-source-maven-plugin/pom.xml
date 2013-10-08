@@ -33,6 +33,12 @@
 			<version>2.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>cz.wicketstuff.boss</groupId>
+			<artifactId>boss-flow</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

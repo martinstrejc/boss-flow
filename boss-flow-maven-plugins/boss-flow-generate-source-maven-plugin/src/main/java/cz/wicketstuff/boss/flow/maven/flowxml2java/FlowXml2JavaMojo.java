@@ -57,34 +57,34 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 	
 	protected void generate(FlowXml flowXml) throws MojoExecutionException, MojoFailureException {
 		if(!checkParameters(flowXml)) {
-			error("Skipping generation " + flowXml.id);
+			error("Skipping generation " + flowXml.getId());
 			return;
 		}
 		
-		try {
-			JCodeModel codeModel = new JCodeModel();
-			JPackage flowPackage = codeModel._package(flowXml.packageName);
-			
-			JDefinedClass stateEnum = flowPackage._enum(flowXml.stateEnumName);
-			stateEnum.javadoc().append("Flow states defined in '" + flowXml.id + "'");
-			
-			JDefinedClass transitionEnum = flowPackage._enum(flowXml.transitionEnumName);
-			transitionEnum.javadoc().append("Flow transitions defined in '" + flowXml.id + "'");
-			
-			stateEnum.enumConstant("S1");
-			
-			transitionEnum.enumConstant("t1");
-			
-			codeModel.build(new File("."), System.out);
-			
-		} catch (JClassAlreadyExistsException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			JCodeModel codeModel = new JCodeModel();
+//			JPackage flowPackage = codeModel._package(flowXml.packageName);
+//			
+//			JDefinedClass stateEnum = flowPackage._enum(flowXml.stateEnumName);
+//			stateEnum.javadoc().append("Flow states defined in '" + flowXml.id + "'");
+//			
+//			JDefinedClass transitionEnum = flowPackage._enum(flowXml.transitionEnumName);
+//			transitionEnum.javadoc().append("Flow transitions defined in '" + flowXml.id + "'");
+//			
+//			stateEnum.enumConstant("S1");
+//			
+//			transitionEnum.enumConstant("t1");
+//			
+//			codeModel.build(new File("."), System.out);
+//			
+//		} catch (JClassAlreadyExistsException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	protected boolean checkParameters(FlowXml flowXml) {
-		File file = flowXml.xmlFile;
+		File file = flowXml.getXmlFile();
 		if(file == null) {
 			error("Parameter flowXml.xmlFile is missing.");
 			return false;

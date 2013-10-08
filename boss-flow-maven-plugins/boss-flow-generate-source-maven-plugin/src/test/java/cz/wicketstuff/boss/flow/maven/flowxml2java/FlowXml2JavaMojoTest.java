@@ -56,13 +56,13 @@ public class FlowXml2JavaMojoTest {
 	 */
 	@Test
 	public void testGenerate() throws MojoExecutionException, MojoFailureException {
-		FlowXml flowXml = new FlowXml();
-		flowXml.id = "test1";
-		flowXml.xmlFile = new File("/");
-		flowXml.packageName = "xml.generated";
-		flowXml.stateEnumName = "FlowStateEnum";
-		flowXml.transitionEnumName = "FlowTransitionEnum";
-		FlowXml2JavaMojo plugin = new FlowXml2JavaMojo();
+//		FlowXml flowXml = new FlowXml();
+//		flowXml.id = "test1";
+//		flowXml.xmlFile = new File("/");
+//		flowXml.packageName = "xml.generated";
+//		flowXml.stateEnumName = "FlowStateEnum";
+//		flowXml.transitionEnumName = "FlowTransitionEnum";
+//		FlowXml2JavaMojo plugin = new FlowXml2JavaMojo();
 		// plugin.generate(flowXml);
 	}
 
