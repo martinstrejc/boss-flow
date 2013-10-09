@@ -74,15 +74,15 @@ public class FlowCodeGeneratorTest {
 		list.add(new EnumDescriptor<StateCapsule>("MyName 1", null));
 		list.add(new EnumDescriptor<StateCapsule>("MyNAME 1", null));
 		list.add(new EnumDescriptor<StateCapsule>("test_01", null));
-		list.add(new EnumDescriptor<StateCapsule>("MYNAME_1_01", null));
+		list.add(new EnumDescriptor<StateCapsule>("MyNAME_1_01", null));
 		list.add(new EnumDescriptor<StateCapsule>("test_01", null));
 		generator.javaStyleNames(list);
-		assertEquals("MYNAME_1_01", list.get(0).getName());
-		assertEquals("XXNAME_1", list.get(1).getName());
-		assertEquals("MYNAME_1_02", list.get(2).getName());
-		assertEquals("MYNAME_1_03", list.get(3).getName());
+		assertEquals("MY_NAME_1_01", list.get(0).getName());
+		assertEquals("XX_NAME_1", list.get(1).getName());
+		assertEquals("MY_NAME_1_02", list.get(2).getName());
+		assertEquals("MY_NAME_1_03", list.get(3).getName());
 		assertEquals("TEST_01", list.get(4).getName());
-		assertEquals("MYNAME_1_04", list.get(5).getName());
+		assertEquals("MY_NAME_1_04", list.get(5).getName());
 		assertEquals("TEST_02", list.get(6).getName());
 	}
 

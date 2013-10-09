@@ -1,7 +1,9 @@
 package cz.wicketstuff.boss.flow.maven.flowxml2java;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -11,10 +13,9 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import com.sun.codemodel.JClassAlreadyExistsException;
-import com.sun.codemodel.JCodeModel;
-import com.sun.codemodel.JDefinedClass;
-import com.sun.codemodel.JPackage;
+import cz.wicketstuff.boss.flow.FlowException;
+import cz.wicketstuff.boss.flow.maven.flowxml2java.codegen.FlowCodeGenerator;
+import cz.wicketstuff.boss.flow.maven.flowxml2java.codegen.JavaCodeHelper;
 
 /**
  * @author Martin Strejc
@@ -31,28 +32,67 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 		super();
 	}
 	
-	@Parameter
-	String id;
-
+	/**
+	 * Source directory where to store generated classes 
+	 */
 	@Parameter(required=true)
-	File xmlFile;
-
-	@Parameter
-	String packageName;
+	private File sourceRoot;
 	
-	@Parameter
-	String transitionEnumName;
+	/**
+	 * Flow XML configuration descriptor 
+	 */
+	@Parameter(required=true)
+	private FlowXml[] flowXmls;
 	
-	@Parameter
-	String stateEnumName;
+	@Parameter(defaultValue="cz.wicketstuff.boss.flow.generated")
+	private String defaultPackageName;
 
+	@Parameter(defaultValue="StateEnum")
+	private String defaultStateEnumName;
+
+	@Parameter(defaultValue="TransitionEnum")
+	private String defaultTransitionEnumName;
+	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		FlowXml flowXml = new FlowXml();
-		flowXml.setPackageName(packageName);
-		flowXml.setStateEnumName(stateEnumName);
-		flowXml.setTransitionEnumName(transitionEnumName);
-		flowXml.setXmlFile(xmlFile);
+		if(sourceRoot == null) {
+			error("Missing configuration parameter 'sourceRoot'.");
+			throw new MojoExecutionException("Missing configuration parameter 'sourceRoot'.");
+		}
+		if(flowXmls == null || flowXmls.length == 0) {
+			warn("Configuration parameter 'flowXmls' is empty, nothing to do!");
+		} else {
+			List<FlowXml> flowXmlList = new ArrayList<>();
+			for(FlowXml flowXml : flowXmls) {
+				completeParameters(flowXml);
+				if(checkParameters(flowXml)) {
+					flowXmlList.add(flowXml);
+				} else {
+					error("Cannot process flowXml");
+				}
+			}
+			try {
+				new FlowCodeGenerator().generate(flowXmlList);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FlowException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void completeParameters(FlowXml flowXml) {
+		if(flowXml.getPackageName() == null) {
+			flowXml.setPackageName(defaultPackageName);
+		}
+		if(flowXml.getStateEnumName() == null) {
+			flowXml.setStateEnumName(defaultStateEnumName);
+		}
+		if(flowXml.getTransitionEnumName() == null) {
+			flowXml.setTransitionEnumName(defaultTransitionEnumName);
+		}
 	}
 	
 	protected void generate(FlowXml flowXml) throws MojoExecutionException, MojoFailureException {
@@ -61,26 +101,6 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 			return;
 		}
 		
-//		try {
-//			JCodeModel codeModel = new JCodeModel();
-//			JPackage flowPackage = codeModel._package(flowXml.packageName);
-//			
-//			JDefinedClass stateEnum = flowPackage._enum(flowXml.stateEnumName);
-//			stateEnum.javadoc().append("Flow states defined in '" + flowXml.id + "'");
-//			
-//			JDefinedClass transitionEnum = flowPackage._enum(flowXml.transitionEnumName);
-//			transitionEnum.javadoc().append("Flow transitions defined in '" + flowXml.id + "'");
-//			
-//			stateEnum.enumConstant("S1");
-//			
-//			transitionEnum.enumConstant("t1");
-//			
-//			codeModel.build(new File("."), System.out);
-//			
-//		} catch (JClassAlreadyExistsException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	
 	protected boolean checkParameters(FlowXml flowXml) {
@@ -93,6 +113,15 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 			error("File '" + file.getAbsolutePath() + "' doesn't exist.");
 			return false;
 		}
+		if(!JavaCodeHelper.checkJavaPackageName(flowXml.getPackageName())) {
+			error("Error in configuration flowXml id = '" + flowXml.getId() + "' says package name '" + flowXml.getPackageName() + "' is not acceptable, check if it matches " + JavaCodeHelper.PACKAGE_NAME_PATTERN.pattern());
+		}
+		if(!JavaCodeHelper.checkJavaClassName(flowXml.getStateEnumName())) {
+			error("Error in configuration flowXml id = '" + flowXml.getId() + "' says state enum name '" + flowXml.getStateEnumName() + "' is not acceptable, check if it matches " + JavaCodeHelper.CLASS_NAME_PATTERN.pattern());
+		}
+		if(!JavaCodeHelper.checkJavaClassName(flowXml.getTransitionEnumName())) {
+			error("Error in configuration flowXml id = '" + flowXml.getId() + "' says transition enum name '" + flowXml.getTransitionEnumName() + "' is not acceptable, check if it matches " + JavaCodeHelper.CLASS_NAME_PATTERN.pattern());
+		}
 		return true;
 	}
 	
@@ -100,5 +129,8 @@ public class FlowXml2JavaMojo extends AbstractMojo {
 		getLog().error(message);
 	}
 
+	protected void warn(String message) {
+		getLog().warn(message);
+	}
 
 }

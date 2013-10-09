@@ -94,7 +94,6 @@ public class FlowXml {
 	public void setStateEnumName(String stateEnumName) {
 		this.stateEnumName = stateEnumName;
 	}
-	
-	
 
+	
 }
