@@ -4,11 +4,12 @@ package cz.wicketstuff.boss.flow.maven.flowxml2java.codegen;
  * @author Martin Strejc
  *
  */
-public class EnumDescriptor implements Comparable<EnumDescriptor> {
+public class EnumDescriptor<T> implements Comparable<EnumDescriptor<T>> {
 
 	private String originalName;
 	private String name;
 	private Integer orderId;
+	private T object;
 	
 	
 	/**
@@ -21,18 +22,19 @@ public class EnumDescriptor implements Comparable<EnumDescriptor> {
 	/**
 	 * @param name
 	 */
-	public EnumDescriptor(String name) {
-		this(name, name);
+	public EnumDescriptor(String name, T object) {
+		this(name, name, object);
 	}
 
 	/**
 	 * @param originalName
 	 * @param name
 	 */
-	public EnumDescriptor(String originalName, String name) {
+	public EnumDescriptor(String originalName, String name, T object) {
 		super();
 		this.originalName = originalName;
 		this.name = name;
+		this.object = object;
 	}
 	
 	/**
@@ -76,11 +78,27 @@ public class EnumDescriptor implements Comparable<EnumDescriptor> {
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
+	
+	/**
+	 * @return the object
+	 */
+	public T getObject() {
+		return object;
+	}
+
+	/**
+	 * @param object the object to set
+	 */
+	public void setObject(T object) {
+		this.object = object;
+	}
 
 	@Override
-	public int compareTo(EnumDescriptor o) {
+	public int compareTo(EnumDescriptor<T> o) {
 		return name.compareTo(o.name);
 	}
+	
+	
 	
 	
 	
