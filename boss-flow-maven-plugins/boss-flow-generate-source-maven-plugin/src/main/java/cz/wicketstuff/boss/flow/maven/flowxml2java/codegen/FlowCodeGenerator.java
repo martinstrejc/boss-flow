@@ -16,6 +16,11 @@ import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JEnumConstant;
+import com.sun.codemodel.JExpr;
+import com.sun.codemodel.JFieldRef;
+import com.sun.codemodel.JFieldVar;
+import com.sun.codemodel.JMethod;
+import com.sun.codemodel.JMod;
 import com.sun.codemodel.JPackage;
 
 import cz.wicketstuff.boss.flow.FlowException;
@@ -60,14 +65,24 @@ public class FlowCodeGenerator implements Serializable {
 			
 			JDefinedClass stateEnum = flowPackage._enum(flowXml.getStateEnumName());
 			stateEnum.javadoc().append("Flow states defined in '" + flowXml.getId() + "'");
+
+			JFieldVar field = stateEnum.field(JMod.PRIVATE & JMod.FINAL, String.class, "originalName");
+			field.javadoc().append("The original name in XML");
+			
+			JMethod constructor = stateEnum.constructor(JMod.PRIVATE);
+			constructor.param(String.class, "originalName");
+			constructor.body().assign(JExpr.refthis("originalName"), field);
 			
 			for(EnumDescriptor<StateCapsule> e : stateEnumList) {
 				JEnumConstant enumConst = stateEnum.enumConstant(e.getName());
-				Integer orderId = e.getOrderId();
+				String originalName = e.getOriginalName();
+				Integer orderId = e.getOrderId();				
+				enumConst.arg(JExpr.lit(originalName));
+				
 				if(orderId == null || orderId == 0) {
-					enumConst.javadoc().append(e.getOriginalName());					
+					enumConst.javadoc().append(originalName);					
 				} else {
-					enumConst.javadoc().append(e.getOriginalName() + " - order " + orderId);
+					enumConst.javadoc().append(originalName + " - order " + orderId);
 				}
 			}
 			
@@ -77,10 +92,11 @@ public class FlowCodeGenerator implements Serializable {
 			for(EnumDescriptor<TransitionCapsule> e : transitionEnumList) {
 				JEnumConstant enumConst = transitionEnum.enumConstant(e.getName());
 				Integer orderId = e.getOrderId();
+				String originalName = e.getOriginalName();
 				if(orderId == null || orderId == 0) {
-					enumConst.javadoc().append(e.getOriginalName());					
+					enumConst.javadoc().append(originalName);					
 				} else {
-					enumConst.javadoc().append(e.getOriginalName() + " - order " + orderId);
+					enumConst.javadoc().append(originalName + " - order " + orderId);
 				}
 			}
 			
