@@ -72,24 +72,24 @@
 
 		<plugins>
 		
-			<plugin>
-				<groupId>cz.wicketstuff.boss</groupId>
-				<artifactId>boss-flow-generate-source-maven-plugin</artifactId>
-				<version>${project.version}</version>
-				<executions>
-					<execution>
-			            <id>generate-sources</id>
-			            <phase>generate-sources</phase>
-		    	        <goals>
-		        	      <goal>bossFlowXml2java</goal>
-		            	</goals>
-		            	<inherited>false</inherited>
-		            	<configuration>
-		            		<xmlFile>${basedir}/src/test/test-full-flow.xml</xmlFile>
-		            	</configuration>
-          			</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>cz.wicketstuff.boss</groupId> -->
+<!-- 				<artifactId>boss-flow-generate-source-maven-plugin</artifactId> -->
+<!-- 				<version>${project.version}</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 			            <id>generate-sources</id> -->
+<!-- 			            <phase>generate-sources</phase> -->
+<!-- 		    	        <goals> -->
+<!-- 		        	      <goal>bossFlowXml2java</goal> -->
+<!-- 		            	</goals> -->
+<!-- 		            	<inherited>false</inherited> -->
+<!-- 		            	<configuration> -->
+<!-- 		            		<xmlFile>${basedir}/src/test/test-full-flow.xml</xmlFile> -->
+<!-- 		            	</configuration> -->
+<!--           			</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.apache.maven.plugins</groupId> -->
@@ -120,34 +120,34 @@
 			
 		</plugins>
 		
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>cz.wicketstuff.boss</groupId>
-										<artifactId>boss-flow-generate-source-maven-plugin</artifactId>
-										<versionRange>${project.version}</versionRange>
-										<goals>
-											<goal>bossFlowXml2java</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute></execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+<!-- 		<pluginManagement> -->
+<!-- 			<plugins> -->
+<!-- 				<plugin> -->
+<!-- 					<groupId>org.eclipse.m2e</groupId> -->
+<!-- 					<artifactId>lifecycle-mapping</artifactId> -->
+<!-- 					<version>1.0.0</version> -->
+<!-- 					<configuration> -->
+<!-- 						<lifecycleMappingMetadata> -->
+<!-- 							<pluginExecutions> -->
+<!-- 								<pluginExecution> -->
+<!-- 									<pluginExecutionFilter> -->
+<!-- 										<groupId>cz.wicketstuff.boss</groupId> -->
+<!-- 										<artifactId>boss-flow-generate-source-maven-plugin</artifactId> -->
+<!-- 										<versionRange>${project.version}</versionRange> -->
+<!-- 										<goals> -->
+<!-- 											<goal>bossFlowXml2java</goal> -->
+<!-- 										</goals> -->
+<!-- 									</pluginExecutionFilter> -->
+<!-- 									<action> -->
+<!-- 										<execute></execute> -->
+<!-- 									</action> -->
+<!-- 								</pluginExecution> -->
+<!-- 							</pluginExecutions> -->
+<!-- 						</lifecycleMappingMetadata> -->
+<!-- 					</configuration> -->
+<!-- 				</plugin> -->
+<!-- 			</plugins> -->
+<!-- 		</pluginManagement> -->
 
 
 	</build>
