@@ -17,7 +17,6 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JEnumConstant;
 import com.sun.codemodel.JExpr;
-import com.sun.codemodel.JFieldRef;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
@@ -117,7 +116,7 @@ public class FlowCodeGenerator implements Serializable {
 	}
 
 	protected <T> void javaStyleNames(List<EnumDescriptor<T>> list) {
-		IJavaStyleConverter converter = new UpperCaseJavaStyleConverter();
+		IJavaStyleConverter converter = new CamelCaseJavaEnumStyleConverter();
 		Map<String, EnumDescriptor<T>> names = new HashMap<String, EnumDescriptor<T>>(list.size());
 		for(EnumDescriptor<T> e : list) {
 			String name = stripSuffix(converter.createJavaStyleName(e.getName()));
