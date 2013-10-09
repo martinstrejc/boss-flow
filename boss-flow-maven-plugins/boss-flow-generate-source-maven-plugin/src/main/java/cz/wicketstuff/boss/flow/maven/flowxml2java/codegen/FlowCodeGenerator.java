@@ -65,12 +65,16 @@ public class FlowCodeGenerator implements Serializable {
 			JDefinedClass stateEnum = flowPackage._enum(flowXml.getStateEnumName());
 			stateEnum.javadoc().append("Flow states defined in '" + flowXml.getId() + "'");
 
-			JFieldVar field = stateEnum.field(JMod.PRIVATE & JMod.FINAL, String.class, "originalName");
+			JFieldVar field = stateEnum.field(JMod.PRIVATE | JMod.FINAL, String.class, "originalName");
 			field.javadoc().append("The original name in XML");
 			
 			JMethod constructor = stateEnum.constructor(JMod.PRIVATE);
 			constructor.param(String.class, "originalName");
 			constructor.body().assign(JExpr.refthis("originalName"), field);
+			
+			JMethod getterOriginalName = stateEnum.method(JMod.PUBLIC, String.class, "getOriginalName");
+			getterOriginalName.javadoc().append("Get the original name defined in XML");
+			getterOriginalName.body()._return(field);
 			
 			for(EnumDescriptor<StateCapsule> e : stateEnumList) {
 				JEnumConstant enumConst = stateEnum.enumConstant(e.getName());
