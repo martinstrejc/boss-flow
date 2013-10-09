@@ -66,14 +66,13 @@ public class FlowCodeGenerator implements Serializable {
 			stateEnum.javadoc().append("Flow states defined in '" + flowXml.getId() + "'");
 			
 			JMethod constructor = stateEnum.constructor(JMod.PRIVATE);
-			JavaCodeHelper.entityEnumClass(stateEnum, constructor, String.class, "originalName", "the original name defined in XML");
+			JavaCodeHelper.entityEnumClass(stateEnum, constructor, String.class, "originalName", "the original state name defined in XML");
 			
 			for(EnumDescriptor<StateCapsule> e : stateEnumList) {
 				JEnumConstant enumConst = stateEnum.enumConstant(e.getName());
 				String originalName = e.getOriginalName();
 				Integer orderId = e.getOrderId();				
 				enumConst.arg(JExpr.lit(originalName));
-				
 				if(orderId == null || orderId == 0) {
 					enumConst.javadoc().append(originalName);					
 				} else {
@@ -83,11 +82,16 @@ public class FlowCodeGenerator implements Serializable {
 			
 			JDefinedClass transitionEnum = flowPackage._enum(flowXml.getTransitionEnumName());
 			transitionEnum.javadoc().append("Flow transitions defined in '" + flowXml.getId() + "'");
+
+			constructor = transitionEnum.constructor(JMod.PRIVATE);
+			JavaCodeHelper.entityEnumClass(transitionEnum, constructor, String.class, "originalName", "the original transition name defined in XML");
+
 			
 			for(EnumDescriptor<TransitionCapsule> e : transitionEnumList) {
 				JEnumConstant enumConst = transitionEnum.enumConstant(e.getName());
 				Integer orderId = e.getOrderId();
 				String originalName = e.getOriginalName();
+				enumConst.arg(JExpr.lit(originalName));
 				if(orderId == null || orderId == 0) {
 					enumConst.javadoc().append(originalName);					
 				} else {
