@@ -35,7 +35,7 @@
 
 		<dependency>
 			<groupId>cz.wicketstuff.boss</groupId>
-			<artifactId>boss-flow</artifactId>
+			<artifactId>boss-flow-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -57,15 +57,20 @@
 			<groupId>com.simpligility.org.apache.maven.plugin-testing</groupId>
 			<artifactId>maven-test-tools</artifactId>
 			<version>3.0.0</version>
-			<scope>provided</scope>
+			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-utils</artifactId>
 			<version>3.0.15</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>${maven.core.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

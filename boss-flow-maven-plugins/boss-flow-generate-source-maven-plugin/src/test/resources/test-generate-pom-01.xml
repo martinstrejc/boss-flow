@@ -5,7 +5,7 @@
 	<groupId>cz.wicketstuff.boss</groupId>
 	<artifactId>boss-flow-maven-plugin-test</artifactId>
 	<name>BOSS Flow Tests</name>
-	<version>1.3.2-SNAPSHOT</version>
+	<version>1.4.0-SNAPSHOT</version>
 	<description>Integration tests of BOSS Flow</description>
 
 	<dependencies>
@@ -86,6 +86,4 @@
 
 	</build>
 
-
-	</build>
 </project>
