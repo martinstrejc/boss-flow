@@ -2,6 +2,7 @@ package cz.wicketstuff.boss.flow.maven.flowxml2java.codegen;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,12 @@ public class FlowCodeGeneratorTest {
 		flowXml.setStateEnumName("StateEnum");
 		flowXml.setTransitionEnumName("TransitionEnum");
 		generator.generate(flowXml, flowBuilderCarter);
+		File stateEnumFile = new File("flow/generated/StateEnum.java");
+		assertTrue(stateEnumFile.exists());
+		stateEnumFile.delete();
+		File transitionEnumFile = new File("flow/generated/TransitionEnum.java");
+		assertTrue(transitionEnumFile.exists());
+		transitionEnumFile.delete();
 	}
 	
 //
