@@ -39,39 +39,19 @@
 			<version>${project.version}</version>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.maven.plugin-testing</groupId> -->
-		<!-- <artifactId>maven-plugin-testing-harness</artifactId> -->
-		<!-- <version>2.1</version> -->
-		<!-- <scope>test</scope> -->
-		<!-- </dependency> -->
-
 		<dependency>
-			<groupId>com.simpligility.org.apache.maven.plugin-testing</groupId>
-			<artifactId>maven-plugin-testing-harness</artifactId>
-			<version>3.0.0</version>
-			<scope>test</scope>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.simpligility.org.apache.maven.plugin-testing</groupId>
-			<artifactId>maven-test-tools</artifactId>
-			<version>3.0.0</version>
-			<scope>test</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-			<version>3.0.15</version>
+			<artifactId>plexus-archiver</artifactId>
+			<version>2.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-core</artifactId>
-			<version>${maven.core.version}</version>
-			<scope>test</scope>
-		</dependency>
+
 	</dependencies>
+
 
 	<build>
 
