@@ -41,8 +41,6 @@
 
 	<modules>
 		<module>boss-flow</module>
-		<module>boss-flow-core</module>
-		<module>boss-flow-util</module>
 		<module>boss-flow-maven-plugins/boss-flow-generate-source-maven-plugin</module>
 		<module>testing/boss-flow-test</module>
 	</modules>
