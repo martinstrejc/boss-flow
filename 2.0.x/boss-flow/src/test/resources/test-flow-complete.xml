@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowDescriptor xmlns="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	>
+<!-- configure workspace schema rather than URL -->
+<!-- 	xsi:schemaLocation=" -->
+<!-- 		http://www.wicketstuff.cz/p/boss-flow/flowXmlModel http://www.wicketstuff.cz/p/boss-flow/boss-flow-0.4.xsd" -->
+
+	<flowId>0</flowId>
+	<flowName>test-flow-complete</flowName>
+	<flowDescription>Complete test of all flow components</flowDescription>
+
+	<realState defaultInitialState="true" name="S0initialState" requireStateData="true">
+		<transition refName="t01" />
+	</realState>
+	
+	<realState name="S1realState" order="10" requireStateData="true">
+		<category>Cat1</category>
+		<transition refName="t12" defaultNext="true" />
+		<transition refName="t15" />
+	</realState>
+	
+	<conditionState name="S2ifState">
+		<conditionExpression>isState2</conditionExpression>
+		<thenTransition refName="t23" />
+		<elseTransition refName="t24" />
+	</conditionState>
+	
+	<viewState name="S3viewState" order="20">
+		<category>Cat2</category>
+		<category>View</category>
+		<transition refName="t38" defaultPrevious="true" />
+	</viewState>
+	
+	<viewState name="S4viewState">
+		<transition refName="t45"/>
+	</viewState>
+
+	<switchState name="S5switchState">
+		<switchExpression>switchS5</switchExpression>
+		<defaultTransition refName="t52"/>
+		<switchCase caseValue="toViewS6"><transition refName="t56"/></switchCase>
+		<switchCase caseValue="toFinal"><transition refName="t58"/></switchCase>
+	</switchState>
+	
+	<viewState name="S6viewStateInitial" initialState="true">
+		<transition refName="t68" />
+	</viewState>
+	
+	<joinState name="S8joinState" persistableState="false">
+		<nextTransition refName="t89" />
+	</joinState>
+	
+	<realState name="S9finalState" finalState="true">
+		<transition refName="t96"/>
+	</realState>
+	
+	<transition name="t01" targetStateName="S1realState" />
+	<transition name="t12" targetStateName="S2ifState" />
+	<transition name="t15" targetStateName="S5switchState" />
+	<transition name="t23" targetStateName="S3viewState" />
+	<transition name="t24" targetStateName="S4viewState" />
+	<transition name="t38" targetStateName="S8joinState" />
+	<transition name="t45" targetStateName="S5switchState" />
+	<transition name="t52" targetStateName="S2ifState" />
+	<transition name="t56" targetStateName="S6viewStateInitial" />
+	<transition name="t58" targetStateName="S8joinState" />
+	<transition name="t68" targetStateName="S8joinState" />
+	<transition name="t78" targetStateName="S8joinState" />
+	<transition name="t89" targetStateName="S9finalState" />
+	<transition name="t96" targetStateName="S6viewStateInitial" />
+
+
+</flowDescriptor>
