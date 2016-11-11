@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cz.wicketstuff.boss</groupId>
+	<artifactId>boss-flow-maven-plugin-test</artifactId>
+	<name>BOSS Flow Tests</name>
+	<version>1.4.0-SNAPSHOT</version>
+	<description>Integration tests of BOSS Flow</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<plugins>
+		
+			<plugin>
+				<groupId>cz.wicketstuff.boss</groupId>
+				<artifactId>boss-flow-generate-source-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<executions>
+					<execution>
+			            <id>generate-sources</id>
+			            <phase>generate-sources</phase>
+		    	        <goals>
+		        	      <goal>bossFlowXml2java</goal>
+		            	</goals>
+		            	<inherited>false</inherited>
+		            	<configuration>
+		            		<xmlFile>${basedir}/src/test/test-full-flow.xml</xmlFile>
+		            	</configuration>
+          			</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>cz.wicketstuff.boss</groupId>
+										<artifactId>boss-flow-generate-source-maven-plugin</artifactId>
+										<goals>
+											<goal>bossFlowXml2java</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute></execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+	</build>
+
+</project>

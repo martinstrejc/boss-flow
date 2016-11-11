@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowDescriptor xmlns="http://www.wicketstuff.cz/p/boss-flow/flowXmlModel"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	>
+<!-- configure workspace schema rather than URL -->
+<!-- 	xsi:schemaLocation=" -->
+<!-- 		http://www.wicketstuff.cz/p/boss-flow/flowXmlModel http://www.wicketstuff.cz/p/boss-flow/boss-flow-VERSION.xsd" -->
+
+	<flowId>12</flowId>
+	<flowName>5min-example-flow</flowName>
+	<flowDescription>The 5 minute Tutorial with Shopping Basket</flowDescription>
+
+	<viewState name="ShowBasket" defaultInitialState="true">
+		<category>flowStart</category>
+		<transition refName="toChoosePayment" defaultNext="true" />
+		<transition refName="toCancelled" />
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.ShowBasketPage</viewName>
+	</viewState>
+
+	<viewState name="ChoosePayment">
+		<transition refName="toSwitchPaymentType" defaultNext="true" />
+		<transition refName="toShowBasket" defaultPrevious="true" />
+		<transition refName="toCancelled" />
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.ChoosePaymentPage</viewName>
+	</viewState>
+
+	<viewState name="CashPayment">
+		<transition refName="toJoinFinishedPayment" defaultNext="true" />
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.CashPaymentPage</viewName>
+	</viewState>
+
+	<viewState name="PaypalPayment" requireStateData="true">
+		<transition refName="toJoinFinishedPayment" defaultNext="true" />
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.PaypalPaymentPage</viewName>
+	</viewState>
+
+	<viewState name="CardPayment" requireStateData="true">
+		<transition refName="toJoinFinishedPayment" defaultNext="true" />
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.CardPaymentPage</viewName>
+	</viewState>
+
+	<viewState name="Overview" finalState="true">
+		<category>flowFinish</category>
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.OverviewPage</viewName>
+	</viewState>
+
+	<viewState name="Cancelled" finalState="true">
+		<viewName>cz.wicketstuff.boss.flow.examples.wicket.page.CancelledPage</viewName>
+	</viewState>
+	
+	<conditionState name="SuccessfulPaymentCondition">
+		<conditionExpression>isPaymentSuccessful</conditionExpression>
+		<thenTransition refName="toOverview"/>
+		<elseTransition refName="toChoosePayment"/>
+	</conditionState>
+	
+	<switchState name="SwitchPaymentType">
+		<switchExpression>paymentDecision</switchExpression>
+		<defaultTransition refName="toChoosePayment"/>
+		<switchCase caseValue="CASH">
+			<transition refName="toCashPayment"/>
+		</switchCase>
+		<switchCase caseValue="PAYPAL">
+			<transition refName="toPaypalPayment"/>
+		</switchCase>
+		<switchCase caseValue="CARD">
+			<transition refName="toCardPayment"/>
+		</switchCase>
+		
+	</switchState>
+			
+	<joinState name="JoinFinishedPayment">
+		<nextTransition refName="toSuccessfulPaymentCondition"/>
+	</joinState>
+	
+	<transition name="toShowBasket" targetStateName="ShowBasket" />
+	<transition name="toChoosePayment" targetStateName="ChoosePayment" />
+	<transition name="backToChoosePayment" targetStateName="ChoosePayment" />
+	<transition name="toCashPayment" targetStateName="CashPayment" />
+	<transition name="toPaypalPayment" targetStateName="PaypalPayment" />
+	<transition name="toCardPayment" targetStateName="CardPayment" />
+	<transition name="toOverview" targetStateName="Overview" />
+	<transition name="toSuccessfulPaymentCondition" targetStateName="SuccessfulPaymentCondition" />
+	<transition name="toSwitchPaymentType" targetStateName="SwitchPaymentType" />
+	<transition name="toJoinFinishedPayment" targetStateName="JoinFinishedPayment" />
+	<transition name="toCancelled" targetStateName="Cancelled" />
+
+</flowDescriptor>
