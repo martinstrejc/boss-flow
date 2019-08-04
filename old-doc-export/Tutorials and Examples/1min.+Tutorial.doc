@@ -1,0 +1,340 @@
+Message-ID: <1376565521.793.1564909867188.JavaMail.tcconfluence@etn-twinstone-1.mit.etn.cz>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_792_1964849920.1564909867187"
+
+------=_Part_792_1964849920.1564909867187
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>1min. Tutorial</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+#main {
+    padding-bottom: 1em !important; /* The default padding of 6em is too mu=
+ch for printouts */
+}
+
+body {
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    font-size: 10pt;
+    line-height: 1.2;
+}
+
+body, #full-height-container, #main, #page, #content, .has-personal-sidebar=
+ #content {
+    background: #fff    !important;
+    color: #000         !important;
+    border: 0           !important;
+    width: 100%         !important;
+    height: auto        !important;
+    min-height: auto    !important;
+    margin: 0           !important;
+    padding: 0          !important;
+    display: block      !important;
+}
+
+a, a:link, a:visited, a:focus, a:hover, a:active {
+    color: #000;
+}
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    page-break-after: avoid;
+}
+pre {
+    font-family: Monaco, "Courier New", monospace;
+}
+
+#header,
+.aui-header-inner,
+#navigation,
+#sidebar,
+.sidebar,
+#personal-info-sidebar,
+.ia-fixed-sidebar,
+.page-actions,
+.navmenu,
+.ajs-menu-bar,
+.noprint,
+.inline-control-link,
+.inline-control-link a,
+a.show-labels-editor,
+.global-comment-actions,
+.comment-actions,
+.quick-comment-container,
+#addcomment {
+    display: none !important;
+}
+
+.comment .date::before {
+    content: none !important; /* remove middot for print view */
+}
+
+h1.pagetitle img {
+    height: auto;
+    width: auto;
+}
+
+.print-only {
+    display: block;
+}
+#footer {
+    position: relative !important; /* CONF-17506 Place the footer at end of=
+ the content */
+    margin: 0;
+    padding: 0;
+    background: none;
+    clear: both;
+}
+
+#poweredby {
+    border-top: none;
+    background: none;
+}
+
+#poweredby li.print-only {
+    display: list-item;
+    font-style: italic;
+}
+
+#poweredby li.noprint {
+    display:none;
+}
+
+
+/* no width controls in print */
+.wiki-content .table-wrap,
+.wiki-content p,
+.panel .codeContent,
+.panel .codeContent pre,
+.image-wrap {
+    overflow: visible !important;
+}
+
+/* TODO - should this work? */
+#children-section,
+#comments-section .comment,
+#comments-section .comment .comment-body,
+#comments-section .comment .comment-content,
+#comments-section .comment p {
+    page-break-inside: avoid;
+}
+
+#page-children a {
+    text-decoration: none;
+}
+
+/**
+ hide twixies
+
+ the specificity here is a hack because print styles
+ are getting loaded before the base styles. */
+#comments-section.pageSection .section-header,
+#comments-section.pageSection .section-title,
+#children-section.pageSection .section-header,
+#children-section.pageSection .section-title,
+.children-show-hide {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.children-show-hide.icon {
+    display: none;
+}
+
+/* personal sidebar */
+.has-personal-sidebar #content {
+    margin-right: 0px;
+}
+
+.has-personal-sidebar #content .pageSection {
+    margin-right: 0px;
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>1min. Tutorial</h1>
+    <div class=3D"Section1">
+        <p>A simple 1 minute tutorial, how to configure an easy 3 steps flo=
+w and invoke transitions.</p>
+<p>&nbsp;</p>
+<p>The first thing first is to prepare the configuration XML file. It is go=
+ing to be parsed by JAXB, so you have to strictly respect XSD.</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeHeader panelHeader pdl" style=3D"border-bottom-width: 1px=
+;">
+<b>1min-example-flow.xml</b>
+</div>
+<div class=3D"codeContent panelContent pdl">=20
+<pre class=3D"theme: Eclipse; brush: html/xml; gutter: false" style=3D"font=
+-size:12px;">&lt;?xml version=3D&quot;1.0&quot; encoding=3D&quot;UTF-8&quot=
+;?&gt;
+&lt;flowDescriptor xmlns=3D&quot;http://www.wicketstuff.cz/p/boss-flow/flow=
+XmlModel&quot;
+    xmlns:xsi=3D&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    &gt;
+
+    &lt;flowId&gt;1&lt;/flowId&gt;
+    &lt;flowName&gt;1min-example-flow&lt;/flowName&gt;
+    &lt;flowDescription&gt;The 1 minute Tutorial example flow&lt;/flowDescr=
+iption&gt;
+
+    &lt;viewState name=3D&quot;S1initialState&quot; initialState=3D&quot;tr=
+ue&quot;&gt;
+        &lt;transition refName=3D&quot;goStep1to2&quot; defaultNext=3D&quot=
+;true&quot;/&gt;
+    &lt;/viewState&gt;
+       =20
+    &lt;viewState name=3D&quot;S2middleState&quot;&gt;
+        &lt;transition refName=3D&quot;goStep2to3&quot; /&gt;
+        &lt;transition refName=3D&quot;goStep2to1&quot; defaultPrevious=3D&=
+quot;true&quot; /&gt;
+    &lt;/viewState&gt;
+
+    &lt;viewState name=3D&quot;S3finalState&quot; finalState=3D&quot;true&q=
+uot;&gt;
+    &lt;/viewState&gt;
+   =20
+    &lt;transition name=3D&quot;goStep1to2&quot; targetStateName=3D&quot;S2=
+middleState&quot; /&gt;
+    &lt;transition name=3D&quot;goStep2to3&quot; targetStateName=3D&quot;S3=
+finalState&quot; /&gt;
+    &lt;transition name=3D&quot;goStep2to1&quot; targetStateName=3D&quot;S1=
+initialState&quot; /&gt;
+
+&lt;/flowDescriptor&gt;
+
+</pre>=20
+</div>
+</div>
+<p>&nbsp;</p>
+<p>Now you have to initialize the flow processor. It can parse the XML file=
+ from an input stream. Also you can change some properties or add listeners=
+ etc. That is just going to be done once. It can be an application singleto=
+n, for example a Spring bean is a good solution for Spring based web applic=
+ations.</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeHeader panelHeader pdl" style=3D"border-bottom-width: 1px=
+;">
+<b>Initializing Flow</b>
+</div>
+<div class=3D"codeContent panelContent pdl">=20
+<pre class=3D"first-line: 1; theme: Eclipse; brush: java; gutter: false" st=
+yle=3D"font-size:12px;">// Create a new flow processor instance, that is go=
+ing to hold FormData payload
+// as a flow data object
+IFlowProcessor&lt;FormData&gt; processor =3D new DefaultFlowProcessor&lt;Fo=
+rmData&gt;();
+
+// Set the XML file with flow definitions, parse it and build flow
+processor.setFlowInputStream(new FileInputStream(&quot;1min-example-flow.xm=
+l&quot;));
+processor.initializeProcessor();
+
+// Now flow processor is ready to use</pre>=20
+</div>
+</div>
+<p>&nbsp;</p>
+<p>Now se how to create the flow carter and shift between flow states.</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeHeader panelHeader pdl" style=3D"border-bottom-width: 1px=
+;">
+<b>Running Flow</b>
+</div>
+<div class=3D"codeContent panelContent pdl">=20
+<pre class=3D"first-line: 1; theme: Eclipse; brush: java; gutter: false" st=
+yle=3D"font-size:12px;">// Initialize flow carter object with an payload of=
+ type FormData
+IFlowCarter&lt;FormData&gt; carter =3D processor.initFlow(1, new FormData()=
+);
+
+// Invoke a transition
+// for step 'S1initialState' you can use instead of 'goStep1to2'
+processor.invokeDefaultNextTransition(carter);=20
+
+// now the flow is in 'S2middleState'
+
+// Invoke a transition
+// There is no default next transition defined for the 'S2middleState'
+// so you have to invoke transition by its name
+processor.invokeTransition(carter, &quot;goStep2to3&quot;);=20
+
+// Obtain current state
+IFlowState&lt;FormData&gt; currentState =3D carter.getCurrentState();
+
+// Obtain current state name
+String currentStateName =3D currentState.getStateName();
+
+// Obtain current view name
+String currentViewName =3D null;
+if(currentState instanceof IFlowViewState) {
+=09currentViewName =3D ((IFlowViewState&lt;MyData&gt;)currentState).getView=
+Name();
+}
+
+// Obtain data object
+FormData formData =3D carter.getPayload();
+
+
+</pre>=20
+</div>
+</div>
+<p>&nbsp;</p>
+<p>That's all.</p>
+    </div>
+</body>
+</html>
+------=_Part_792_1964849920.1564909867187--

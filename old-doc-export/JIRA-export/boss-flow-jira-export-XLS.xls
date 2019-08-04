@@ -1,0 +1,1797 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<title>Twinstone Jira</title>
+<style type="text/css">
+table {
+    mso-displayed-decimal-separator:"\.";
+    mso-displayed-thousand-separator:"\,";
+}
+body
+{
+    margin: 0px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color:black;
+}
+
+</style>
+<META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=UTF-8">
+<!-- JRA-7598 - ensure fields (e.g. description) occupy only one cell - even fields containing newlines. -->
+<!--
+Vertical align all cells to the top, in order to align all issue rows of issuetable to the top,
+since Excel does not use or save the css files it is hardcoded here.
+-->
+<style>
+@page
+{
+mso-page-orientation:landscape;
+margin:.25in .25in .5in .25in;
+mso-header-margin:.5in;
+mso-footer-margin:.25in;
+mso-footer-data:"&R&P of &N";
+mso-horizontal-page-align:center;
+mso-vertical-page-align:center;
+}
+
+br
+{
+    mso-data-placement:same-cell;
+}
+
+td
+{
+    vertical-align: top;
+}
+</style>
+
+<!--[if gte mso 9]><xml>
+<x:ExcelWorkbook>
+<x:ExcelWorksheets>
+<x:ExcelWorksheet>
+<x:Name>general_report</x:Name>
+<x:WorksheetOptions>
+<x:Print>
+<x:ValidPrinterInfo/>
+</x:Print>
+</x:WorksheetOptions>
+</x:ExcelWorksheet>
+</x:ExcelWorksheets>
+</x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+<body>
+
+<table border="1">
+    <tr bgcolor="#205081" height="30">
+        <td colspan="40">
+            <img src="https://issues.twinstone.org/images/icon-jira-logo.png" width="57" height="30" border="0" alt="Twinstone Jira">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="40">
+            <a href="https://issues.twinstone.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=project+%3D+BFLOW+AND+resolution+%3D+Unresolved+ORDER+BY+key+DESC">Twinstone Jira</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="40">
+            Displaying <strong>23</strong> issues at <strong>04/Aug/19 11:03 AM</strong>.
+        </td>
+    </tr>
+</table>
+
+
+
+
+                                        <table id="issuetable"  border="1" cellpadding="3" cellspacing="1" width="100%">
+                        <thead>
+        <tr class="rowHeader">
+            
+                                                            <th class="colHeaderLink headerrow-project">
+                            Project
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuekey">
+                            Key
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-summary">
+                            Summary
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuetype">
+                            Issue Type
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-status">
+                            Status
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-priority">
+                            Priority
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-resolution">
+                            Resolution
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-assignee">
+                            Assignee
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-reporter">
+                            Reporter
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-created">
+                            Created
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-lastViewed">
+                            Last Viewed
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-updated">
+                            Updated
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-resolutiondate">
+                            Resolved
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-versions">
+                            Affects Version/s
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-fixVersions">
+                            Fix Version/s
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-components">
+                            Component/s
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-duedate">
+                            Due Date
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-votes">
+                            Votes
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-watches">
+                            Watchers
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-thumbnail">
+                            Images
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-timeoriginalestimate">
+                            Original Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-timeestimate">
+                            Remaining Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-timespent">
+                            Time Spent
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-workratio">
+                            Work Ratio
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-subtasks">
+                            Sub-Tasks
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuelinks">
+                            Linked Issues
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-environment">
+                            Environment
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-description">
+                            Description
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-security">
+                            Security Level
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-progress">
+                            Progress
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregateprogress">
+                            Σ Progress
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregatetimespent">
+                            Σ Time Spent
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregatetimeestimate">
+                            Σ Remaining Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregatetimeoriginalestimate">
+                            Σ Original Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-labels">
+                            Labels
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10102">
+                            Rank
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10101">
+                            Epic Link
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10100">
+                            Sprint
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10106">
+                            Flagged
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10107">
+                            Epic/Theme
+                                                    </th>
+                                                                    </tr>
+    </thead>
+    <tbody>
+                                    <tr id="issuerow11675" rel="11675" data-issuekey="BFLOW-64" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-64" href="https://issues.twinstone.org/browse/BFLOW-64">BFLOW-64</a>
+</td>
+                                            <td class="nav summary"><p>
+                Use immutable flow objects
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 02/Feb/14 12:59 AM </td>
+                                            <td class="nav lastViewed"> 04/Aug/19 11:02 AM </td>
+                                            <td class="nav updated"> 02/Feb/14 12:59 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate">36000</td>
+                                            <td class="nav timeestimate">36000</td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">            0%
+    </td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Make the FlowCarter immutable. Probably it could mean to implement both mutable and immutable classes.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     0%
+</td>
+                                            <td class="nav aggregateprogress">     0%
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate">36000</td>
+                                            <td class="nav aggregatetimeoriginalestimate">36000</td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      136
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11673" rel="11673" data-issuekey="BFLOW-63" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-63" href="https://issues.twinstone.org/browse/BFLOW-63">BFLOW-63</a>
+</td>
+                                            <td class="nav summary"><p>
+                Include flow id into error messages
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Minor
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Jan Šimek
+    </td>
+                                            <td class="nav created"> 28/Jan/14 1:49 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 02/Feb/14 12:48 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">    &nbsp;
+</td>
+                                            <td class="nav components">                        Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">2</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      For example, message<br/>
+<br/>
+Cannot find default transition for state &#39;xxx&#39; (and many more)<br/>
+<br/>
+should be enriched by flow id.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      134
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11473" rel="11473" data-issuekey="BFLOW-62" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-62" href="https://issues.twinstone.org/browse/BFLOW-62">BFLOW-62</a>
+</td>
+                                            <td class="nav summary"><p>
+                Mixed notes from observers
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 01/Oct/13 3:48 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 01/Oct/13 3:48 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Documentation            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      https://docs.google.com/a/etnetera.cz/document/d/1Z0cts54PJ-5rlVdU42WeUTFxkae7KlW7gLt58FE2ar4/edit#
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      95
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11471" rel="11471" data-issuekey="BFLOW-61" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-61" href="https://issues.twinstone.org/browse/BFLOW-61">BFLOW-61</a>
+</td>
+                                            <td class="nav summary"><p>
+                Refactor arguments of scanAnnotedBeans
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 28/Sep/13 7:42 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 8:57 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Refactor scanAnnotedBeans in DefaultFlowProcessor and also refactor AnnotationFlowFactory to scan different beans.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      87
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11470" rel="11470" data-issuekey="BFLOW-60" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-60" href="https://issues.twinstone.org/browse/BFLOW-60">BFLOW-60</a>
+</td>
+                                            <td class="nav summary"><p>
+                Separate integration tests
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Critical
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 28/Sep/13 7:27 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 7:29 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core,                     Testing            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">2</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                                        BFLOW-49,                                                BFLOW-8,                                                BFLOW-47                        </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description"></td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      86
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11467" rel="11467" data-issuekey="BFLOW-57" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-57" href="https://issues.twinstone.org/browse/BFLOW-57">BFLOW-57</a>
+</td>
+                                            <td class="nav summary"><p>
+                Default value of condition state
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 28/Sep/13 5:50 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 02/Feb/14 12:56 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Annotation,                     Core,                     XML            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add default value to the condition state. Such as &#39;if (expression) then...&#39; has to find expression. Even if expression doesn&#39;t exist (annotated) so it is not ever required to throw an exception if a default value exists.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      83
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11466" rel="11466" data-issuekey="BFLOW-56" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-56" href="https://issues.twinstone.org/browse/BFLOW-56">BFLOW-56</a>
+</td>
+                                            <td class="nav summary"><p>
+                Add examples to the current version
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 28/Sep/13 5:46 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 5:50 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Examples,                     Refactoring            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add examples as a module of the current version.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      82
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11465" rel="11465" data-issuekey="BFLOW-55" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-55" href="https://issues.twinstone.org/browse/BFLOW-55">BFLOW-55</a>
+</td>
+                                            <td class="nav summary"><p>
+                Use ASM instead of reflections
+    </p>
+</td>
+                                            <td class="nav issuetype"> New Feature</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 26/Sep/13 5:45 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 26/Sep/13 5:45 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Annotation,                     Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      http://asm.ow2.org/
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      81
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11463" rel="11463" data-issuekey="BFLOW-54" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-54" href="https://issues.twinstone.org/browse/BFLOW-54">BFLOW-54</a>
+</td>
+                                            <td class="nav summary"><p>
+                Flow versioning
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 24/Sep/13 6:36 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:57 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        2.0.0-planned            </td>
+                                            <td class="nav components">                        API,                     Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Versioning of a flow that can has more concurrent versions at the same time.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      79
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11462" rel="11462" data-issuekey="BFLOW-53" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-53" href="https://issues.twinstone.org/browse/BFLOW-53">BFLOW-53</a>
+</td>
+                                            <td class="nav summary"><p>
+                Subflows
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 24/Sep/13 6:34 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:57 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        API,                     Core,                     XML            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Create a subflow as a virtual state.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      78
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11461" rel="11461" data-issuekey="BFLOW-52" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-52" href="https://issues.twinstone.org/browse/BFLOW-52">BFLOW-52</a>
+</td>
+                                            <td class="nav summary"><p>
+                Add identifiers to listeners, beans etc.
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 24/Sep/13 5:36 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 8:57 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        API,                     Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add identifiers to track who is processing.<br/>
+<br/>
+e.g. String IFlowStatePersister.getStatePersisterId();
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      77
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11460" rel="11460" data-issuekey="BFLOW-51" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-51" href="https://issues.twinstone.org/browse/BFLOW-51">BFLOW-51</a>
+</td>
+                                            <td class="nav summary"><p>
+                Refactor relevat classname processor to controller
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 24/Sep/13 5:29 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:56 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        API,                     Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Refactor classnames ending with processor to controller if meaning is different. Also refactor package names.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      76
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11256" rel="11256" data-issuekey="BFLOW-44" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-44" href="https://issues.twinstone.org/browse/BFLOW-44">BFLOW-44</a>
+</td>
+                                            <td class="nav summary"><p>
+                Rollback flow on exception
+    </p>
+</td>
+                                            <td class="nav issuetype"> New Feature</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 13/Aug/13 10:17 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:53 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Enhance catching exception and use listeners to decide what to do, if there is an exception, probably rollback the flow state, etc.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      58
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11160" rel="11160" data-issuekey="BFLOW-40" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-40" href="https://issues.twinstone.org/browse/BFLOW-40">BFLOW-40</a>
+</td>
+                                            <td class="nav summary"><p>
+                Graphical flow editor
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 01/Jul/13 4:01 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:54 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        2.0.0-planned            </td>
+                                            <td class="nav components">    &nbsp;
+</td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description"></td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      49
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11159" rel="11159" data-issuekey="BFLOW-39" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-39" href="https://issues.twinstone.org/browse/BFLOW-39">BFLOW-39</a>
+</td>
+                                            <td class="nav summary"><p>
+                Fluent API to create flow programaticly
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 01/Jul/13 4:00 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 8:57 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">                        1.2.5            </td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        API,                     Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description"></td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      48
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11151" rel="11151" data-issuekey="BFLOW-32" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-32" href="https://issues.twinstone.org/browse/BFLOW-32">BFLOW-32</a>
+</td>
+                                            <td class="nav summary"><p>
+                Default transitions system
+    </p>
+</td>
+                                            <td class="nav issuetype"> Task</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 26/May/13 11:32 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 8:57 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Create default transitions to states.<br/>
+It means it there is a state &#39;MyState&#39; it is possible to autocreate the transition &#39;toMyState&#39; that point to &#39;MyState&#39;. The transition can be created with a defined prefix or suffix. The builder must check if transition name is not duplicated to another transition name.<br/>
+<br/>
+Also it is strongly recommended to global enabling or disabling this feature.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      38
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11066" rel="11066" data-issuekey="BFLOW-28" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-28" href="https://issues.twinstone.org/browse/BFLOW-28">BFLOW-28</a>
+</td>
+                                            <td class="nav summary"><p>
+                Refactor maven subprojects and complete POM
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 19/May/13 11:03 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:54 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core,                     Documentation            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Complete POM, Description, CI, wiki, confluence, JIRA etc.<br/>
+<br/>
+Event. prepare server.xml rather than POM information directly.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      22
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow11060" rel="11060" data-issuekey="BFLOW-22" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-22" href="https://issues.twinstone.org/browse/BFLOW-22">BFLOW-22</a>
+</td>
+                                            <td class="nav summary"><p>
+                Add basic API Doc - implementations
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 19/May/13 5:32 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:55 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Documentation            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">2</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate">86400</td>
+                                            <td class="nav timeestimate">86400</td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">            0%
+    </td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                                        BFLOW-19,                                                BFLOW-23                        </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add basic api docs to all interface and basic processing classes. <br/>
+<br/>
+Add apidocs for all packages.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     0%
+</td>
+                                            <td class="nav aggregateprogress">     0%
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate">86400</td>
+                                            <td class="nav aggregatetimeoriginalestimate">86400</td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      14
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow10963" rel="10963" data-issuekey="BFLOW-14" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-14" href="https://issues.twinstone.org/browse/BFLOW-14">BFLOW-14</a>
+</td>
+                                            <td class="nav summary"><p>
+                Global flow configuration
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 05/Apr/13 4:44 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:55 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core,                     XML            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add flow configuration tag, tak can be applied to the whole flow as a behavior instead of java code implementation overriding.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      16
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow10962" rel="10962" data-issuekey="BFLOW-13" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-13" href="https://issues.twinstone.org/browse/BFLOW-13">BFLOW-13</a>
+</td>
+                                            <td class="nav summary"><p>
+                Add global default transitions
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 05/Apr/13 4:43 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:55 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core,                     XML            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add global transitions, those needn&#39;t be added in a step directly, but there are applicable anywhere. An simple example is a &quot;cancel&quot; transaction, that could be invoked anywhere. The strongly recommended think is append an exclusion mechanism to exclude those transitions form selected steps. It can be defined on transition or on steps.<br/>
+
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      17
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow10956" rel="10956" data-issuekey="BFLOW-7" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-7" href="https://issues.twinstone.org/browse/BFLOW-7">BFLOW-7</a>
+</td>
+                                            <td class="nav summary"><p>
+                Add default flow persister
+    </p>
+</td>
+                                            <td class="nav issuetype"> Improvement</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 05/Apr/13 4:28 AM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 5:44 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">                        Core            </td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add default implementation of IFlowPresister
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      11
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow10954" rel="10954" data-issuekey="BFLOW-5" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-5" href="https://issues.twinstone.org/browse/BFLOW-5">BFLOW-5</a>
+</td>
+                                            <td class="nav summary"><p>
+                Enhance passed step validation on transition
+    </p>
+</td>
+                                            <td class="nav issuetype"> New Feature</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 27/Mar/13 3:15 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 24/Sep/13 6:56 AM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">    &nbsp;
+</td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add validator that can allow step/transition just if the flow has already been a state. For example if there are many ways to reach &quot;Payment Result&quot; page, however nobody can entry this step without having passed &quot;Confirm Order&quot; step.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      13
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                <tr id="issuerow10953" rel="10953" data-issuekey="BFLOW-4" class="issuerow">
+                                            <td class="nav project">    BOSS Flow
+</td>
+                                            <td class="nav issuekey">
+
+    <a class="issue-link" data-issue-key="BFLOW-4" href="https://issues.twinstone.org/browse/BFLOW-4">BFLOW-4</a>
+</td>
+                                            <td class="nav summary"><p>
+                Enhance dynamic validation system
+    </p>
+</td>
+                                            <td class="nav issuetype"> New Feature</td>
+                                            <td class="nav status">    
+
+<img src="https://issues.twinstone.org/images/icons/statuses/open.png" width="16" height="16" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it."> Open
+</td>
+                                            <td class="nav priority">   Major
+</td>
+                                            <td class="nav resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="nav assignee">            Martin Strejc
+    </td>
+                                            <td class="nav reporter">            Martin Strejc
+    </td>
+                                            <td class="nav created"> 27/Mar/13 3:12 PM </td>
+                                            <td class="nav lastViewed"> &nbsp; </td>
+                                            <td class="nav updated"> 28/Sep/13 8:57 PM </td>
+                                            <td class="nav resolutiondate"> &nbsp; </td>
+                                            <td class="nav versions">    &nbsp;
+</td>
+                                            <td class="nav fixVersions">                        1.4.0-SNAPSHOT            </td>
+                                            <td class="nav components">    &nbsp;
+</td>
+                                            <td class="nav duedate">    &nbsp;
+</td>
+                                            <td class="nav votes">0</td>
+                                            <td class="nav watches">1</td>
+                                            <td class="nav thumbnail"></td>
+                                            <td class="nav timeoriginalestimate"></td>
+                                            <td class="nav timeestimate"></td>
+                                            <td class="nav timespent"></td>
+                                            <td class="nav workratio">&nbsp;
+</td>
+                                            <td class="nav subtasks">                </td>
+                                            <td class="nav issuelinks">                </td>
+                                            <td class="nav environment"></td>
+                                            <td class="nav description">      Add dynamic validation system, that each step can decide by its validator if it can continue or not.
+  </td>
+                                            <td class="nav security"></td>
+                                            <td class="nav progress">     
+</td>
+                                            <td class="nav aggregateprogress">     
+</td>
+                                            <td class="nav aggregatetimespent"></td>
+                                            <td class="nav aggregatetimeestimate"></td>
+                                            <td class="nav aggregatetimeoriginalestimate"></td>
+                                            <td class="nav labels">    </td>
+                                            <td class="nav customfield_10102">      12
+  </td>
+                                            <td class="nav customfield_10101"></td>
+                                            <td class="nav customfield_10100"></td>
+                                            <td class="nav customfield_10106">
+
+
+</td>
+                                            <td class="nav customfield_10107">    </td>
+                    </tr>
+                </tbody>
+    </table>
+    <div class="end-of-stable-message"></div>
+            <table border="1" >
+<tr>
+    <td bgcolor="#dddddd" colspan="40"><font size="1">
+        Generated at Sun Aug 04 11:03:06 CEST 2019 using JIRA 6.1#6144-sha1:2e5032834b5e9b089289c97f8425a146c3cf4464.
+    </font></td>
+</tr>
+</table>
+
+</body>
+</html>

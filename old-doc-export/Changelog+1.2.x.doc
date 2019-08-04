@@ -1,0 +1,949 @@
+Message-ID: <1046934885.787.1564909738665.JavaMail.tcconfluence@etn-twinstone-1.mit.etn.cz>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_786_852902629.1564909738236"
+
+------=_Part_786_852902629.1564909738236
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Changelog 1.2.x</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+#main {
+    padding-bottom: 1em !important; /* The default padding of 6em is too mu=
+ch for printouts */
+}
+
+body {
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    font-size: 10pt;
+    line-height: 1.2;
+}
+
+body, #full-height-container, #main, #page, #content, .has-personal-sidebar=
+ #content {
+    background: #fff    !important;
+    color: #000         !important;
+    border: 0           !important;
+    width: 100%         !important;
+    height: auto        !important;
+    min-height: auto    !important;
+    margin: 0           !important;
+    padding: 0          !important;
+    display: block      !important;
+}
+
+a, a:link, a:visited, a:focus, a:hover, a:active {
+    color: #000;
+}
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    page-break-after: avoid;
+}
+pre {
+    font-family: Monaco, "Courier New", monospace;
+}
+
+#header,
+.aui-header-inner,
+#navigation,
+#sidebar,
+.sidebar,
+#personal-info-sidebar,
+.ia-fixed-sidebar,
+.page-actions,
+.navmenu,
+.ajs-menu-bar,
+.noprint,
+.inline-control-link,
+.inline-control-link a,
+a.show-labels-editor,
+.global-comment-actions,
+.comment-actions,
+.quick-comment-container,
+#addcomment {
+    display: none !important;
+}
+
+.comment .date::before {
+    content: none !important; /* remove middot for print view */
+}
+
+h1.pagetitle img {
+    height: auto;
+    width: auto;
+}
+
+.print-only {
+    display: block;
+}
+#footer {
+    position: relative !important; /* CONF-17506 Place the footer at end of=
+ the content */
+    margin: 0;
+    padding: 0;
+    background: none;
+    clear: both;
+}
+
+#poweredby {
+    border-top: none;
+    background: none;
+}
+
+#poweredby li.print-only {
+    display: list-item;
+    font-style: italic;
+}
+
+#poweredby li.noprint {
+    display:none;
+}
+
+
+/* no width controls in print */
+.wiki-content .table-wrap,
+.wiki-content p,
+.panel .codeContent,
+.panel .codeContent pre,
+.image-wrap {
+    overflow: visible !important;
+}
+
+/* TODO - should this work? */
+#children-section,
+#comments-section .comment,
+#comments-section .comment .comment-body,
+#comments-section .comment .comment-content,
+#comments-section .comment p {
+    page-break-inside: avoid;
+}
+
+#page-children a {
+    text-decoration: none;
+}
+
+/**
+ hide twixies
+
+ the specificity here is a hack because print styles
+ are getting loaded before the base styles. */
+#comments-section.pageSection .section-header,
+#comments-section.pageSection .section-title,
+#children-section.pageSection .section-header,
+#children-section.pageSection .section-title,
+.children-show-hide {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.children-show-hide.icon {
+    display: none;
+}
+
+/* personal sidebar */
+.has-personal-sidebar #content {
+    margin-right: 0px;
+}
+
+.has-personal-sidebar #content .pageSection {
+    margin-right: 0px;
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Changelog 1.2.x</h1>
+    <div class=3D"Section1">
+        <p>If you are looking for <a href=3D"/display/BFLOW/Changelog">the =
+current changelog</a>.</p>
+<h1 id=3D"Changelog1.2.x-1.2.6">1.2.6</h1>
+<p><strong>Release Date:</strong> 2013-06-02</p>
+<p><strong>Maven:</strong> <a rel=3D"nofollow">http://search.maven.org/#bro=
+wse|161268121</a></p>
+<p>IFlowPersister has been changed. Also restoring flow is available now.</=
+p>
+<p> </p>
+<p> </p>
+<div style=3D"width: 100%;  overflow: auto;">=20
+<table class=3D"aui">=20
+<tbody>=20
+<tr></tr>=20
+<tr>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Type</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Key</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Summary</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Assignee</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Reporter</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Priority</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Status</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Resolution</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Created</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Updated</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Due</th>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-4=
+2"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-4=
+2">BFLOW-42</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-42">Create exampl=
+e of categetories</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"c5107b83a27b09ef4a90672088462090" alt=3D"C=
+ritical" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Jul 02, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-4=
+1"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-4=
+1">BFLOW-41</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-41">Make JUnit te=
+sts of categetories</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"c5107b83a27b09ef4a90672088462090" alt=3D"C=
+ritical" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Jul 02, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+8"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+8">BFLOW-38</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-38">Precompile re=
+gular expressions</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Jul 01, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-9=
+"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-9=
+">BFLOW-9</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-9">Add categories=
+/markes to step and transitions</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Apr 05, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+</tbody>=20
+</table>=20
+</div>=20
+<p></p>=20
+<p></p>
+<h1 id=3D"Changelog1.2.x-1.2.5">1.2.5</h1>
+<p><strong>Release Date:</strong> 2013-05-26</p>
+<p><strong>Maven:</strong> <a rel=3D"nofollow">http://search.maven.org/#bro=
+wse|161268090</a></p>
+<p> </p>
+<p> </p>
+<div style=3D"width: 100%;  overflow: auto;">=20
+<table class=3D"aui">=20
+<tbody>=20
+<tr></tr>=20
+<tr>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Type</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Key</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Summary</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Assignee</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Reporter</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Priority</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Status</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Resolution</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Created</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Updated</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Due</th>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+5"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+5">BFLOW-35</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-35">Simple resolv=
+e name from view states</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+4"><img src=3D"82cba95e6a534837536395fe303d49b5" alt=3D"Bug" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+4">BFLOW-34</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-34">Default Initi=
+al State throws NPE</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+3"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+3">BFLOW-33</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-33">Allow empty p=
+ayload while flow initialization</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+1"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+1">BFLOW-31</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-31">Allow getFlow=
+InputStream to throw IOException</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+0"><img src=3D"82cba95e6a534837536395fe303d49b5" alt=3D"Bug" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+0">BFLOW-30</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-30">AnnotationFlo=
+wFactory doesn't work with @FlowStateValidation</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"c5107b83a27b09ef4a90672088462090" alt=3D"C=
+ritical" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 21, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+9"><img src=3D"82cba95e6a534837536395fe303d49b5" alt=3D"Bug" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+9">BFLOW-29</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-29">AnnotationFlo=
+wFactory doesn't work with @FlowEvent</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"c5107b83a27b09ef4a90672088462090" alt=3D"C=
+ritical" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 21, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+6"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+6">BFLOW-26</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-26">Create Annota=
+tion JUnit test</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 19, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+5"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+5">BFLOW-25</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-25">Create simple=
+ example</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 19, 2013 </td>=20
+<td nowrap=3D"true"> Sep 23, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+</tbody>=20
+</table>=20
+</div>=20
+<p></p>=20
+<p></p>
+<h1 id=3D"Changelog1.2.x-1.2.4">1.2.4</h1>
+<p><strong>Release Date:</strong> 2013-05-19</p>
+<p><strong>Maven:</strong> <a rel=3D"nofollow">http://search.maven.org/#bro=
+wse|161268059</a></p>
+<p> </p>
+<p> </p>
+<div style=3D"width: 100%;  overflow: auto;">=20
+<table class=3D"aui">=20
+<tbody>=20
+<tr></tr>=20
+<tr>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Type</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Key</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Summary</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Assignee</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Reporter</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Priority</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Status</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Resolution</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Created</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Updated</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Due</th>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+7"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+7">BFLOW-27</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-27">Remove state =
+data from IFlowState</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 19, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+4"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+4">BFLOW-24</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-24">Refactor Dupl=
+icateStateException DuplicateTransitionException</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 19, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+3"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+3">BFLOW-23</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-23">Add basic API=
+ Doc - exceptions</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 19, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+1"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+1">BFLOW-21</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-21">Add basic API=
+ Doc - interfaces</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 19, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+0"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+0">BFLOW-20</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-20">Add FlowListe=
+ner to listeners</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 18, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+9"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+9">BFLOW-19</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-19">Add basic API=
+ Doc - packages</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 18, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+8"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+8">BFLOW-18</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-18">Create basic =
+documentation</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 18, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+2"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+2">BFLOW-12</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-12">Force change =
+state</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Apr 05, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+</tbody>=20
+</table>=20
+</div>=20
+<p></p>=20
+<p></p>
+<h1 id=3D"Changelog1.2.x-1.2.3">1.2.3</h1>
+<p><strong>Release Date:</strong> 2013-05-08</p>
+<p><strong>Maven:</strong> <a rel=3D"nofollow">http://search.maven.org/#bro=
+wse|161268028</a></p>
+<p> </p>
+<p> </p>
+<div style=3D"width: 100%;  overflow: auto;">=20
+<table class=3D"aui">=20
+<tbody>=20
+<tr></tr>=20
+<tr>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Type</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Key</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Summary</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Assignee</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Reporter</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Priority</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Status</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Resolution</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Created</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Updated</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Due</th>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+7"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" =
+width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+7">BFLOW-17</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-17">Direct usage =
+of properties in SimpleFlowProcessor</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> May 06, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+1"><img src=3D"4f8a63b59d6d4f9b49b0f3d60f4c58ec" alt=3D"Improvement" border=
+=3D"0" width=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+1">BFLOW-11</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-11">Step, transit=
+ion and carter hash and equal</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Apr 05, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3=
+">BFLOW-3</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-3">Default previo=
+us and next transitions</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Mar 27, 2013 </td>=20
+<td nowrap=3D"true"> May 26, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+</tbody>=20
+</table>=20
+</div>=20
+<p></p>=20
+<p></p>
+<h1 id=3D"Changelog1.2.x-1.2.2">1.2.2</h1>
+<p><strong>Release Date:</strong> 2013-05-03</p>
+<p><strong>Maven:</strong> <a rel=3D"nofollow">http://search.maven.org/#bro=
+wse|161267997</a></p>
+<p> </p>
+<p> </p>
+<div style=3D"width: 100%;  overflow: auto;">=20
+<table class=3D"aui">=20
+<tbody>=20
+<tr></tr>=20
+<tr>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Type</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Key</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Summary</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Assignee</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Reporter</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Priority</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Status</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Resolution</th>=
+=20
+<th style=3D"text-align: left; text-transform: capitalize;">Created</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Updated</th>=20
+<th style=3D"text-align: left; text-transform: capitalize;">Due</th>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-6=
+"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-6=
+">BFLOW-6</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-6">JIRA bugtracer=
+ in POM</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Mar 27, 2013 </td>=20
+<td nowrap=3D"true"> Apr 01, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowAlternate">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2=
+">BFLOW-2</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-2">Step ordinalit=
+y and comparator</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Mar 27, 2013 </td>=20
+<td nowrap=3D"true"> May 03, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+<tr class=3D"rowNormal">=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+"><img src=3D"7bb68fcdbf84aed967521738276f0d5a" alt=3D"Task" border=3D"0" w=
+idth=3D"16" height=3D"16" /></a> </td>=20
+<td nowrap=3D"true"> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1=
+">BFLOW-1</a> </td>=20
+<td> <a href=3D"https://issues.twinstone.org/browse/BFLOW-1">Add IFlowCarte=
+r.setStateHit(int stateHit)</a> </td>=20
+<td> Martin Strejc </td>=20
+<td> Martin Strejc </td>=20
+<td nowrap=3D"true"> <img src=3D"8ff342d2c86aaff2e9bf74dcc3b63b93" alt=3D"M=
+ajor" border=3D"0" width=3D"16" height=3D"16" /> </td>=20
+<td nowrap=3D"true"> <img src=3D"d926f3dde663de110309f437336e8a9c" alt=3D""=
+ border=3D"0" width=3D"16" height=3D"16" /> Closed </td>=20
+<td> Fixed </td>=20
+<td nowrap=3D"true"> Mar 27, 2013 </td>=20
+<td nowrap=3D"true"> Apr 01, 2013 </td>=20
+<td nowrap=3D"true"> </td>=20
+</tr>=20
+</tbody>=20
+</table>=20
+</div>=20
+<p></p>=20
+<p></p>
+<h1 id=3D"Changelog1.2.x-1.2.1">1.2.1</h1>
+<p><strong>Release Date:</strong> 2013-03-03</p>
+<p><strong>Maven:</strong> <a rel=3D"nofollow">http://search.maven.org/#bro=
+wse|161267966</a></p>
+<p>JIRA issue tracker is not available for this version and versions prior =
+to this.</p>
+<p>&nbsp;</p>
+    </div>
+</body>
+</html>
+------=_Part_786_852902629.1564909738236
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/4f8a63b59d6d4f9b49b0f3d60f4c58ec
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAASFBMVEX/
+//+1tbWzs7OwsLD////7+/v5+fny9PfZ2dnW1tbT09PPz8+2ws6ruMaJnK+Li4tziqGBgYFogZl7
+e3teeJNycnJwcHBKZ4Xt0VbJAAAAGHRSTlMAIiIi3e7u7u7u7u7u7u7u//////////9v4z6sAAAA
+CXBIWXMAAAsSAAALEgHS3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADEwLzIvMTOFMzGTAAAAHHRF
+WHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAAGhJREFUGJVlz20XQCAMBeAwJbIJ
+0///pyq9iPuhc/bsQ3dC/NLRxTnUeSA7j/BktuSBFyiZOEDYowuBMULcRQGoYD6g9hb8fBp8AbpN
++bcAOkz/ZljTLCNMtZjmprrUR6jeE9fjhv/xN7dWCKtHW0h+AAAAAElFTkSuQmCC
+------=_Part_786_852902629.1564909738236
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/7bb68fcdbf84aed967521738276f0d5a
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAY1BMVEX/
+//+1tbWzs7OwsLD////7+/v5+fn6+Pbx7enm39jZ2dnW1tbT09PPz8+9qZiwmIOojninjXaLi4ul
+iXKjh2+egWeBgYF7e3tycnJwcHCIZEWGYkOFYECDXj2CXDyBXDuBWzp4npS+AAAAIXRSTlMAIiIi
+3e7u7u7u7u7u7u7u7u7u//////////////////+XPJC0AAAACXBIWXMAAAsSAAALEgHS3X78AAAA
+FXRFWHRDcmVhdGlvbiBUaW1lADEwLzIvMTOFMzGTAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJl
+d29ya3MgQ1M26LyyjAAAAHpJREFUGJVlj9sSgjAQQ7mklJuoC+KqsO3/f6VtgVaHvOUks5PNspNy
+evEhyh2guVfY1M/kAF8Q1bIHCs1kjJFRQwUAPAYfDxbYwRL6NoEV1nuJQJxzufw0Qv8TwX07eo2g
+Ht8iy02jCqBNwzr+m151Tz+9IE7Plefnv5xpCoti9B2tAAAAAElFTkSuQmCC
+------=_Part_786_852902629.1564909738236
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/d926f3dde663de110309f437336e8a9c
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAVFBMVEX/
+//9wcHBwcHBQeVgUiSxwcHAUiSxwcHBwcHBDfE8UiSxMelVwcHBwcHAUiSxwcHAUiSxwcHBDfE9w
+cHAqgzxwcHAygUIqgzwUiSxwcHAZiDAUiSyfp44GAAAAHHRSTlMAETMzM0REVWZmZneImZmqu8zM
+3d3u7u7u////01d6twAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQAx
+MC8yLzEzhTMxkwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAABwSURB
+VBiVVc1dG0AgDAXgSUTyEcKx//8/rYuYc9Xenp0RlZjgSMcBCBpmgaRhFNg0mAR0aozIiabAJgXQ
+S8Bc5Ra8EOqzHxW4/uajSh8MN++5OMp7Yk+eeTXlX4aJ2TcploX24svKnfA22MXSD355AC35CLnk
+edcsAAAAAElFTkSuQmCC
+------=_Part_786_852902629.1564909738236
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/c5107b83a27b09ef4a90672088462090
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAA3NCSVQICAjb4U/gAAAAElBMVEX/
+///QRDfQRDfQRDfQRDfQRDeRG688AAAABnRSTlMAEZnM3f9yTyx2AAAACXBIWXMAAAsSAAALEgHS
+3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADEwLzIvMTOFMzGTAAAAHHRFWHRTb2Z0d2FyZQBBZG9i
+ZSBGaXJld29ya3MgQ1M26LyyjAAAADxJREFUCJljYEACwoYQmtE0WAAiEBpqCBEwDQYLMQeLBpoa
+ABlMhqwBwgpgRawBUO2YDBYHBlwAUzEYAABMnAa20qAWngAAAABJRU5ErkJggg==
+------=_Part_786_852902629.1564909738236
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/82cba95e6a534837536395fe303d49b5
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAPFBMVEX/
+//+1tbWzs7OwsLD////7+/v5+fn88vHZ2dnW1tbU1NTT09PPz8+Li4vbb2WBgYF7e3tycnJwcHDQ
+RDeqrmhoAAAAFHRSTlMAIiIi3e7u7u7u7u7u7v///////2fadcoAAAAJcEhZcwAACxIAAAsSAdLd
+fvwAAAAVdEVYdENyZWF0aW9uIFRpbWUAMTAvMi8xM4UzMZMAAAAcdEVYdFNvZnR3YXJlAEFkb2Jl
+IEZpcmV3b3JrcyBDUzbovLKMAAAAXklEQVQYlX3P3Q6AIAgFYC1/MzTy/d81pIw2ts4VfhvuYIyK
+hRNnwBJAK97dKQ0IcHdvEg7wAp6Bhlh7r5GGCfQm+UDn/IFaUZ/OBIYkkJGrb0+1kI9RfQGU41Z9
+/AX8wAeABIGyHAAAAABJRU5ErkJggg==
+------=_Part_786_852902629.1564909738236
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/8ff342d2c86aaff2e9bf74dcc3b63b93
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAA3NCSVQICAjb4U/gAAAAElBMVEX/
+///QRDfQRDfQRDfQRDfQRDeRG688AAAABnRSTlMAEZnM3f9yTyx2AAAACXBIWXMAAAsSAAALEgHS
+3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADEwLzIvMTOFMzGTAAAAHHRFWHRTb2Z0d2FyZQBBZG9i
+ZSBGaXJld29ya3MgQ1M26LyyjAAAADhJREFUCJljYEACwoYQmtE0WAAiEBpqCBEwDQYLMQeLBpoa
+ABlMhqwBwgpgRawBUO2YDBYHBhIBAEDzBgwy4Sb4AAAAAElFTkSuQmCC
+------=_Part_786_852902629.1564909738236--
